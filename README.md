@@ -59,12 +59,12 @@ If this happened, go to public/.htaccess and enable `RewriteBase /`.
 If project is in sub directory than `RewriteBase /project/public/`.
 
 ## Sources
-[Slim 3 and Doctrine 2 Website](http://blog.sub85.com/slim-3-with-doctrine-2.html)
-[Slim 3 and Doctrine 2 Github](https://github.com/matthewfedak/slim-3-doctrine-2)
-[Slim Framework](https://www.slimframework.com/)
-[Twig](https://twig.symfony.com/)
-[Doctrine](http://docs.doctrine-project.org/en/latest/)
+* [Slim 3 and Doctrine 2 Website](http://blog.sub85.com/slim-3-with-doctrine-2.html)
+* [Slim 3 and Doctrine 2 Github](https://github.com/matthewfedak/slim-3-doctrine-2)
+* [Slim Framework](https://www.slimframework.com/)
+* [Twig](https://twig.symfony.com/)
+* [Doctrine](http://docs.doctrine-project.org/en/latest/)
 
 ## Recommended
-[Adminer DB-GUI](https://www.adminer.org/)
-[ISO local codes](https://msdn.microsoft.com/de-de/library/ee825488.aspx)
+* [Adminer DB-GUI](https://www.adminer.org/)
+* [ISO local codes](https://msdn.microsoft.com/de-de/library/ee825488.aspx)

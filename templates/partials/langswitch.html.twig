@@ -1,0 +1,8 @@
+{% set langswitch = langswitch() %}
+{% if langswitch %}
+    {% for lang in langswitch %}
+        <a href="{{ path_for(lang.route, lang.args) }}">{{ lang.label }}</a>
+        {% if loop.last %}{% else %}&#124;{% endif %}
+    {% endfor %}
+    <br/>
+{% endif %}

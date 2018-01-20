@@ -1,0 +1,21 @@
+{# lk = locale key #}
+{% set lk = language() %}
+{# ns = naviagtion suffix #}
+{% set ns = '-label' %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>InsanityMeetsHH - Slim 3 Skeleton</title>
+        <link href="//fonts.googleapis.com/css?family=Lato:300" rel="stylesheet" type="text/css">
+        <link href="{{ base_url() }}/css/styles.css" rel="stylesheet" type="text/css">
+        
+    </head>
+    <body>
+        {{ include('partials/langswitch.html.twig') }}
+        {{ include('partials/navigation.html.twig') }}
+        
+        {% block content %}{% endblock %}
+    </body>
+</html>
+

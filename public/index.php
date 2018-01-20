@@ -14,7 +14,18 @@ require __DIR__ . '/../vendor/autoload.php';
 session_start();
 
 // Instantiate the app
-$settings = require __DIR__ . '/../src/settings.php';
+$generalSettings = require __DIR__ . '/../src/settings.php';
+$additionalSettings = [];
+
+if (file_exists(__DIR__ . '/../src/additional-settings.php')) {
+    $additionalSettings = require __DIR__ . '/../src/additional-settings.php';
+}
+
+$settings = array_replace_recursive($generalSettings, $additionalSettings);
+
+// Handle localisation
+require __DIR__ . '/../src/localisation.php';
+
 $app = new \Slim\App($settings);
 
 // Set up dependencies

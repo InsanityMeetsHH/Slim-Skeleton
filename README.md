@@ -1,27 +1,70 @@
-# Slim Framework 3 Skeleton Application
+# Slim 3 with Twig, Doctrine and Localisation.
 
-Use this skeleton application to quickly setup and start working on a new Slim Framework 3 application. This application uses the latest Slim 3 with the PHP-View template renderer. It also uses the Monolog logger.
+[**Demo page**](http://slim3.insanitymeetshh.net)
 
-This skeleton application was built for Composer. This makes setting up a new Slim Framework application quick and easy.
+## Installation
 
-## Install the Application
+It's recommended that you use [Composer](https://getcomposer.org/) to install.
 
-Run this command from the directory in which you want to install your new Slim Framework application.
+```bash
+$ composer create-project insanitymeetshh/slim-skeleton [my-app-name]
+```
 
-    php composer.phar create-project slim/slim-skeleton [my-app-name]
+This will install Slim and all required dependencies. Requires PHP 5.5 or newer.
 
-Replace `[my-app-name]` with the desired directory name for your new application. You'll want to:
+Go to your project directory for following steps.
 
-* Point your virtual host document root to your new application's `public/` directory.
-* Ensure `logs/` is web writeable.
+```bash
+$ cd [my-app-name]
+```
 
-To run the application in development, you can run these commands 
+## Change namespace "Vendor\Bundle" to your own in:
+* composer.json
+* src/dependencies.php
+* src/routes.php
+* src/Controller/PageController.php
+* src/Entity/Demo.php
+* src/Twig/Extension/TwigExtension.php
 
-	cd [my-app-name]
-	php composer.phar start
+After changing namespace from "Vendor\Bundle":
+```bash
+$ composer dump-autoload
+```
 
-Run this command in the application directory to run the test suite
+## Setup Database and additional-settings.php 
+Rename additional-settings.dist to additional-settings.php.
+(additional-settings.php is useful for working with git and your locale environment is different to live or to your team mates)
 
-	php composer.phar test
+Change "public_path" if you run the project in a sub directory.
+Change Database conditions in src\additional-settings.php (without "dbname").
+```bash
+$ php doctrine dbal:run-sql "CREATE DATABASE slim3_database"
+```
 
-That's it! Now go build something cool.
+Add database name to "dbname" in src\additional-settings.php and run following command.
+```bash
+$ php doctrine orm:schema-tool:update --force
+```
+Now you've created database table "demo".
+
+## How to create further localisations
+* Duplicate one existing file in folder "locale" (e.g. copy de_DE.php to fr_FR.php)
+* Change route prefix from "/de/" to "/fr/" in locale/fr_FR.php
+* If you want to show language in langswitch src/settings.php -> ['locale']['active']
+* Add case for "fr/" in src/localisation.php
+
+## Troubleshooting
+In some cases you'll get the error message "Internal Server Error".
+If this happened, go to public/.htaccess and enable `RewriteBase /`.
+If project is in sub directory than `RewriteBase /project/public/`.
+
+## Sources
+[Slim 3 and Doctrine 2 Website](http://blog.sub85.com/slim-3-with-doctrine-2.html)
+[Slim 3 and Doctrine 2 Github](https://github.com/matthewfedak/slim-3-doctrine-2)
+[Slim Framework](https://www.slimframework.com/)
+[Twig](https://twig.symfony.com/)
+[Doctrine](http://docs.doctrine-project.org/en/latest/)
+
+## Recommended
+[Adminer DB-GUI](https://www.adminer.org/)
+[ISO local codes](https://msdn.microsoft.com/de-de/library/ee825488.aspx)

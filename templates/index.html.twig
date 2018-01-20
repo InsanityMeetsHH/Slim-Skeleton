@@ -1,0 +1,19 @@
+{% extends "layouts/layout.html.twig" %}
+
+{% block content %}
+    <h1>Slim</h1>
+    <div>{{ 'microfw'|trans }}</div>
+
+    {% if name %}
+        <h2>{{ 'hello'|trans }} <a href="{{ path_for('page-index' ~ lk, { 'name': name }) }}">{{ name }}</a>!</h2>
+    {% else %}
+        <p>{{ 'try'|trans }} <a href="http://www.slimframework.com">SlimFramework</a></p>
+    {% endif %}
+
+    {# loop through database records #}
+    {% if demos %}
+        {% for demo in demos %}
+            {{ demo.id }} {{ demo.name }}<br/>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

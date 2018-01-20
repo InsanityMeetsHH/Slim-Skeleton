@@ -1,6 +1,7 @@
 <?php
 return [
     'settings' => [
+        'determineRouteBeforeAppMiddleware' => true,
         'displayErrorDetails' => true, // set to false in production
         'addContentLengthHeader' => false, // Allow the web server to send the content-length header
 
@@ -14,6 +15,42 @@ return [
             'name' => 'slim-app',
             'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',
             'level' => \Monolog\Logger::DEBUG,
+        ],
+        
+        // Relative to domain (e.g. project is in sub directory '/project/public/')
+        'public_path' => '/',
+        
+        // Cache settings
+        'cache_path'  => __DIR__ . '/../cache/',
+        
+        // Locale settings
+        'locale' => [
+            'code' => 'en_US',
+            'path' => __DIR__ . '/../locale/',
+            'active' => [
+                'de_DE',
+                'en_US',
+            ]
+        ],
+        
+        // Doctrine settings
+        'doctrine' => [
+            'meta' => [
+                'entity_path' => [
+                    'src/Entity'
+                ],
+                'auto_generate_proxies' => true,
+                'proxy_dir' =>  __DIR__.'/../cache/proxies',
+                'cache' => null,
+            ],
+            'connection' => [
+                'driver'   => 'pdo_mysql',
+                'host'     => '127.0.0.1',
+                'dbname'   => '',
+                'user'     => '',
+                'password' => '',
+                'charset'  => 'utf8',
+            ],
         ],
     ],
 ];

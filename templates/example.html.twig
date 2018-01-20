@@ -1,0 +1,8 @@
+{% extends "layouts/layout.html.twig" %}
+
+{% block content %}
+    <div>
+        <br/>
+        {{ 'example'|trans({0: 'dummy', 1: (1337.42)|number_format(2, 'dp'|trans, 'ts'|trans)}) }}
+    </div>
+{% endblock %}

@@ -50,7 +50,7 @@ class TwigExtension extends \Twig_Extension {
      */
     public function langSwitch() {
         $settings = $this->container->get('settings');
-        $currentRouteName = substr($_SESSION['route'], 0, strlen($_SESSION['route']) - 2);
+        $currentRouteName = substr($_SESSION['route'], 0, strlen($_SESSION['route']) - 5);
         $langSwitch = [];
         
         foreach ($settings['locale']['active'] as $activeLocale) {
@@ -58,9 +58,9 @@ class TwigExtension extends \Twig_Extension {
             if (file_exists($settings['locale']['path'] . $activeLocale . '.php')) {
                 $locale = require $settings['locale']['path'] . $activeLocale . '.php';
                 
-                $langSwitch[$currentRouteName . strtolower(substr($activeLocale, 0, 2))] = array(
+                $langSwitch[$currentRouteName . strtolower($activeLocale)] = array(
                     'label' => $locale['langswitch-label'],
-                    'route' => $currentRouteName . strtolower(substr($activeLocale, 0, 2)),
+                    'route' => $currentRouteName . strtolower($activeLocale),
                     'args' => $_SESSION['route-args'],
                 );
             }
@@ -70,13 +70,13 @@ class TwigExtension extends \Twig_Extension {
     }
     
     /**
-     * Get current language key
+     * Get current language-region combination
      * Sample: {{ language() }}
      * 
      * @return string
      */
     public function language() {
-        return '-' . substr($_SESSION['route'], -2);
+        return '-' . substr($_SESSION['route'], -5);
     }
 
     /**

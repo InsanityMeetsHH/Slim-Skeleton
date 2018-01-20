@@ -29,7 +29,7 @@ foreach ($settings['settings']['locale']['active'] as $activeLocale) {
     // if translation file exists, load file to $locale
     if (file_exists($settings['settings']['locale']['path'] . $activeLocale . '.php')) {
         $tempLocale = require $settings['settings']['locale']['path'] . $activeLocale . '.php';
-        $suffixName = '-' . strtolower(substr($activeLocale, 0, 2));
+        $suffixName = '-' . strtolower($activeLocale);
 
         $app->get($tempLocale['page-example'], 'Vendor\Bundle\Controller\PageController:example')->setName('page-example' . $suffixName);
         $app->get($tempLocale['page-index'], 'Vendor\Bundle\Controller\PageController:index')->setName('page-index' . $suffixName);

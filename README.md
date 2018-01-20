@@ -1,4 +1,4 @@
-# Slim 3 with Twig, Doctrine and Localisation.
+# Slim Framework 3 Skeleton + Twig + Doctrine + Localisation
 
 [**Demo page**](http://slim3.insanitymeetshh.net)
 
@@ -33,9 +33,10 @@ $ composer dump-autoload
 
 ## Setup Database and additional-settings.php 
 Rename additional-settings.dist to additional-settings.php.
-(additional-settings.php is useful for working with git and your locale environment is different to live or to your team mates)
+(additional-settings.php is useful for working with git and your local environment is different to live or to your team mates)
 
 Change "public_path" if you run the project in a sub directory.
+
 Change Database conditions in src\additional-settings.php (without "dbname").
 ```bash
 $ php doctrine dbal:run-sql "CREATE DATABASE slim3_database"
@@ -45,17 +46,20 @@ Add database name to "dbname" in src\additional-settings.php and run following c
 ```bash
 $ php doctrine orm:schema-tool:update --force
 ```
-Now you've created database table "demo".
+Now you've created the database table "demo".
 
 ## How to create further localisations
-* Duplicate one existing file in folder "locale" (e.g. copy de_DE.php to fr_FR.php)
-* Change route prefix from "/de/" to "/fr/" in locale/fr_FR.php
+* Duplicate one existing file in folder "locale" (e.g. copy de-DE.php to fr-FR.php)
+* Change route prefix from "/de/" to "/fr/" in locale/fr-FR.php
+* You can also define paths like "/fr-be/" (fr-BE.php) for example
 * If you want to show language in langswitch src/settings.php -> ['locale']['active']
 * Add case for "fr/" in src/localisation.php
 
 ## Troubleshooting
 In some cases you'll get the error message "Internal Server Error".
+
 If this happened, go to public/.htaccess and enable `RewriteBase /`.
+
 If project is in sub directory than `RewriteBase /project/public/`.
 
 ## Sources
@@ -67,4 +71,4 @@ If project is in sub directory than `RewriteBase /project/public/`.
 
 ## Recommended
 * [Adminer DB-GUI](https://www.adminer.org/)
-* [ISO local codes](https://msdn.microsoft.com/de-de/library/ee825488.aspx)
+* [Locale codes](https://msdn.microsoft.com/en-us/library/ee825488.aspx)

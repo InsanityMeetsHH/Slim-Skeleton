@@ -1,6 +1,6 @@
 {
     "name": "insanitymeetshh/slim-skeleton",
-    "description": "Slim Framework skeleton + Doctrine + Twig + Localisation",
+    "description": "Slim Framework 3 Skeleton + Twig + Doctrine + Localisation",
     "keywords": ["microframework", "rest", "router", "psr7", "doctrine", "twig", "localisation"],
     "homepage": "https://github.com/InsanityMeetsHH/Slim-Skeleton",
     "license": "MIT",

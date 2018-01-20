@@ -25,11 +25,11 @@ return [
         
         // Locale settings
         'locale' => [
-            'code' => 'en_US',
+            'code' => 'en-US',
             'path' => __DIR__ . '/../locale/',
             'active' => [
-                'de_DE',
-                'en_US',
+                'de-DE',
+                'en-US',
             ]
         ],
         

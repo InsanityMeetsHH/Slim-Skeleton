@@ -1,5 +1,5 @@
 <?php
-namespace Vendor\Bundle\Controller;
+namespace App\Controller;
 
 /**
  * Description of PageController
@@ -38,8 +38,11 @@ class PageController {
         
         $demos = array();
         
-        // Set up database and you can use it
-//        $demos = $this->em->getRepository('Vendor\Bundle\Entity\Demo')->findAll();
+        try {
+            $demos = $this->em->getRepository('App\Entity\Demo')->findAll();
+        } catch (\Exception $e) {
+            // failed to connect
+        }
 
         // Render index view
         return $this->view->render($response, 'index.html.twig', array_merge($args, array('demos' => $demos)));

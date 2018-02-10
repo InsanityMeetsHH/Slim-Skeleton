@@ -18,31 +18,18 @@ Go to your project directory for following steps.
 $ cd [my-app-name]
 ```
 
-## Change namespace "Vendor\Bundle" to your own in:
-* composer.json
-* src/dependencies.php
-* src/routes.php
-* src/Controller/PageController.php
-* src/Entity/Demo.php
-* src/Twig/Extension/TwigExtension.php
-
-After changing namespace from "Vendor\Bundle":
-```bash
-$ composer dump-autoload
-```
-
-## Setup Database and additional-settings.php 
+## Setup database and config\additional-settings.php 
 Rename additional-settings.dist to additional-settings.php.
 (additional-settings.php is useful for working with git and your local environment is different to live or to your team mates)
 
 Change "public_path" if you run the project in a sub directory.
 
-Change Database conditions in src\additional-settings.php (without "dbname").
+Change database conditions in additional-settings.php (without "dbname").
 ```bash
 $ php doctrine dbal:run-sql "CREATE DATABASE slim3_database"
 ```
 
-Add database name to "dbname" in src\additional-settings.php and run following command.
+Add database name to "dbname" in additional-settings.php and run following command.
 ```bash
 $ php doctrine orm:schema-tool:update --force
 ```

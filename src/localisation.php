@@ -5,7 +5,7 @@
 if ($settings['settings']['public_path'] == '/') {
     $uri = substr($_SERVER['REQUEST_URI'], 1, 6);
 } else {
-    // project is in sub dir
+    // project is in sub directory
     $uri = substr(str_replace($settings['settings']['public_path'], '', $_SERVER['REQUEST_URI']), 0, 6);
 }
 

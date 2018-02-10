@@ -27,11 +27,11 @@ $app->add(function (Request $request, Response $response, callable $next) {
 
 foreach ($settings['settings']['locale']['active'] as $activeLocale) {
     // if translation file exists, load file to $locale
-    if (file_exists($settings['settings']['locale']['path'] . $activeLocale . '.php')) {
+    if (is_readable($settings['settings']['locale']['path'] . $activeLocale . '.php')) {
         $tempLocale = require $settings['settings']['locale']['path'] . $activeLocale . '.php';
         $suffixName = '-' . strtolower($activeLocale);
 
-        $app->get($tempLocale['page-example'], 'Vendor\Bundle\Controller\PageController:example')->setName('page-example' . $suffixName);
-        $app->get($tempLocale['page-index'], 'Vendor\Bundle\Controller\PageController:index')->setName('page-index' . $suffixName);
+        $app->get($tempLocale['page-example'], 'App\Controller\PageController:example')->setName('page-example' . $suffixName);
+        $app->get($tempLocale['page-index'], 'App\Controller\PageController:index')->setName('page-index' . $suffixName);
     }
 }

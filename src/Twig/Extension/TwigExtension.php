@@ -1,5 +1,5 @@
 <?php
-namespace Vendor\Bundle\Twig\Extension;
+namespace App\Twig\Extension;
 
 /**
  * General twig extension for this application
@@ -15,7 +15,7 @@ class TwigExtension extends \Twig_Extension {
     }
 
     public function getName() {
-        return 'general_ext';
+        return 'app_ext';
     }
 
     /**
@@ -55,7 +55,7 @@ class TwigExtension extends \Twig_Extension {
         
         foreach ($settings['locale']['active'] as $activeLocale) {
             // if translation file exists, load file to $locale
-            if (file_exists($settings['locale']['path'] . $activeLocale . '.php')) {
+            if (is_readable($settings['locale']['path'] . $activeLocale . '.php')) {
                 $locale = require $settings['locale']['path'] . $activeLocale . '.php';
                 
                 $langSwitch[$currentRouteName . strtolower($activeLocale)] = array(
@@ -93,7 +93,7 @@ class TwigExtension extends \Twig_Extension {
         $settings = $this->container->get('settings');
         
         // if translation file exists, load file to $locale
-        if (file_exists($settings['locale']['path'] . $settings['locale']['code'] . '.php')) {
+        if (is_readable($settings['locale']['path'] . $settings['locale']['code'] . '.php')) {
             $locale = require $settings['locale']['path'] . $settings['locale']['code'] . '.php';
         } else {
             // return translation key

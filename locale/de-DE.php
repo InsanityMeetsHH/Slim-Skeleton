@@ -5,6 +5,7 @@ return [
     'microfw' => 'ein microframework für PHP',
     'try' => 'Probiere',
     'example' => 'Dies ist eine %1$s Beispielseite mit Nummer %2$s.',
+    'db-records' => 'Datenbank-Datensätze',
     
     // navigation labels
     'page-index-label' => 'Startseite',

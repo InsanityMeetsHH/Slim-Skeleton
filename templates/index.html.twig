@@ -12,6 +12,8 @@
 
     {# loop through database records #}
     {% if demos %}
+        <p>&nbsp;</p>
+        <p>{{ 'db-records'|trans }}</p>
         {% for demo in demos %}
             {{ demo.id }} {{ demo.name }}<br/>
         {% endfor %}

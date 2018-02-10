@@ -14,11 +14,11 @@ require __DIR__ . '/../vendor/autoload.php';
 session_start();
 
 // Instantiate the app
-$generalSettings = require __DIR__ . '/../src/settings.php';
+$generalSettings = require __DIR__ . '/../config/settings.php';
 $additionalSettings = [];
 
-if (file_exists(__DIR__ . '/../src/additional-settings.php')) {
-    $additionalSettings = require __DIR__ . '/../src/additional-settings.php';
+if (is_readable(__DIR__ . '/../config/additional-settings.php')) {
+    $additionalSettings = require __DIR__ . '/../config/additional-settings.php';
 }
 
 $settings = array_replace_recursive($generalSettings, $additionalSettings);

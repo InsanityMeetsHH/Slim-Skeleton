@@ -25,7 +25,8 @@ return [
         
         // Locale settings
         'locale' => [
-            'code' => 'en-US',
+            'autoDetect' => TRUE,
+            'code' => 'en-US', // default language
             'path' => __DIR__ . '/../locale/',
             'active' => [
                 'de-DE',

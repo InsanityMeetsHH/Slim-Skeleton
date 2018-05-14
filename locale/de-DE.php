@@ -14,7 +14,7 @@ return [
     // localized routing (e.g. CONTROLLER-ACTION)
     'langswitch-label' => 'DE',
     'page-index' => '/de/[{name}]',
-    'page-example' => '/de/example',
+    'page-example' => '/de/beispiel',
     
     // misc
     // decimal point

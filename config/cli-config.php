@@ -3,7 +3,13 @@ use Doctrine\ORM\Tools\Console\ConsoleRunner;
 
 require 'vendor/autoload.php';
 
-$settings = include 'src/settings.php';
+$generalSettings = include 'config/settings.php';
+$additionalSettings = [];
+
+if (is_readable('config/additional-settings.php')) {
+    $additionalSettings = require 'config/additional-settings.php';
+}
+$settings = array_replace_recursive($generalSettings, $additionalSettings);
 $settings = $settings['settings']['doctrine'];
 
 $config = \Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(

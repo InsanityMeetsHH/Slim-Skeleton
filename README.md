@@ -27,29 +27,36 @@ Go to your project directory for following steps.
 $ cd [my-app-name]
 ```
 
-## Setup database and config\additional-settings.php 
-Rename additional-settings.dist to additional-settings.php.
-(additional-settings.php is useful for working with git and your local environment is different to live or to your team mates)
+## Setup database and `config\additional-settings.php` 
+Rename `additional-settings.dist` to `additional-settings.php`.
+(`additional-settings.php` is useful for working with git and your local environment is different to live or to your team mates)
 
-Change "public_path" if you run the project in a sub directory.
+Change `public_path` if you run the project in a sub directory.
 
-Change database conditions in additional-settings.php (without "dbname").
+If you want to use **not** MySQL and/or your server is **not** 127.0.0.1 then you have to add [driver](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/86de8cb9441caa31cefcbb1bc741b0a2dabdc2ff/config/settings.php#L47) and/or [host](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/86de8cb9441caa31cefcbb1bc741b0a2dabdc2ff/config/settings.php#L48) in [additional-settings.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/86de8cb9441caa31cefcbb1bc741b0a2dabdc2ff/config/additional-settings.dist#L6)
+
+Change database conditions in `additional-settings.php` (without `dbname`).
 ```bash
 $ php doctrine dbal:run-sql "CREATE DATABASE slim3_database"
 ```
 
-Add database name to "dbname" in additional-settings.php and run following command.
+Add database name to `dbname` in `additional-settings.php` and run following command.
 ```bash
 $ php doctrine orm:schema-tool:update --force
 ```
-Now you've created the database table "demo".
+Now you've created the database table named [demo](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Entity/Demo.php).
+
+If you want to fill the table with some dummy records
+```bash
+$ php doctrine dbal:import sql/demo-records.sql
+```
 
 ## How to create further localisations
-* Duplicate one existing file in folder "locale" (e.g. copy de-DE.php to fr-FR.php)
-* Change route prefix from "/de/" to "/fr/" in locale/fr-FR.php
-* You can also define paths like "/fr-be/" (fr-BE.php) for example
-* If you want to show language in langswitch src/settings.php -> ['locale']['active']
-* Add case for "fr/" in src/localisation.php
+* Duplicate one existing file in folder "[locale](https://github.com/InsanityMeetsHH/Slim-Skeleton/tree/master/locale)" (e.g. copy `de-DE.php` to `fr-FR.php`)
+* Change route prefix from `/de/` to `/fr/` in `locale/fr-FR.php`
+* You can also define paths like `/fr-be/` (`fr-BE.php`) for example
+* If you want to show language in langswitch [config/settings.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/86de8cb9441caa31cefcbb1bc741b0a2dabdc2ff/config/settings.php#L30)
+* Add case for `fr/` in [src/localisation.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/86de8cb9441caa31cefcbb1bc741b0a2dabdc2ff/src/localisation.php#L18)
 
 ## Troubleshooting
 In some cases you'll get the error message "Internal Server Error".
@@ -63,8 +70,8 @@ If project is in sub directory than `RewriteBase /project/public/`.
 * [Slim 3 and Doctrine 2 Github](https://github.com/matthewfedak/slim-3-doctrine-2)
 * [Slim Framework](https://www.slimframework.com/)
 * [Twig](https://twig.symfony.com/)
-* [Doctrine](http://docs.doctrine-project.org/en/latest/)
+* [Doctrine](https://www.doctrine-project.org/)
 
 ## Recommended
 * [Adminer DB-GUI](https://www.adminer.org/)
-* [Locale codes](https://msdn.microsoft.com/en-us/library/ee825488.aspx)
+* [Locale codes](https://www.science.co.il/language/Locale-codes.php)

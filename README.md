@@ -33,7 +33,7 @@ Rename `config\additional-settings.dist` to `config\additional-settings.php`.
 
 Change `public_path` if you run the project in a sub directory.
 
-If you want to use __**not**__ MySQL and/or your server is __**not**__ 127.0.0.1 then you have to add [driver](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/86de8cb9441caa31cefcbb1bc741b0a2dabdc2ff/config/settings.php#L47) and/or [host](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/86de8cb9441caa31cefcbb1bc741b0a2dabdc2ff/config/settings.php#L48) in [additional-settings.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/86de8cb9441caa31cefcbb1bc741b0a2dabdc2ff/config/additional-settings.dist#L6)
+If you want to use **_not_** MySQL and/or your server is **_not_** 127.0.0.1 then you have to add [driver](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/86de8cb9441caa31cefcbb1bc741b0a2dabdc2ff/config/settings.php#L47) and/or [host](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/86de8cb9441caa31cefcbb1bc741b0a2dabdc2ff/config/settings.php#L48) in [additional-settings.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/86de8cb9441caa31cefcbb1bc741b0a2dabdc2ff/config/additional-settings.dist#L6)
 
 Change database conditions in `config\additional-settings.php` (without `dbname`).
 ```bash

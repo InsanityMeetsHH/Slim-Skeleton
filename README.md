@@ -7,6 +7,7 @@
 * [Slim Twig View 2.x](https://github.com/slimphp/Twig-View)
 * [Monolog 1.x](https://seldaek.github.io/monolog/)
 * [Doctrine ORM 2.x](https://packagist.org/packages/doctrine/orm)
+* [Geggleto ACL 1.x](https://github.com/geggleto/geggleto-acl)
 
 ## Required
 * PHP => 5.5
@@ -33,7 +34,7 @@ Rename `config\additional-settings.dist` to `config\additional-settings.php`.
 
 Change `public_path` if you run the project in a sub directory.
 
-If you want to use **_not_** MySQL and/or your server is **_not_** 127.0.0.1 then you have to add [driver](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/86de8cb9441caa31cefcbb1bc741b0a2dabdc2ff/config/settings.php#L47) and/or [host](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/86de8cb9441caa31cefcbb1bc741b0a2dabdc2ff/config/settings.php#L48) in [additional-settings.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/86de8cb9441caa31cefcbb1bc741b0a2dabdc2ff/config/additional-settings.dist#L6)
+If you want to use **_not_** MySQL and/or your server is **_not_** 127.0.0.1 then you have to add [driver](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L48) and/or [host](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L49) in [additional-settings.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/additional-settings.dist#L6)
 
 Change database conditions in `config\additional-settings.php` (without `dbname`).
 ```bash
@@ -55,8 +56,8 @@ $ php doctrine dbal:import sql/demo-records.sql
 * Duplicate one existing file in folder `locale/` (e.g. copy `locale/de-DE.php` to `locale/fr-FR.php`)
 * Change route prefix from `/de/` to `/fr/` in `locale/fr-FR.php`
 * You can also define paths like `/fr-be/` (`locale/fr-BE.php`) for example
-* If you want to show language in langswitch [config/settings.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/86de8cb9441caa31cefcbb1bc741b0a2dabdc2ff/config/settings.php#L30)
-* Add case for `fr/` in [src/localisation.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/86de8cb9441caa31cefcbb1bc741b0a2dabdc2ff/src/localisation.php#L18)
+* If you want to show language in langswitch [config/settings.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L31)
+* Add case for `fr/` in [src/localisation.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/localisation.php#L18)
 
 ## Troubleshooting
 In some cases you'll get the error message "Internal Server Error".

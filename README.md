@@ -75,3 +75,9 @@ If project is in sub directory than `RewriteBase /project/public/`.
 ## Recommended
 * [Adminer DB-GUI](https://www.adminer.org/)
 * [Locale codes](https://www.science.co.il/language/Locale-codes.php)
+
+## Upcoming Features
+* langswitch with image
+* current state language
+* current state navigation
+* basic login

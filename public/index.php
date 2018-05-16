@@ -26,7 +26,8 @@ $settings = array_replace_recursive($generalSettings, $additionalSettings);
 // Handle localisation
 require __DIR__ . '/../src/localisation.php';
 
-$app = new \Slim\App($settings);
+//$app = new \Slim\App($settings);
+$app = \App\Container\AppContainer::getInstance($settings);
 
 // Set up dependencies
 require __DIR__ . '/../src/dependencies.php';

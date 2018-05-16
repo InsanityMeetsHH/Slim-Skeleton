@@ -1,23 +1,24 @@
 <?php
 namespace App\Utility;
 
+use App\Container\AppContainer;
+
 class LanguageUtility {
 
     /**
      * Get translation by translation key
      * See http://php.net/manual/de/function.sprintf.php to use $vars
      * 
-     * @global array $settings
      * @param string $key translation key
      * @param array $vars optional
      * @return string
      */
     static function trans($key, $vars = []) {
-        global $settings;
+        $settings = AppContainer::getInstance()->getContainer()->get('settings');
         
         // if translation file exists, load file to $locale
-        if (is_readable($settings['settings']['locale']['path'] . $settings['settings']['locale']['code'] . '.php')) {
-            $locale = require $settings['settings']['locale']['path'] . $settings['settings']['locale']['code'] . '.php';
+        if (is_readable($settings['locale']['path'] . $settings['locale']['code'] . '.php')) {
+            $locale = require $settings['locale']['path'] . $settings['locale']['code'] . '.php';
         } else {
             // return translation key
             return $key;
@@ -43,20 +44,19 @@ class LanguageUtility {
     /**
      * Detects browser languge and redirects to browser languge related page
      * 
-     * @global array $settings
-     * @global \Slim\App $app
      * @param string $routeName
      * @param array $routeArgs
      * @return type
      */
     static function languageDetection($routeName, $routeArgs) {
-        global $settings, $app;
+        $app = AppContainer::getInstance();
+        $settings = $app->getContainer()->get('settings');
 
         // if server has HTTP_ACCEPT_LANGUAGE and autoDetect is active
         if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) 
                 && is_string($_SERVER['HTTP_ACCEPT_LANGUAGE']) 
-                && isset($settings['settings']['locale']['autoDetect'])
-                && $settings['settings']['locale']['autoDetect'] === TRUE) {
+                && isset($settings['locale']['autoDetect'])
+                && $settings['locale']['autoDetect'] === TRUE) {
             $browserLocales = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
             $localeQuality = array();
 
@@ -83,7 +83,7 @@ class LanguageUtility {
 
             // if $localeQuality could decoded
             if (is_array($localeQuality) && count($localeQuality) > 0) {
-                foreach ($settings['settings']['locale']['active'] as $activeLocale) {
+                foreach ($settings['locale']['active'] as $activeLocale) {
                     $locale = $localeQuality[0]['locale'];
 
                     // locale has no '-' sign
@@ -94,7 +94,7 @@ class LanguageUtility {
 
                     // if translation file exists, load file to $locale
                     $autoDetectCookie = isset($_COOKIE['autoDetect']) ? (int)$_COOKIE['autoDetect'] : 0;
-                    if (is_readable($settings['settings']['locale']['path'] . $activeLocale . '.php') 
+                    if (is_readable($settings['locale']['path'] . $activeLocale . '.php') 
                             && $activeLocale === $locale && $autoDetectCookie !== 1) {
                         $suffixName = '-' . strtolower($activeLocale);
                         $newRouteName = substr($routeName, 0, -6) . $suffixName;
@@ -124,11 +124,10 @@ class LanguageUtility {
     /**
      * Returns the current locale code
      * 
-     * @global array $settings
      * @return array
      */
     static function getCurrentLocale() {
-        global $settings;
-        return $settings['settings']['locale']['code'];
+        $settings = AppContainer::getInstance()->getContainer()->get('settings');
+        return $settings['locale']['code'];
     }
 }

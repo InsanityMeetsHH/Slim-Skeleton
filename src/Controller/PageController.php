@@ -39,7 +39,7 @@ class PageController {
         
         $demos = array();
         $acl = AclUtility::getInstance()::getAclRepository()->getAcl();
-        var_dump($acl->hasRole('admin'));
+//        var_dump($acl->hasRole('admin'));
         
         try {
             $demos = $this->em->getRepository('App\Entity\Demo')->findAll();

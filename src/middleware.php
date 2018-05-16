@@ -12,12 +12,12 @@ $app->add(\App\Utility\AclUtility::setup([$currentRole],
         'assignments' => [
             'allow' => [
                 'guest' => ['/', '/[{name}]', '/de/[{name}]', '/example', '/de/beispiel'],
-                'member' => ['/', '/profile'],
-                'admin' => ['/', '/backend']
+                'member' => ['/', '/[{name}]', '/de/[{name}]', '/example', '/de/beispiel', '/profile'],
+                'admin' => ['/', '/[{name}]', '/de/[{name}]', '/example', '/de/beispiel', '/profile', '/backend']
             ],
             'deny' => [
-                'guest' => ['/profile', '/backend'],
-                'member' => ['/backend']
+//                'guest' => ['/profile', '/backend'],
+//                'member' => ['/backend']
             ]
         ]
     ]

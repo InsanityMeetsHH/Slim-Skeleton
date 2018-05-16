@@ -1,6 +1,8 @@
 <?php
 namespace App\Twig\Extension;
 
+use App\Utility\LanguageUtility;
+
 /**
  * General twig extension for this application
  */
@@ -90,30 +92,6 @@ class TwigExtension extends \Twig_Extension {
      * @return string
      */
     public function trans($key, $vars = []) {
-        $settings = $this->container->get('settings');
-        
-        // if translation file exists, load file to $locale
-        if (is_readable($settings['locale']['path'] . $settings['locale']['code'] . '.php')) {
-            $locale = require $settings['locale']['path'] . $settings['locale']['code'] . '.php';
-        } else {
-            // return translation key
-            return $key;
-        }
-        
-        // if translation exists, return translation
-        if (isset($locale[$key])) {
-            
-            // $vars not empty and bigger than 0
-            if (!empty($vars) && count($vars) > 0) {
-                // replace placeholders in translation with $vars and return to frontend
-                return vsprintf($locale[$key], $vars);
-            }
-            
-            // return matching translation
-            return $locale[$key];
-        }
-        
-        // given key is not matching
-        return $key;
+        return LanguageUtility::trans($key, $vars);
     }
 }

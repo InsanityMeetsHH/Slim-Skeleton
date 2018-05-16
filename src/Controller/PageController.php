@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 /**
- * Description of PageController
+ * PageController is used for static pages
  */
 class PageController {
     

@@ -31,6 +31,16 @@ a:visited {
     color: #648c39;
 }
 
-a, a:focus, a:hover {
+a, a:focus, a:hover, a.current:focus, a.current:hover {
     color: #719e40;
+}
+
+a.current {
+    color: #aff473;
+}
+
+ul {
+    text-align: left;
+    width: 150px;
+    margin: auto;
 }

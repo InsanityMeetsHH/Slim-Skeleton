@@ -12,8 +12,9 @@ $container['view'] = function ($c) {
     ]);
     
     // Instantiate and add Slim specific extension
-    $basePath = rtrim(str_ireplace('index.php', '', $c['request']->getUri()->getBasePath()), '/');
-    $view->addExtension(new Slim\Views\TwigExtension($c['router'], $basePath));
+    $router = $c->get('router');
+    $uri = Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
+    $view->addExtension(new Slim\Views\TwigExtension($router, $uri));
     $view->addExtension(new App\Twig\Extension\TwigExtension($c));
 
     return $view;
@@ -39,4 +40,9 @@ $container['em'] = function ($c) {
         false
     );
     return \Doctrine\ORM\EntityManager::create($settings['doctrine']['connection'], $config);
+};
+
+// CSRF
+$container['csrf'] = function ($c) {
+    return new \Slim\Csrf\Guard;
 };

@@ -1,0 +1,1 @@
+INSERT INTO `role` (`id`, `name`) VALUES (1, 'guest'), (2, 'member'), (3, 'admin');

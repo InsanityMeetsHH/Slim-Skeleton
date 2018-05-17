@@ -49,7 +49,7 @@ Now you've created the database table named [demo](https://github.com/InsanityMe
 
 If you want to fill the table with some dummy records
 ```bash
-$ php doctrine dbal:import sql/demo-records.sql
+$ php doctrine dbal:import sql/all-records.sql
 ```
 
 ## How to create further localisations
@@ -76,9 +76,3 @@ If project is in sub directory than `RewriteBase /project/public/`.
 ## Recommended
 * [Adminer DB-GUI](https://www.adminer.org/)
 * [Locale codes](https://www.science.co.il/language/Locale-codes.php)
-
-## Upcoming Features
-* langswitch with image
-* current state language
-* current state navigation
-* basic login

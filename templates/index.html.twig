@@ -1,14 +1,13 @@
 {% extends "layouts/layout.html.twig" %}
 
 {% block content %}
-    <h1>Slim</h1>
-    <div>{{ 'microfw'|trans }}</div>
-
-    {% if name %}
-        <h2>{{ 'hello'|trans }} <a href="{{ path_for('page-index' ~ lk, { 'name': name }) }}">{{ name }}</a>!</h2>
-    {% else %}
-        <p>{{ 'try'|trans }} <a href="http://www.slimframework.com">SlimFramework</a></p>
-    {% endif %}
+    <h2>Included</h2>
+    <ul>
+        <li><a href="https://twig.symfony.com" target="_blank">Twig</a></li>
+        <li><a href="https://www.doctrine-project.org" target="_blank">Doctrine</a></li>
+        <li><a href="https://github.com/InsanityMeetsHH/Slim-Skeleton#how-to-create-further-localisations" target="_blank">Localisation</a></li>
+        <li><a href="https://github.com/geggleto/geggleto-acl" target="_blank">ACL</a></li>
+    </ul>
 
     {# loop through database records #}
     {% if demos %}

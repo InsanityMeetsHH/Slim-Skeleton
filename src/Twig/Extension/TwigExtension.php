@@ -27,6 +27,7 @@ class TwigExtension extends \Twig_Extension {
      */
     public function getFunctions() {
         return [
+            new \Twig_SimpleFunction('has_role', array($this, 'hasRole')),
             new \Twig_SimpleFunction('langswitch', array($this, 'langSwitch')),
             new \Twig_SimpleFunction('language', array($this, 'language')),
             new \Twig_SimpleFunction('trans', array($this, 'trans')),
@@ -62,6 +63,7 @@ class TwigExtension extends \Twig_Extension {
                 
                 $langSwitch[$currentRouteName . strtolower($activeLocale)] = array(
                     'label' => $locale['langswitch-label'],
+                    'image' => $locale['langswitch-image'],
                     'route' => $currentRouteName . strtolower($activeLocale),
                     'args' => $_SESSION['route-args'],
                 );
@@ -93,5 +95,23 @@ class TwigExtension extends \Twig_Extension {
      */
     public function trans($key, $vars = []) {
         return LanguageUtility::trans($key, $vars);
+    }
+    
+    /**
+     * Checkss if given role is current role
+     * 
+     * @param array|string $role
+     * @return bool
+     */
+    public function hasRole($role) {
+        if (is_string($role) && isset($_SESSION['currentRole']) && $_SESSION['currentRole'] === $role) {
+            return TRUE;
+        }
+        
+        if (is_array($role) && isset($_SESSION['currentRole']) && in_array($_SESSION['currentRole'], $role)) {
+            return TRUE;
+        }
+        
+        return FALSE;
     }
 }

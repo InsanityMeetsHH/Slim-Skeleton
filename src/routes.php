@@ -38,7 +38,13 @@ foreach ($settings['settings']['locale']['active'] as $activeLocale) {
         $tempLocale = require $settings['settings']['locale']['path'] . $activeLocale . '.php';
         $suffixName = '-' . strtolower($activeLocale);
 
+        
+        $app->post($tempLocale['user-login-validate'], 'App\Controller\UserController:loginValidate')->setName('user-login-validate' . $suffixName);
+        $app->get($tempLocale['user-login-success'], 'App\Controller\UserController:loginSuccess')->setName('user-login-success' . $suffixName);
+        $app->get($tempLocale['user-logout'], 'App\Controller\UserController:logout')->setName('user-logout' . $suffixName);
+        $app->get($tempLocale['user-login'], 'App\Controller\UserController:login')->setName('user-login' . $suffixName);
         $app->get($tempLocale['page-example'], 'App\Controller\PageController:example')->setName('page-example' . $suffixName);
+        // insert new links above page index
         $app->get($tempLocale['page-index'], 'App\Controller\PageController:index')->setName('page-index' . $suffixName);
     }
 }

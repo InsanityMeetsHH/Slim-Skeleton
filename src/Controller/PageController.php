@@ -2,28 +2,11 @@
 namespace App\Controller;
 
 use App\Utility\AclUtility;
+
 /**
  * PageController is used for static pages
  */
-class PageController {
-    
-    /** @var \Slim\Container $container **/
-    protected $container;
-    
-    /** @var \Doctrine\ORM\EntityManager $em **/
-    protected $em;
-    
-    /** @var \Slim\Views\Twig $view **/
-    protected $view;
-
-    /**
-     * @param \Slim\Container $container
-     */
-    public function __construct($container) {
-        $this->container = $container;
-        $this->em = $container->get("em");
-        $this->view = $container->get("view");
-    }
+class PageController extends BaseController {
 
     /**
      * Index Action
@@ -36,10 +19,9 @@ class PageController {
     public function index($request, $response, $args) {
         // Sample log message
         //$this->logger->info("Slim-Skeleton '/' route");
+//        $acl = AclUtility::getInstance()::getAclRepository()->getAcl();
         
         $demos = array();
-        $acl = AclUtility::getInstance()::getAclRepository()->getAcl();
-//        var_dump($acl->hasRole('admin'));
         
         try {
             $demos = $this->em->getRepository('App\Entity\Demo')->findAll();
@@ -51,7 +33,6 @@ class PageController {
         return $this->view->render($response, 'index.html.twig', array_merge($args, 
             array(
                 'demos' => $demos,
-                'hasRole' => $acl->hasRole('guest'),
             )
         ));
     }

@@ -1,19 +1,26 @@
 <?php
-$loggedIn = FALSE;
 $currentRole = 'guest';
-if ($loggedIn) {
-    $currentRole = 'member';
+
+if (isset($_SESSION['currentRole'])) {
+    $currentRole = $_SESSION['currentRole'];
+} else {
+    $_SESSION['currentRole'] = $currentRole;
 }
+
+$allResources = ['/', '/[{name}]', '/de/[{name}]', '/example', '/de/beispiel', '/login', '/de/login', '/logout', '/de/logout', '/success', '/de/erfolg', '/validate', '/de/validate', '/de/profil', '/profile', '/de/backend', '/backend'];
+$geustAllowResources = ['/', '/[{name}]', '/de/[{name}]', '/example', '/de/beispiel', '/login', '/de/login', '/logout', '/de/logout', '/success', '/de/erfolg', '/validate', '/de/validate'];
+$memberAllowResources = array_merge($geustAllowResources, ['/de/profil', '/profile']);
+$adminAllowResources = array_merge($memberAllowResources, ['/de/backend', '/backend']);
 
 $app->add(\App\Utility\AclUtility::setup([$currentRole], 
     [
-        'resources' => ['/', '/[{name}]', '/de/[{name}]', '/example', '/de/beispiel', '/profile', '/backend'],
+        'resources' => $allResources,
         'roles' => ['guest', 'member', 'admin'],
         'assignments' => [
             'allow' => [
-                'guest' => ['/', '/[{name}]', '/de/[{name}]', '/example', '/de/beispiel'],
-                'member' => ['/', '/[{name}]', '/de/[{name}]', '/example', '/de/beispiel', '/profile'],
-                'admin' => ['/', '/[{name}]', '/de/[{name}]', '/example', '/de/beispiel', '/profile', '/backend']
+                'guest' => $geustAllowResources,
+                'member' => $memberAllowResources,
+                'admin' => $adminAllowResources
             ],
             'deny' => [
 //                'guest' => ['/profile', '/backend'],
@@ -22,3 +29,5 @@ $app->add(\App\Utility\AclUtility::setup([$currentRole],
         ]
     ]
 ));
+
+$app->add($container->get('csrf'));

@@ -7,8 +7,15 @@ if (isset($_SESSION['currentRole'])) {
     $_SESSION['currentRole'] = $currentRole;
 }
 
-$allResources = ['/', '/[{name}]', '/de/[{name}]', '/example', '/de/beispiel', '/login', '/de/login', '/logout', '/de/logout', '/success', '/de/erfolg', '/validate', '/de/validate', '/de/profil', '/profile', '/de/backend', '/backend'];
-$geustAllowResources = ['/', '/[{name}]', '/de/[{name}]', '/example', '/de/beispiel', '/login', '/de/login', '/logout', '/de/logout', '/success', '/de/erfolg', '/validate', '/de/validate'];
+$allResources = [
+    '/', '/[{name}]', '/de/[{name}]', '/example', '/de/beispiel', 
+    '/login', '/de/login', '/logout', '/de/logout', '/success', '/de/erfolg', 
+    '/validate', '/de/validate', '/de/profil', '/profile', '/de/backend', '/backend'
+];
+$geustAllowResources = [
+    '/', '/[{name}]', '/de/[{name}]', '/example', '/de/beispiel', '/login', '/de/login', 
+    '/logout', '/de/logout', '/success', '/de/erfolg', '/validate', '/de/validate'
+];
 $memberAllowResources = array_merge($geustAllowResources, ['/de/profil', '/profile']);
 $adminAllowResources = array_merge($memberAllowResources, ['/de/backend', '/backend']);
 

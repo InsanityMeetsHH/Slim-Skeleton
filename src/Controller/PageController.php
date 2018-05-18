@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Utility\AclUtility;
 
 /**
@@ -20,6 +21,13 @@ class PageController extends BaseController {
         // Sample log message
         //$this->logger->info("Slim-Skeleton '/' route");
 //        $acl = AclUtility::getInstance()::getAclRepository()->getAcl();
+        
+        $user = new User();
+        $user->setName('harald4');
+        $user->setPass('sjhdgfjs');
+        $user->setRole($this->em->getRepository('App\Entity\Role')->findOneById(2));
+//        $this->em->persist($user);
+//        $this->em->flush();
         
         $demos = array();
         

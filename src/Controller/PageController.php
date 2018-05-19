@@ -1,8 +1,7 @@
 <?php
 namespace App\Controller;
 
-use App\Entity\User;
-use App\Utility\AclUtility;
+use App\Container\AclRepositoryContainer;
 
 /**
  * PageController is used for static pages
@@ -20,27 +19,21 @@ class PageController extends BaseController {
     public function index($request, $response, $args) {
         // Sample log message
         //$this->logger->info("Slim-Skeleton '/' route");
-//        $acl = AclUtility::getInstance()::getAclRepository()->getAcl();
+//        $acl = AclRepositoryContainer::getInstance()->getAcl();
+//        var_dump($acl->hasRole('member'));
         
-        $user = new User();
-        $user->setName('harald4');
-        $user->setPass('sjhdgfjs');
-        $user->setRole($this->em->getRepository('App\Entity\Role')->findOneById(2));
-//        $this->em->persist($user);
-//        $this->em->flush();
-        
-        $demos = array();
+        $users = array();
         
         try {
-            $demos = $this->em->getRepository('App\Entity\Demo')->findAll();
+            $users = $this->em->getRepository('App\Entity\User')->findAll();
         } catch (\Exception $e) {
             // failed to connect
         }
 
-        // Render index view
-        return $this->view->render($response, 'index.html.twig', array_merge($args, 
+        // Render view
+        return $this->view->render($response, 'page/index.html.twig', array_merge($args, 
             array(
-                'demos' => $demos,
+                'users' => $users,
             )
         ));
     }
@@ -54,7 +47,7 @@ class PageController extends BaseController {
      * @return \Slim\Http\Response
      */
     public function example($request, $response, $args) {
-        // Render index view
-        return $this->view->render($response, 'example.html.twig', $args);
+        // Render view
+        return $this->view->render($response, 'page/example.html.twig', $args);
     }
 }

@@ -1,0 +1,20 @@
+{% extends "layouts/layout.html.twig" %}
+
+{% block content %}
+    <h2>Included</h2>
+    <ul>
+        <li><a href="https://twig.symfony.com" target="_blank">Twig</a></li>
+        <li><a href="https://www.doctrine-project.org" target="_blank">Doctrine</a></li>
+        <li><a href="https://github.com/InsanityMeetsHH/Slim-Skeleton#how-to-create-further-localisations" target="_blank">Localisation</a></li>
+        <li><a href="https://github.com/geggleto/geggleto-acl" target="_blank">ACL</a></li>
+    </ul>
+
+    {# loop through database records #}
+    {% if users %}
+        <p>&nbsp;</p>
+        <p>{{ 'db-records'|trans }}</p>
+        {% for user in users %}
+            {{ user.id }} {{ user.name }} {{ user.role.name }} {{ user.createdAt|date('datetime'|trans) }}<br/>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

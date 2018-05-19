@@ -4,7 +4,6 @@ namespace App\Utility;
 class GeneralUtility {
     
     /**
-     * 
      * @param string $pass
      * @return type
      */

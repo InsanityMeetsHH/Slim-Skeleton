@@ -1,21 +1,20 @@
 <?php
 namespace App\Container;
 
-use Slim\App;
-
 /**
- * Description of AppContainer
+ * Description of App
  */
 class AppContainer {
+    
     /**
-     * @var Slim\App 
+     * @var \Slim\App 
      */
     private static $app = null;
 
     /**
      * 
      * @param array $settings
-     * @return Slim\App
+     * @return \Slim\App
      */
     public static function getInstance($settings = []) {
         if (null === self::$app) {
@@ -27,10 +26,10 @@ class AppContainer {
 
     /**
      * @param array $settings
-     * @return Slim\App
+     * @return \Slim\App
      */
     private static function makeInstance($settings = []) {
-        $app = new App($settings);
+        $app = new \Slim\App($settings);
         // do all logic for adding routes etc
 
         return $app;

@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Table(name="role")
  */
-class Role extends \App\MappedSuperclass\UserRoleBase
+class Role extends \App\MappedSuperclass\LowerCaseUniqueName
 {
     
     /**

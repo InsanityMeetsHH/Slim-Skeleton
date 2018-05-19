@@ -1,8 +1,6 @@
 <?php
 namespace App\Controller;
 
-use App\Container\AppContainer;
-
 /**
  * UserController is used for pages in context of user
  */
@@ -22,8 +20,8 @@ class UserController extends BaseController {
         $name = $request->getAttribute($nameKey);
         $value = $request->getAttribute($valueKey);
         
-        // Render index view
-        return $this->view->render($response, 'login.html.twig', array_merge($args, 
+        // Render view
+        return $this->view->render($response, 'user/login.html.twig', array_merge($args, 
             array(
                 'nameKey' => $nameKey,
                 'valueKey' => $valueKey,
@@ -48,7 +46,8 @@ class UserController extends BaseController {
         if ($user instanceof \App\Entity\User) {
             // if password valid
             if (password_verify($request->getParam('user_pass'), $user->getPass())) {
-                $_SESSION['currentRole'] = 'member';
+                $_SESSION['currentRole'] = $user->getRole()->getName();
+                $_SESSION['currentUser'] = $user->getId();
                 return $response->withRedirect($this->router->pathFor('user-login-success-' . $this->currentLocale));
             } else {
                 return $response->withRedirect($this->router->pathFor('user-login-' . $this->currentLocale));
@@ -67,13 +66,8 @@ class UserController extends BaseController {
      * @return \Slim\Http\Response
      */
     public function loginSuccess($request, $response, $args) {
-        
-        // Render index view
-        return $this->view->render($response, 'login-success.html.twig', array_merge($args, 
-            array(
-                
-            )
-        ));
+        // Render view
+        return $this->view->render($response, 'user/login-success.html.twig', array_merge($args, array()));
     }
     
     /**

@@ -46,3 +46,13 @@ $container['em'] = function ($c) {
 $container['csrf'] = function ($c) {
     return new \Slim\Csrf\Guard;
 };
+
+//Override the default Not Found Handler
+$c['notFoundHandler'] = function ($c) {
+    return 'App\Controller\ErrorController:notFound';
+};
+
+//Override the default Not Allowed Handler
+$c['notAllowedHandler'] = function ($c) {
+    return 'App\Controller\ErrorController:notAllowed';
+};

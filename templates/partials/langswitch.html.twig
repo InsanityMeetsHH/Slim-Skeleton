@@ -1,8 +1,9 @@
 {% set langswitch = langswitch() %}
 {% if langswitch %}
+    <div>
     {% for lang in langswitch %}
         <a class="{% if is_current_path(lang.route, lang.args) %}current{% endif %}" href="{{ path_for(lang.route, lang.args) }}">{{ lang.label }} {{ lang.image|raw }}</a>
         {% if loop.last %}{% else %}&#124;{% endif %}
     {% endfor %}
-    <br/>
+    </div>
 {% endif %}

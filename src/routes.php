@@ -31,20 +31,17 @@ $app->add(function (Request $request, Response $response, callable $next) {
     return $next($request, $response);
 });
 
-// initialize all routes from all languages
+// initialize all routes from all active languages
 foreach ($settings['settings']['locale']['active'] as $activeLocale) {
     // if translation file exists, load file to $locale
     if (is_readable($settings['settings']['locale']['path'] . $activeLocale . '.php')) {
-        $tempLocale = require $settings['settings']['locale']['path'] . $activeLocale . '.php';
+        $locale = require $settings['settings']['locale']['path'] . $activeLocale . '.php';
         $suffixName = '-' . strtolower($activeLocale);
-
         
-        $app->post($tempLocale['user-login-validate'], 'App\Controller\UserController:loginValidate')->setName('user-login-validate' . $suffixName);
-        $app->get($tempLocale['user-login-success'], 'App\Controller\UserController:loginSuccess')->setName('user-login-success' . $suffixName);
-        $app->get($tempLocale['user-logout'], 'App\Controller\UserController:logout')->setName('user-logout' . $suffixName);
-        $app->get($tempLocale['user-login'], 'App\Controller\UserController:login')->setName('user-login' . $suffixName);
-        $app->get($tempLocale['page-example'], 'App\Controller\PageController:example')->setName('page-example' . $suffixName);
-        // insert new links above page index
-        $app->get($tempLocale['page-index'], 'App\Controller\PageController:index')->setName('page-index' . $suffixName);
+        if (isset($locale['routes']) && is_array($locale['routes'])) {
+            foreach ($locale['routes'] as $routeName => $route) {
+                $app->map($route['methods'], $route['route'], $route['method'])->setName($routeName . $suffixName);
+            }
+        }
     }
 }

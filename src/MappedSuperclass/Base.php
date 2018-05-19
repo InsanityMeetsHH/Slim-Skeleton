@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\HasLifecycleCallbacks
  */
 class Base {
+    
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -75,7 +76,6 @@ class Base {
     }
     
     /**
-     *
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */

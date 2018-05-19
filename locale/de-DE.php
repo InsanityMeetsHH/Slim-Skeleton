@@ -12,20 +12,61 @@ return [
     'page-example-label' => 'Beispielseite',
     'user-login-label' => 'Login',
     'user-logout-label' => 'Logout',
-    
-    // localized routing (e.g. CONTROLLER-ACTION)
     'langswitch-label' => 'DE',
     'langswitch-image' => '<img src="https://cdn.rawgit.com/hjnilsson/country-flags/master/svg/de.svg" style="max-height: 20px;">',
-    'page-index' => '/de/[{name}]',
-    'page-example' => '/de/beispiel',
-    'user-login' => '/de/login',
-    'user-logout' => '/de/logout',
-    'user-login-success' => '/de/erfolg',
-    'user-login-validate' => '/de/validate',
+    
+    // localized routing (e.g. CONTROLLER-ACTION)
+    'routes' => [
+        'user-login' => [
+            'route'      => '/de/login',
+            'method'     => 'App\Controller\UserController:login',
+            'methods'    => ['GET'],
+            'rolesAllow' => ['guest', 'member', 'admin'],
+            'rolesDeny'  => [],
+        ],
+        'user-logout' => [
+            'route'      => '/de/logout',
+            'method'     => 'App\Controller\UserController:logout',
+            'methods'    => ['GET'],
+            'rolesAllow' => ['guest', 'member', 'admin'],
+            'rolesDeny'  => [],
+        ],
+        'user-login-success' => [
+            'route'      => '/de/erfolg',
+            'method'     => 'App\Controller\UserController:loginSuccess',
+            'methods'    => ['GET'],
+            'rolesAllow' => ['member', 'admin'],
+            'rolesDeny'  => [],
+        ],
+        'user-login-validate' => [
+            'route'      => '/de/validate',
+            'method'     => 'App\Controller\UserController:loginValidate',
+            'methods'    => ['POST'],
+            'rolesAllow' => ['guest', 'member', 'admin'],
+            'rolesDeny'  => [],
+        ],
+        'page-example' => [
+            'route'      => '/de/beispiel',
+            'method'     => 'App\Controller\PageController:example',
+            'methods'    => ['GET'],
+            'rolesAllow' => ['guest', 'member', 'admin'],
+            'rolesDeny'  => [],
+        ],
+        'page-index' => [
+            'route'      => '/de/[{name}]',
+            'method'     => 'App\Controller\PageController:index',
+            'methods'    => ['GET'],
+            'rolesAllow' => ['guest', 'member', 'admin'],
+            'rolesDeny'  => [],
+        ],
+    ],
     
     // misc
     // decimal point
     'dp' => ',',
     // thousands separator
     'ts' => '.',
+    'date' => 'd.m.Y',
+    'time' => 'H:i:s',
+    'datetime' => 'd.m.Y H:i:s',
 ];

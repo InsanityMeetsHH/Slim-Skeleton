@@ -48,21 +48,8 @@ class UserController extends BaseController {
      * @return \Slim\Http\Response
      */
     public function login($request, $response, $args) {
-        // CSRF token name and value
-        $nameKey = $this->csrf->getTokenNameKey();
-        $valueKey = $this->csrf->getTokenValueKey();
-        $name = $request->getAttribute($nameKey);
-        $value = $request->getAttribute($valueKey);
-        
         // Render view
-        return $this->view->render($response, 'user/login.html.twig', array_merge($args, 
-            array(
-                'nameKey' => $nameKey,
-                'valueKey' => $valueKey,
-                'name' => $name,
-                'value' => $value,
-            )
-        ));
+        return $this->view->render($response, 'user/login.html.twig', array_merge($args, array()));
     }
     
     /**

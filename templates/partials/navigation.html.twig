@@ -1,13 +1,13 @@
 <div>
-    <a class="{% if is_current_path('page-index' ~ lk, { 'name': name }) %}current{% endif %}" href="{{ path_for('page-index' ~ lk) }}">{{ trans('page-index' ~ ns) }}</a> &#124;
+    <a class="{% if is_current_path('page-index' ~ lk) %}current{% endif %}" href="{{ path_for('page-index' ~ lk) }}">{{ trans('page-index' ~ ns) }}</a> &#124;
     <a class="{% if is_current_path('page-example' ~ lk) %}current{% endif %}" href="{{ path_for('page-example' ~ lk) }}">{{ trans('page-example' ~ ns) }}</a> &#124;
 
     {% if has_role('guest') %}
         <a class="{% if is_current_path('user-login' ~ lk) %}current{% endif %}" href="{{ path_for('user-login' ~ lk) }}">{{ trans('user-login' ~ ns) }}</a>
     {% endif %}
 
-    {% if has_role({0: 'member', 1: 'admin', 1: 'superadmin'}) %}
-        <a class="{% if is_current_path('user-show' ~ lk) %}current{% endif %}" href="{{ path_for('user-show' ~ lk) }}">{{ trans('user-show' ~ ns) }}</a> &#124;
+    {% if has_role({0: 'member', 1: 'admin', 2: 'superadmin'}) %}
+        <a class="{% if is_current_path('user-show' ~ lk, { 'name': name }) or is_current_path('user-show' ~ lk) %}current{% endif %}" href="{{ path_for('user-show' ~ lk) }}">{{ trans('user-show' ~ ns) }}</a> &#124;
         <a class="{% if is_current_path('user-logout' ~ lk) %}current{% endif %}" href="{{ path_for('user-logout' ~ lk) }}">{{ trans('user-logout' ~ ns) }}</a>
     {% endif %}
 </div>

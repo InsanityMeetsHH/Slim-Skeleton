@@ -1,1 +1,1 @@
-INSERT INTO `role` (`id`, `name`, `updated_at`, `created_at`) VALUES (1, 'guest', now(), now()), (2, 'member', now(), now()), (3, 'admin', now(), now()), (4, 'superadmin', now(), now());
+INSERT INTO `role` (`id`, `name`, `deleted`, `updated_at`, `created_at`) VALUES (1, 'guest', 0, now(), now()), (2, 'member', 0, now(), now()), (3, 'admin', 0, now(), now(), (4, 'superadmin', 0, now(), now()));

@@ -1,5 +1,5 @@
 <?php
-namespace App\Twig\Extension;
+namespace App\Twig;
 
 use App\Container\AclRepositoryContainer;
 use App\Utility\LanguageUtility;
@@ -7,7 +7,7 @@ use App\Utility\LanguageUtility;
 /**
  * General twig extension for this application
  */
-class TwigExtension extends \Twig_Extension {
+class AppExtension extends \Twig_Extension {
     /**
      * @var \Slim\Container $container
      */

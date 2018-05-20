@@ -23,14 +23,14 @@ class ErrorController extends BaseController {
      * 
      * @param \Slim\Http\Request $request
      * @param \Slim\Http\Response $response
-     * @param array $methods
+     * @param array $args
      * @return \Slim\Http\Response
      */
-    public function notAllowed($request, $response, $methods) {
+    public function notAllowed($request, $response, $args) {
         // Render view
         return $this->view->render($response, 'error/not-allowed.html.twig', array(
-            'methods' => implode(', ', $methods),
-        ))->withStatus(405)->withHeader('Allow', implode(', ', $methods));
+            'methods' => $_SESSION['allowedMethods'],
+            ))->withStatus(405)->withHeader('Allow', str_replace('-', ', ', $_SESSION['allowedMethods']));
     }
 
     /**

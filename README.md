@@ -5,6 +5,7 @@
 ## Included
 * [Slim 3.x](https://www.slimframework.com)
 * [Slim Twig View 2.x](https://github.com/slimphp/Twig-View)
+* [Slim CSRF 0.x](https://github.com/slimphp/Slim-Csrf)
 * [Monolog 1.x](https://seldaek.github.io/monolog/)
 * [Doctrine ORM 2.x](https://packagist.org/packages/doctrine/orm)
 * [Geggleto ACL 1.x](https://github.com/geggleto/geggleto-acl)
@@ -76,3 +77,6 @@ If project is in sub directory than `RewriteBase /project/public/`.
 ## Recommended
 * [Adminer DB-GUI](https://www.adminer.org/)
 * [Locale codes](https://www.science.co.il/language/Locale-codes.php)
+
+## TODO
+* [Twig-CSRF](https://github.com/slimphp/Slim-Csrf#accessing-the-token-pair-in-templates-twig-etc)

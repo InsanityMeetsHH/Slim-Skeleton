@@ -17,6 +17,11 @@ class Base {
     protected $id;
     
     /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $deleted = 0;
+    
+    /**
      * @ORM\Column(type="datetime", name="updated_at")
      */
     protected $updatedAt;

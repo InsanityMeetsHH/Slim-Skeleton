@@ -1,6 +1,7 @@
 <?php
 namespace App\Twig\Extension;
 
+use App\Container\AclRepositoryContainer;
 use App\Utility\LanguageUtility;
 
 /**
@@ -28,6 +29,7 @@ class TwigExtension extends \Twig_Extension {
     public function getFunctions() {
         return [
             new \Twig_SimpleFunction('has_role', array($this, 'hasRole')),
+            new \Twig_SimpleFunction('is_allowed', array($this, 'isAllowed')),
             new \Twig_SimpleFunction('langswitch', array($this, 'langSwitch')),
             new \Twig_SimpleFunction('language', array($this, 'language')),
             new \Twig_SimpleFunction('trans', array($this, 'trans')),
@@ -98,7 +100,7 @@ class TwigExtension extends \Twig_Extension {
     }
     
     /**
-     * Checkss if given role is current role
+     * Checks if given role is current role
      * 
      * @param array|string $role
      * @return bool
@@ -109,6 +111,22 @@ class TwigExtension extends \Twig_Extension {
         }
         
         if (is_array($role) && isset($_SESSION['currentRole']) && in_array($_SESSION['currentRole'], $role)) {
+            return TRUE;
+        }
+        
+        return FALSE;
+    }
+    
+    /**
+     * Checks if given resource is allowed by current role
+     * 
+     * @param string $resource
+     * @return bool
+     */
+    public function isAllowed($resource) {
+        $aclRepository = AclRepositoryContainer::getInstance();
+        
+        if (is_string($resource) && isset($_SESSION['currentRole']) && $aclRepository->isAllowed($_SESSION['currentRole'], $resource)) {
             return TRUE;
         }
         

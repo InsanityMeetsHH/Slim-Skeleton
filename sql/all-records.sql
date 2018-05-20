@@ -1,2 +1,2 @@
-INSERT INTO `role` (`id`, `name`, `updated_at`, `created_at`) VALUES (1, 'guest', now(), now()), (2, 'member', now(), now()), (3, 'admin', now(), now());
+INSERT INTO `role` (`id`, `name`, `updated_at`, `created_at`) VALUES (1, 'guest', now(), now()), (2, 'member', now(), now()), (3, 'admin', now(), now(), (4, 'superadmin', now(), now()));
 INSERT INTO `user` (`id`, `role_id`, `name`, `pass`, `updated_at`, `created_at`) VALUES (1, 2, 'user', '$2y$11$eVVKcwwsb1UP7RSvdea21OWGJM3cYLBKSoPlAowBa0uQHjkguRB.K', now(), now());

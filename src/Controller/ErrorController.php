@@ -1,15 +1,13 @@
 <?php
 namespace App\Controller;
 
-use App\Container\AclRepository;
-
 /**
  * ErrorController is used for error pages
  */
 class ErrorController extends BaseController {
 
     /**
-     * not found Action
+     * Not found Action
      * 
      * @param \Slim\Http\Request $request
      * @param \Slim\Http\Response $response
@@ -21,7 +19,7 @@ class ErrorController extends BaseController {
     }
 
     /**
-     * not allowed Action
+     * Not allowed Action
      * 
      * @param \Slim\Http\Request $request
      * @param \Slim\Http\Response $response
@@ -36,7 +34,7 @@ class ErrorController extends BaseController {
     }
 
     /**
-     * unauthorized Action
+     * Unauthorized Action
      * 
      * @param \Slim\Http\Request $request
      * @param \Slim\Http\Response $response
@@ -45,5 +43,17 @@ class ErrorController extends BaseController {
     public function unauthorized($request, $response) {
         // Render view
         return $this->view->render($response, 'error/unauthorized.html.twig', array())->withStatus(401);
+    }
+
+    /**
+     * Bad request Action
+     * 
+     * @param \Slim\Http\Request $request
+     * @param \Slim\Http\Response $response
+     * @return \Slim\Http\Response
+     */
+    public function badRequest($request, $response) {
+        // Render view
+        return $this->view->render($response, 'error/bad-request.html.twig', array())->withStatus(400);
     }
 }

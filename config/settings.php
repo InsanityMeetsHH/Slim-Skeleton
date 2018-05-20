@@ -2,7 +2,7 @@
 return [
     'settings' => [
         'determineRouteBeforeAppMiddleware' => true,
-        'displayErrorDetails' => true, // set to false in production
+        'displayErrorDetails' => false, // set to false in production
         'addContentLengthHeader' => false, // Allow the web server to send the content-length header
 
         // Renderer settings
@@ -53,5 +53,20 @@ return [
                 'charset'  => 'utf8',
             ],
         ],
+        
+        // resources for acl
+        'aclResources' => [
+            'create_user' => ['guest', 'admin', 'superadmin'],
+            'edit_user' => ['member', 'admin', 'superadmin'], // edit own user information
+            'show_user' => ['member', 'admin', 'superadmin'], // show own user information
+            'delete_user' => ['member', 'admin', 'superadmin'], // delete own user
+            'edit_user_other' => ['admin', 'superadmin'], // edit user information from other users
+            'show_user_other' => ['guest', 'member', 'admin', 'superadmin'], // show user information from other users
+            'delete_user_other' => ['superadmin'], // delete own user
+            'create_role' => ['superadmin'],
+            'edit_role' => ['superadmin'],  // edit all roles
+            'show_role' => ['admin', 'superadmin'],
+            'delete_role' => ['superadmin'], // delete role
+        ]
     ],
 ];

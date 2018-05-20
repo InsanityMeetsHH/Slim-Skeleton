@@ -10,7 +10,7 @@
     </ul>
 
     {# loop through database records #}
-    {% if users %}
+    {% if users and is_allowed('show_user_other') %}
         <p>&nbsp;</p>
         <p>{{ 'db-records'|trans }}</p>
         {% for user in users %}

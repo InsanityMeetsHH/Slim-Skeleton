@@ -1,8 +1,6 @@
 <?php
 namespace App\Controller;
 
-use App\Container\AclRepositoryContainer;
-
 /**
  * PageController is used for static pages
  */
@@ -19,8 +17,6 @@ class PageController extends BaseController {
     public function index($request, $response, $args) {
         // Sample log message
         //$this->logger->info("Slim-Skeleton '/' route");
-//        $acl = AclRepositoryContainer::getInstance()->getAcl();
-//        var_dump($acl->hasRole('member'));
         
         $users = array();
         

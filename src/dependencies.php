@@ -44,15 +44,20 @@ $container['em'] = function ($c) {
 
 // CSRF
 $container['csrf'] = function ($c) {
-    return new \Slim\Csrf\Guard;
+    $guard = new \Slim\Csrf\Guard();
+    $guard->setFailureCallable(function ($request, $response, $next) {
+        $request = $request->withAttribute("csrf_status", false);
+        return $next($request, $response);
+    });
+    return $guard;
 };
 
 //Override the default Not Found Handler
-$c['notFoundHandler'] = function ($c) {
+$container['notFoundHandler'] = function ($c) {
     return 'App\Controller\ErrorController:notFound';
 };
 
 //Override the default Not Allowed Handler
-$c['notAllowedHandler'] = function ($c) {
+$container['notAllowedHandler'] = function ($c) {
     return 'App\Controller\ErrorController:notAllowed';
 };

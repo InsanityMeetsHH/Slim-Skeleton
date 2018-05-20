@@ -2,12 +2,13 @@
 
 {% block content %}
     <br><br>
-    user / password
+    {{ 'user'|trans }} / {{ 'password'|trans }}
     <form action="{{ path_for('user-login-validate' ~ lk) }}" method="post">
         <input type="hidden" name="{{ nameKey }}" value="{{ name }}">
         <input type="hidden" name="{{ valueKey }}" value="{{ value }}">
-        <input type="text" name="user_name" placeholder="User name" />
+        <input type="text" name="user_name" placeholder="{{ 'user-name'|trans }}" />
         <input type="password" name="user_pass" />
-        <input type="submit" name="send" value="Log In" />
+        <input type="submit" name="send" value="{{ 'log-in'|trans }}" />
     </form>
+    ({{ 'user'|trans }} = user / {{ 'password'|trans }} = password)
 {% endblock %}

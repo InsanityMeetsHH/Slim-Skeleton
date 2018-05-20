@@ -6,7 +6,8 @@
         <a class="{% if is_current_path('user-login' ~ lk) %}current{% endif %}" href="{{ path_for('user-login' ~ lk) }}">{{ trans('user-login' ~ ns) }}</a>
     {% endif %}
 
-    {% if has_role({0: 'member', 1: 'admin'}) %}
+    {% if has_role({0: 'member', 1: 'admin', 1: 'superadmin'}) %}
+        <a class="{% if is_current_path('user-show' ~ lk) %}current{% endif %}" href="{{ path_for('user-show' ~ lk) }}">{{ trans('user-show' ~ ns) }}</a> &#124;
         <a class="{% if is_current_path('user-logout' ~ lk) %}current{% endif %}" href="{{ path_for('user-logout' ~ lk) }}">{{ trans('user-logout' ~ ns) }}</a>
     {% endif %}
 </div>

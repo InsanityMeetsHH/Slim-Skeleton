@@ -75,6 +75,19 @@ class AclRepositoryContainer {
                         }
                     }
                 }
+                
+                if (isset($settings['aclResources']) && is_array($settings['aclResources'])) {
+                    foreach ($settings['aclResources'] as $aclResource => $aclRoles) {
+                        // if is first role
+                        if ($roleKey === 0) {
+                            $allResources[] = $aclResource;
+                        }
+                        
+                        if (in_array($roleName, $aclRoles)) {
+                            $allow[$roleName][] = $aclResource;
+                        }
+                    }
+                }
             }
 
             $aclSettings = [

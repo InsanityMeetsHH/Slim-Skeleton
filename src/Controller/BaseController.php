@@ -1,12 +1,16 @@
 <?php
 namespace App\Controller;
 
+use App\Container\AclRepositoryContainer;
 use App\Utility\LanguageUtility;
 
 /**
  * Base functions for controller
  */
 class BaseController {
+    
+    /** @var \Geggleto\Acl\AclRepository $aclRepository **/
+    protected $aclRepository;
     
     /** @var \Doctrine\ORM\EntityManager $em **/
     protected $em;
@@ -20,6 +24,12 @@ class BaseController {
     /** @var string $currentLocale **/
     protected $currentLocale;
     
+    /** @var string $currentRole **/
+    protected $currentRole;
+    
+    /** @var integer $currentUser **/
+    protected $currentUser;
+    
     /** @var \Slim\Router $router **/
     protected $router;
     
@@ -30,10 +40,13 @@ class BaseController {
      * @param \Slim\Container $container
      */
     public function __construct($container) {
+        $this->aclRepository = AclRepositoryContainer::getInstance();
         $this->em = $container->get("em");
         $this->container = $container;
         $this->csrf = $container->get("csrf");
         $this->currentLocale = strtolower(LanguageUtility::getCurrentLocale());
+        $this->currentRole = isset($_SESSION['currentRole']) ? $_SESSION['currentRole'] : 'guest';
+        $this->currentUser = isset($_SESSION['currentUser']) ? $_SESSION['currentUser'] : NULL;
         $this->router = $container->get("router");
         $this->view = $container->get("view");
     }

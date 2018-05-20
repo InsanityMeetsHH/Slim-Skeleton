@@ -1,0 +1,11 @@
+{% extends "layouts/layout.html.twig" %}
+
+{% block content %}
+    {% if user %}
+        {{ 'id'|trans }}: {{ user.id }}<br/>
+        {{ 'name'|trans }}: {{ user.name }}<br/>
+        {{ 'role'|trans }}: {{ user.role.name|trans }}<br/>
+        {{ 'created-at'|trans }} {{ user.createdAt|date('datetime'|trans) }}<br/>
+        {{ 'updated-at'|trans }} {{ user.updatedAt|date('datetime'|trans) }}<br/>
+    {% endif %}
+{% endblock %}

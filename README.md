@@ -12,6 +12,7 @@
 
 ## Required
 * PHP => 5.5
+* Database like MySQL
 
 ## Installation
 

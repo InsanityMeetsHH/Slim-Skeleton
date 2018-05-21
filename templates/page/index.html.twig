@@ -15,7 +15,7 @@
         <p>&nbsp;</p>
         <p>{{ 'db-records'|trans }}</p>
         {% for user in users %}
-            {{ user.id }} {{ user.name }} {{ user.role.name }} {{ user.createdAt|date('datetime'|trans) }}<br/>
+            {{ user.id }} <a href="{{ path_for('user-show' ~ lk, { 'name': user.name }) }}">{{ user.name }}</a> {{ user.role.name|trans }} {{ user.createdAt|date('datetime'|trans) }}<br/>
         {% endfor %}
     {% endif %}
 {% endblock %}

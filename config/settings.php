@@ -67,6 +67,6 @@ return [
             'edit_role' => ['superadmin'],  // edit all roles
             'show_role' => ['admin', 'superadmin'],
             'delete_role' => ['superadmin'], // delete role
-        ]
+        ],
     ],
 ];

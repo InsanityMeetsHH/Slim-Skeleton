@@ -1,4 +1,4 @@
-# Slim Framework 3 Skeleton + Twig + Doctrine + Localisation
+# Slim 3 Skeleton Fork - InsanityMeetsHH
 
 [**Demo page**](http://slim3.insanitymeetshh.net)
 
@@ -46,9 +46,9 @@ Add database name to `dbname` in `config\additional-settings.php` and run follow
 ```bash
 $ php doctrine orm:schema-tool:update --force
 ```
-Now you've created the database table named [demo](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Entity/Demo.php).
+Now you've created the database tables named [user](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Entity/User.php) and [role](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Entity/Role.php).
 
-If you want to fill the table with some dummy records
+If you want to fill the table with some roles and one user
 ```bash
 $ php doctrine dbal:import sql/all-records.sql
 ```
@@ -59,6 +59,13 @@ $ php doctrine dbal:import sql/all-records.sql
 * You can also define paths like `/fr-be/` (`locale/fr-BE.php`) for example
 * If you want to show language in langswitch [config/settings.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L31)
 * Add case for `fr/` in [src/localisation.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/localisation.php#L18)
+
+## ACL settings
+With [Geggleto ACL](https://github.com/geggleto/geggleto-acl), routes are protected by role the current user has. By default every new route is not accessable until you give the route roles.
+Routes are defined in the locale files (e.g. [de-DE.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/locale/de-DE.php#L44)).
+Any other resource is defined in [settings.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L58).
+Inside the Twig templates you can use ACL functions [has_role](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/partials/navigation.html.twig#L5) and [is_allowed](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/page/index.html.twig#L14).
+Inside controllers you can also use this ACL functions and [many more](https://github.com/geggleto/geggleto-acl/blob/master/src/AclRepository.php) (e.g. [is_allowed](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Controller/UserController.php#L19)).
 
 ## Troubleshooting
 In some cases you'll get the error message "Internal Server Error".
@@ -77,6 +84,3 @@ If project is in sub directory than `RewriteBase /project/public/`.
 ## Recommended
 * [Adminer DB-GUI](https://www.adminer.org/)
 * [Locale codes](https://www.science.co.il/language/Locale-codes.php)
-
-## TODO
-* [Twig-CSRF](https://github.com/slimphp/Slim-Csrf#accessing-the-token-pair-in-templates-twig-etc)

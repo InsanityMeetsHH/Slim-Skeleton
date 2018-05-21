@@ -4,8 +4,8 @@
     <br><br>
     {{ 'user'|trans }} / {{ 'password'|trans }}
     <form action="{{ path_for('user-login-validate' ~ lk) }}" method="post">
-        <input type="hidden" name="{{csrf.keys.name}}" value="{{csrf.name}}">
-        <input type="hidden" name="{{csrf.keys.value}}" value="{{csrf.value}}">
+        <input type="hidden" name="{{ csrf.keys.name }}" value="{{ csrf.name }}">
+        <input type="hidden" name="{{ csrf.keys.value }}" value="{{ csrf.value }}">
         <input type="text" name="user_name" placeholder="{{ 'user-name'|trans }}" />
         <input type="password" name="user_pass" />
         <input type="submit" name="send" value="{{ 'log-in'|trans }}" />

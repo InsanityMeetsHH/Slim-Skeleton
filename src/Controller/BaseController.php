@@ -30,6 +30,9 @@ class BaseController {
     /** @var integer $currentUser **/
     protected $currentUser;
     
+    /** @var \Monolog\Logger $logger **/
+    protected $logger;
+    
     /** @var \Slim\Router $router **/
     protected $router;
     
@@ -47,6 +50,7 @@ class BaseController {
         $this->currentLocale = strtolower(LanguageUtility::getCurrentLocale());
         $this->currentRole = isset($_SESSION['currentRole']) ? $_SESSION['currentRole'] : 'guest';
         $this->currentUser = isset($_SESSION['currentUser']) ? $_SESSION['currentUser'] : NULL;
+        $this->logger = $container->get("logger");
         $this->router = $container->get("router");
         $this->view = $container->get("view");
     }

@@ -19,15 +19,20 @@ class UserController extends BaseController {
         if (isset($args['name']) && $this->aclRepository->isAllowed($this->currentRole, 'show_user_other')) {
             $user = $this->em->getRepository('App\Entity\User')->findOneBy(['name' => $args['name'], 'deleted' => 0]);
             
-            // if user not found
-            if (!($user instanceof \App\Entity\User)) {
+            // if user exist
+            if ($user instanceof \App\Entity\User) {
+                $this->logger->info("User '" . $args['name'] . "' found - UserController:show");
+            } else {
+                // if user not found
+                $this->logger->info("User '" . $args['name'] . "' not found - UserController:show");
                 return $response->withRedirect($this->router->pathFor('error-not-found-' . $this->currentLocale));
             }
-        } elseif (isset($_SESSION['currentUser']) && !isset($args['name']) && $this->aclRepository->isAllowed($this->currentRole, 'show_user')) {
+        } elseif (!is_null($this->currentUser) && !isset($args['name']) && $this->aclRepository->isAllowed($this->currentRole, 'show_user')) {
             // if is logged in user and allowed show_user
-            $user = $this->em->getRepository('App\Entity\User')->findOneBy(['id' => $this->currentUser, 'deleted' => 0]);
+            $user = $this->em->getRepository('App\Entity\User')->findOneBy(['id' => $this->currentUser]);
         } else {
             // if user is not logged in
+            $this->logger->info("User not logged in - UserController:show");
             return $response->withRedirect($this->router->pathFor('user-login-' . $this->currentLocale));
         }
         
@@ -69,13 +74,17 @@ class UserController extends BaseController {
             if (password_verify($request->getParam('user_pass'), $user->getPass())) {
                 $_SESSION['currentRole'] = $user->getRole()->getName();
                 $_SESSION['currentUser'] = $user->getId();
+                $this->logger->info("User " . $user->getId() . " logged in - UserController:loginValidate");
                 return $response->withRedirect($this->router->pathFor('user-login-success-' . $this->currentLocale));
             } else {
-                return $response->withRedirect($this->router->pathFor('user-login-' . $this->currentLocale));
+                $this->logger->info("User " . $user->getId() . " wrong password - UserController:loginValidate");
             }
         } else {
-            return $response->withRedirect($this->router->pathFor('user-login-' . $this->currentLocale));
+            $this->logger->info("User '" . $request->getParam('user_name') . "' not found - UserController:loginValidate");
         }
+        
+        // user or password not valid - redirect to login
+        return $response->withRedirect($this->router->pathFor('user-login-' . $this->currentLocale));
     }
     
     /**
@@ -102,6 +111,7 @@ class UserController extends BaseController {
     public function logout($request, $response, $args) {
         $_SESSION['currentRole'] = 'guest';
         unset($_SESSION['currentUser']);
+        $this->logger->info("User " . $this->currentUser . " logged out - UserController:logout");
         return $response->withRedirect($this->router->pathFor('user-login-' . $this->currentLocale));
     }
 }

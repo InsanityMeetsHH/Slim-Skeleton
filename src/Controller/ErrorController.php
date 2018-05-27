@@ -15,6 +15,7 @@ class ErrorController extends BaseController {
      */
     public function notFound($request, $response) {
         // Render view
+        $this->logger->warning("Route '" . $_SESSION['notFoundRoute'] . "' not found - ErrorController:notFound");
         return $this->view->render($response, 'error/not-found.html.twig', array())->withStatus(404);
     }
 
@@ -28,9 +29,10 @@ class ErrorController extends BaseController {
      */
     public function notAllowed($request, $response, $args) {
         // Render view
+        $this->logger->warning("Route '" . $_SESSION['notAllowedRoute'] . "' not allowed '" . $_SESSION['notAllowedMethod'] . "' - ErrorController:notAllowed");
         return $this->view->render($response, 'error/not-allowed.html.twig', array(
             'methods' => $_SESSION['allowedMethods'],
-            ))->withStatus(405)->withHeader('Allow', str_replace('-', ', ', $_SESSION['allowedMethods']));
+        ))->withStatus(405)->withHeader('Allow', str_replace('-', ', ', $_SESSION['allowedMethods']));
     }
 
     /**
@@ -42,6 +44,7 @@ class ErrorController extends BaseController {
      */
     public function unauthorized($request, $response) {
         // Render view
+        $this->logger->warning("Route '" . $request->getUri()->getPath() . "' unauthorized - ErrorController:unauthorized");
         return $this->view->render($response, 'error/unauthorized.html.twig', array())->withStatus(401);
     }
 
@@ -54,6 +57,7 @@ class ErrorController extends BaseController {
      */
     public function badRequest($request, $response) {
         // Render view
+        $this->logger->warning("Bad request - ErrorController:badRequest");
         return $this->view->render($response, 'error/bad-request.html.twig', array())->withStatus(400);
     }
 }

@@ -62,9 +62,9 @@ return [
             'delete_user' => ['member', 'admin', 'superadmin'], // delete own user
             'edit_user_other' => ['admin', 'superadmin'], // edit user information from other users
             'show_user_other' => ['guest', 'member', 'admin', 'superadmin'], // show user information from other users
-            'delete_user_other' => ['superadmin'], // delete own user
+            'delete_user_other' => ['superadmin'], // delete other users
             'create_role' => ['superadmin'],
-            'edit_role' => ['superadmin'],  // edit all roles
+            'edit_role' => ['superadmin'],  // edit role information
             'show_role' => ['admin', 'superadmin'],
             'delete_role' => ['superadmin'], // delete role
         ],

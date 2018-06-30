@@ -17,6 +17,9 @@ return [
     'not-allowed-method' => 'Method must be one of',
     'page-not-found' => 'Page not found',
     'unauthorized' => 'Unauthorized',
+    'auth-code' => 'Authentication Code',
+    'code' => 'Code',
+    'submit' => 'Submit',
     'guest' => 'Guest',
     'member' => 'Member',
     'admin' => 'Admin',
@@ -28,6 +31,7 @@ return [
     'user-show-label' => 'Profile',
     'user-login-label' => 'Login',
     'user-logout-label' => 'Logout',
+    'user-two-factor-label' => 'Enable 2-factor-auth',
     'langswitch-label' => 'EN',
     'langswitch-image' => '<img src="https://cdn.rawgit.com/hjnilsson/country-flags/master/svg/us.svg" style="max-height: 20px;">',
     
@@ -42,6 +46,20 @@ return [
     
     // localized routing (e.g. CONTROLLER-ACTION)
     'routes' => [
+        'user-enable-two-factor' => [
+            'route'      => '/enable-two-factor',
+            'method'     => 'App\Controller\UserController:enableTwoFactor',
+            'methods'    => ['GET'],
+            'rolesAllow' => ['member', 'admin', 'superadmin'],
+            'rolesDeny'  => [],
+        ],
+        'user-two-factor' => [
+            'route'      => '/two-factor',
+            'method'     => 'App\Controller\UserController:twoFactor',
+            'methods'    => ['GET', 'POST'],
+            'rolesAllow' => ['guest', 'member', 'admin', 'superadmin'],
+            'rolesDeny'  => [],
+        ],
         'user-login' => [
             'route'      => '/login',
             'method'     => 'App\Controller\UserController:login',

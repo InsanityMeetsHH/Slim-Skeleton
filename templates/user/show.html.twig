@@ -7,7 +7,9 @@
         {{ 'role'|trans }}: {{ user.role.name|trans }}<br/>
         {{ 'created-at'|trans }} {{ user.createdAt|date('datetime'|trans) }}<br/>
         {{ 'updated-at'|trans }} {{ user.updatedAt|date('datetime'|trans) }}<br/>
-        {% if user.hasTwoFactor == 0 %}
+        {% if user.hasTwoFactor %}
+            Two factor authentication is enabled.
+        {% else %}
             <a href="{{ path_for('user-enable-two-factor' ~ lk) }}">{{ trans('user-two-factor' ~ ns) }}</a>
         {% endif %}
     {% endif %}

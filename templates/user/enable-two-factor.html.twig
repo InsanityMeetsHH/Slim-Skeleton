@@ -1,7 +1,20 @@
 {% extends "layouts/layout.html.twig" %}
 
 {% block content %}
-    <br><br>
-    {{ secret }}<br>
-    <img src="{{ qr }}" alt=""/>
+    <h2>Enable two factor authentication</h2>
+    1. Install "Google Authenticator" (<a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=de" target="_blank">Android</a> or <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=de" target="_blank">iOS</a>) on your mobile device.<br/>
+    <br/>
+    2. Enter "Secret" into the app or scan the QR code.<br/>
+    Handle "Secret" like a password and save it.<br/>
+    Secret: {{ secret }}<br/>
+    <img src="{{ qr }}" alt=""/><br/>
+    <br/>
+    3. Enter code from the app into input field.<br/>
+    {{ 'auth-code'|trans }}
+    <form action="{{ path_for('user-enable-two-factor' ~ lk) }}" method="post">
+        <input type="hidden" name="{{ csrf.keys.name }}" value="{{ csrf.name }}">
+        <input type="hidden" name="{{ csrf.keys.value }}" value="{{ csrf.value }}">
+        <input type="text" name="tf_code" placeholder="{{ 'code'|trans }}" />
+        <input type="submit" name="send" value="{{ 'submit'|trans }}" />
+    </form>
 {% endblock %}

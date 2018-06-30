@@ -31,7 +31,7 @@ return [
     'user-show-label' => 'Profil',
     'user-login-label' => 'Login',
     'user-logout-label' => 'Logout',
-    'user-two-factor-label' => '2 Faktor Aktivieren',
+    'user-two-factor-label' => 'Zwei-Faktor-Authentifizierung aktivieren',
     'langswitch-label' => 'DE',
     'langswitch-image' => '<img src="https://cdn.rawgit.com/hjnilsson/country-flags/master/svg/de.svg" style="max-height: 20px;">',
     
@@ -49,7 +49,7 @@ return [
         'user-enable-two-factor' => [
             'route'      => '/de/zwei-faktor-aktivieren',
             'method'     => 'App\Controller\UserController:enableTwoFactor',
-            'methods'    => ['GET'],
+            'methods'    => ['GET', 'POST'],
             'rolesAllow' => ['member', 'admin', 'superadmin'],
             'rolesDeny'  => [],
         ],

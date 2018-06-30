@@ -129,10 +129,23 @@ class UserController extends BaseController {
         
         // if empty - generate new secret and update user
         if (empty($secret)) {
+            do {
+                $secret = $ga->createSecret();
+                $userSecret = $this->em->getRepository('App\Entity\User')->findOneBy(['twoFactorSecret' => $secret]);
+            } while ($userSecret instanceof \App\Entity\User);
             $secret = $ga->createSecret();
             $user->setTwoFactorSecret($secret);
-            $user->setTwoFactor(TRUE);
             $this->em->flush($user);
+        }
+
+        if ($request->isPost()) {
+            $code = $request->getParam('tf_code');
+            $checkResult = $ga->verifyCode($secret, $code, 2); // 2 = 2*30sec clock tolerance
+            if ($checkResult) {
+                $user->setTwoFactor(TRUE);
+                $this->em->flush($user);
+                return $response->withRedirect($this->router->pathFor('user-show-' . $this->currentLocale));
+            }
         }
         
         // Render view
@@ -169,7 +182,7 @@ class UserController extends BaseController {
 
             if ($request->isPost()) {
                 $code = $request->getParam('tf_code');
-                $checkResult = $ga->verifyCode($secret, $code, 2);    // 2 = 2*30sec clock tolerance
+                $checkResult = $ga->verifyCode($secret, $code, 2); // 2 = 2*30sec clock tolerance
                 if ($checkResult) {
                     unset($_SESSION['tempUser']);
                     $_SESSION['currentRole'] = $user->getRole()->getName();

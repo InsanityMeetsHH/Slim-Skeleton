@@ -129,11 +129,12 @@ class UserController extends BaseController {
         
         // if empty - generate new secret and update user
         if (empty($secret)) {
+            // create unique secret
             do {
                 $secret = $ga->createSecret();
                 $userSecret = $this->em->getRepository('App\Entity\User')->findOneBy(['twoFactorSecret' => $secret]);
             } while ($userSecret instanceof \App\Entity\User);
-            $secret = $ga->createSecret();
+            
             $user->setTwoFactorSecret($secret);
             $this->em->flush($user);
         }

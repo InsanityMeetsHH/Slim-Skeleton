@@ -19,7 +19,7 @@ class UserController extends BaseController {
         if (isset($args['name']) && $this->aclRepository->isAllowed($this->currentRole, 'show_user_other')) {
             $user = $this->em->getRepository('App\Entity\User')->findOneBy(['name' => $args['name'], 'deleted' => 0]);
             
-            // if user exist
+            // if user exists
             if ($user instanceof \App\Entity\User) {
                 $this->logger->info("User '" . $args['name'] . "' found - UserController:show");
             } else {
@@ -38,9 +38,9 @@ class UserController extends BaseController {
         
         // Render view
         return $this->view->render($response, 'user/show.html.twig', array_merge($args, 
-            array(
+            [
                 'user' => $user,
-            )
+            ]
         ));
     }
     
@@ -54,7 +54,7 @@ class UserController extends BaseController {
      */
     public function login($request, $response, $args) {
         // Render view
-        return $this->view->render($response, 'user/login.html.twig', array_merge($args, array()));
+        return $this->view->render($response, 'user/login.html.twig', array_merge($args, []));
     }
     
     /**
@@ -97,7 +97,7 @@ class UserController extends BaseController {
      */
     public function loginSuccess($request, $response, $args) {
         // Render view
-        return $this->view->render($response, 'user/login-success.html.twig', array_merge($args, array()));
+        return $this->view->render($response, 'user/login-success.html.twig', array_merge($args, []));
     }
     
     /**

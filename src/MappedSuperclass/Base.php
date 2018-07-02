@@ -39,6 +39,26 @@ class Base {
     public function getId() {
         return $this->id;
     }
+    
+    /**
+     * Is $deleted
+     * 
+     * @return boolean
+     */
+    public function isDeleted() {
+        return $this->deleted;
+    }
+    
+    /**
+     * Set $deleted
+     * 
+     * @param boolean $deleted
+     */
+    public function setDeleted($deleted) {
+        $this->deleted = $deleted;
+        
+        return $this;
+    }
 
     /**
      * Get $updatedAt

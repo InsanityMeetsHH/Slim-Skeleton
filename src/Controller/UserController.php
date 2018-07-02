@@ -1,6 +1,9 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\RecoveryCode;
+use App\Utility\GeneralUtility;
+
 /**
  * UserController is used for pages in context of user
  */
@@ -69,7 +72,7 @@ class UserController extends BaseController {
         $user = $this->em->getRepository('App\Entity\User')->findOneBy(['name' => $request->getParam('user_name'), 'deleted' => 0]);
         unset($_SESSION['tempUser']);
         
-        // if user exists
+        // if user exist
         if ($user instanceof \App\Entity\User) {
             // if password valid
             if (password_verify($request->getParam('user_pass'), $user->getPass())) {
@@ -145,16 +148,49 @@ class UserController extends BaseController {
             if ($checkResult) {
                 $user->setTwoFactor(TRUE);
                 $this->em->flush($user);
-                return $response->withRedirect($this->router->pathFor('user-show-' . $this->currentLocale));
+            
+                // disable old recovery codes
+                $oldRecoveryCodes = $this->em->getRepository('App\Entity\RecoveryCode')->findBy(['user' => $this->currentUser, 'deleted' => 0]);
+                foreach ($oldRecoveryCodes as $oldRecoveryCode) {
+                    $oldRecoveryCode->setDeleted(TRUE);
+                    $this->em->persist($oldRecoveryCode);
+                }
+                
+                // create unique recover codes
+                $countCodes = 0;
+                $recoveryCodes = [];
+                do {
+                    $newRecoveryCode = GeneralUtility::generateCode();
+                    $newEncryptRecoveryCode = GeneralUtility::encryptPassword($newRecoveryCode);
+                    $recoveryCode = $this->em->getRepository('App\Entity\RecoveryCode')->findOneBy(['code' => $newEncryptRecoveryCode]);
+
+                    if (!($recoveryCode instanceof \App\Entity\RecoveryCode)) {
+                        $recoveryCode = new RecoveryCode();
+                        $recoveryCode->setCode($newEncryptRecoveryCode)
+                                ->setUser($user);
+                        $this->em->persist($recoveryCode);
+                        $recoveryCodes[] = $newRecoveryCode;
+                        $countCodes++;
+                    }
+                } while ($countCodes < 5);
+                
+                // save all changes
+                $this->em->flush();
+                
+                return $this->view->render($response, 'user/recovery-codes.html.twig', array_merge($args, 
+                    [
+                        'recoveryCodes' => $recoveryCodes,
+                    ]
+                ));
             }
         }
         
         // Render view
         return $this->view->render($response, 'user/enable-two-factor.html.twig', array_merge($args, 
-            array(
+            [
                 'secret' => $secret,
                 'qr' => $ga->getQRCodeGoogleUrl($user->getName(), $secret, 'Slim Skeleton'),
-            )
+            ]
         ));
     }
     
@@ -184,6 +220,22 @@ class UserController extends BaseController {
             if ($request->isPost()) {
                 $code = $request->getParam('tf_code');
                 $checkResult = $ga->verifyCode($secret, $code, 2); // 2 = 2*30sec clock tolerance
+                
+                if ($checkResult === FALSE) {
+                    $userRecoveryCodes = $this->em->getRepository('App\Entity\RecoveryCode')->findBy(['user' => $user->getId(), 'deleted' => 0]);
+                    
+                    if (is_array($userRecoveryCodes) && count($userRecoveryCodes) > 0) {
+                        foreach ($userRecoveryCodes as $recoveryCode) {
+                            if (!$recoveryCode->isDeleted() && password_verify($code, $recoveryCode->getCode())) {
+                                $checkResult = TRUE;
+                                $recoveryCode->setDeleted(TRUE);
+                                $this->em->flush($recoveryCode);
+                                break;
+                            }
+                        }
+                    }
+                }
+                
                 if ($checkResult) {
                     unset($_SESSION['tempUser']);
                     $_SESSION['currentRole'] = $user->getRole()->getName();
@@ -198,6 +250,6 @@ class UserController extends BaseController {
         }
         
         // Render view
-        return $this->view->render($response, 'user/two-factor.html.twig', array_merge($args, array()));
+        return $this->view->render($response, 'user/two-factor.html.twig', array_merge($args, []));
     }
 }

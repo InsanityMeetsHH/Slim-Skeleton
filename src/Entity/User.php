@@ -3,6 +3,7 @@ namespace App\Entity;
 
 use App\Utility\GeneralUtility;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -18,6 +19,22 @@ class User extends \App\MappedSuperclass\LowerCaseUniqueName
     private $role;
     
     /**
+     * One User has many RecoveryCodes.
+     * 
+     * @ORM\OneToMany(targetEntity="RecoveryCode", mappedBy="user")
+     */
+    private $recoveryCodes;
+
+    /**
+     * Get $recoveryCodes
+     * 
+     * @return ArrayCollection
+     */
+    public function getRecoveryCodes() {
+        return $this->recoveryCodes;
+    }
+    
+    /**
      * @ORM\Column(type="string")
      */
     private $pass;
@@ -31,6 +48,10 @@ class User extends \App\MappedSuperclass\LowerCaseUniqueName
      * @ORM\Column(type="string", name="two_factor_secret")
      */
     private $twoFactorSecret;
+
+    public function __construct() {
+        $this->recoveryCodes = new ArrayCollection();
+    }
 
     /**
      * Get $pass

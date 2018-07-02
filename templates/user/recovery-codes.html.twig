@@ -1,0 +1,16 @@
+{% extends "layouts/layout.html.twig" %}
+
+{% block content %}
+    <br/>
+    Treat this codes like passwords and save them.<br/>
+    You will see them only this one time.<br/>
+    <br/>
+    {# loop through records #}
+    {% if recoveryCodes %}
+        {% for recoveryCode in recoveryCodes %}
+            {{ recoveryCode }}<br/>
+        {% endfor %}
+    {% endif %}
+    <br/>
+    Back to <a class="{% if is_current_path('user-show' ~ lk, { 'name': name }) or is_current_path('user-show' ~ lk) %}current{% endif %}" href="{{ path_for('user-show' ~ lk) }}">{{ trans('user-show' ~ ns) }}</a>.
+{% endblock %}

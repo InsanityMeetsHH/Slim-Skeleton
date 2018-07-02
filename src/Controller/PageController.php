@@ -18,7 +18,7 @@ class PageController extends BaseController {
         // Sample log message
         //$this->logger->info("Slim-Skeleton '/' route");
         
-        $users = array();
+        $users = [];
         
         try {
             $users = $this->em->getRepository('App\Entity\User')->findAll();
@@ -28,9 +28,9 @@ class PageController extends BaseController {
 
         // Render view
         return $this->view->render($response, 'page/index.html.twig', array_merge($args, 
-            array(
+            [
                 'users' => $users,
-            )
+            ]
         ));
     }
 

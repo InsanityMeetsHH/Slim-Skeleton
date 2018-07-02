@@ -41,9 +41,9 @@ class UserController extends BaseController {
         
         // Render view
         return $this->view->render($response, 'user/show.html.twig', array_merge($args, 
-            array(
+            [
                 'user' => $user,
-            )
+            ]
         ));
     }
     
@@ -57,7 +57,7 @@ class UserController extends BaseController {
      */
     public function login($request, $response, $args) {
         // Render view
-        return $this->view->render($response, 'user/login.html.twig', array_merge($args, array()));
+        return $this->view->render($response, 'user/login.html.twig', array_merge($args, []));
     }
     
     /**
@@ -99,7 +99,7 @@ class UserController extends BaseController {
      */
     public function loginSuccess($request, $response, $args) {
         // Render view
-        return $this->view->render($response, 'user/login-success.html.twig', array_merge($args, array()));
+        return $this->view->render($response, 'user/login-success.html.twig', array_merge($args, []));
     }
     
     /**

@@ -58,7 +58,7 @@ class LanguageUtility {
                 && isset($settings['locale']['autoDetect'])
                 && $settings['locale']['autoDetect'] === TRUE) {
             $browserLocales = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-            $localeQuality = array();
+            $localeQuality = [];
 
             // convert $_SERVER['HTTP_ACCEPT_LANGUAGE'] to array
             foreach ($browserLocales as $browserLocale) {
@@ -79,7 +79,7 @@ class LanguageUtility {
             }
 
             // locale with highest quality first
-            usort($localeQuality, array(LanguageUtility::class, 'localeQualityAsc'));
+            usort($localeQuality, [LanguageUtility::class, 'localeQualityAsc']);
 
             // if $localeQuality could decoded
             if (is_array($localeQuality) && count($localeQuality) > 0) {

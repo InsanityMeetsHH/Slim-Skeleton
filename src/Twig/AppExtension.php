@@ -28,11 +28,11 @@ class AppExtension extends \Twig_Extension {
      */
     public function getFunctions() {
         return [
-            new \Twig_SimpleFunction('has_role', array($this, 'hasRole')),
-            new \Twig_SimpleFunction('is_allowed', array($this, 'isAllowed')),
-            new \Twig_SimpleFunction('langswitch', array($this, 'langSwitch')),
-            new \Twig_SimpleFunction('language', array($this, 'language')),
-            new \Twig_SimpleFunction('trans', array($this, 'trans')),
+            new \Twig_SimpleFunction('has_role', [$this, 'hasRole']),
+            new \Twig_SimpleFunction('is_allowed', [$this, 'isAllowed']),
+            new \Twig_SimpleFunction('langswitch', [$this, 'langSwitch']),
+            new \Twig_SimpleFunction('language', [$this, 'language']),
+            new \Twig_SimpleFunction('trans', [$this, 'trans']),
         ];
     }
 
@@ -43,7 +43,7 @@ class AppExtension extends \Twig_Extension {
      */
     public function getFilters() {
         return [
-            new \Twig_SimpleFilter('trans', array($this, 'trans')),
+            new \Twig_SimpleFilter('trans', [$this, 'trans']),
         ];
     }
     
@@ -63,12 +63,12 @@ class AppExtension extends \Twig_Extension {
             if (is_readable($settings['locale']['path'] . $activeLocale . '.php')) {
                 $locale = require $settings['locale']['path'] . $activeLocale . '.php';
                 
-                $langSwitch[$currentRouteName . strtolower($activeLocale)] = array(
+                $langSwitch[$currentRouteName . strtolower($activeLocale)] = [
                     'label' => $locale['langswitch-label'],
                     'image' => $locale['langswitch-image'],
                     'route' => $currentRouteName . strtolower($activeLocale),
                     'args' => $_SESSION['route-args'],
-                );
+                ];
             }
         }
         

@@ -60,24 +60,4 @@ class RecoveryCode extends \App\MappedSuperclass\Base
         
         return $this;
     }
-    
-    /**
-     * Is $deleted
-     * 
-     * @return boolean
-     */
-    public function isDeleted() {
-        return $this->deleted;
-    }
-    
-    /**
-     * Set $deleted
-     * 
-     * @param boolean $deleted
-     */
-    public function setDeleted($deleted) {
-        $this->deleted = $deleted;
-        
-        return $this;
-    }
 }

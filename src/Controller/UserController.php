@@ -129,6 +129,12 @@ class UserController extends BaseController {
         $user = $this->em->getRepository('App\Entity\User')->findOneBy(['id' => $this->currentUser]);
         $ga = new \PHPGangsta_GoogleAuthenticator();
         $secret = $user->getTwoFactorSecret();
+        $passValid = FALSE;
+        
+        if ($user->hasTwoFactor()) {
+            unset($_SESSION['pass_code']);
+            return $response->withRedirect($this->router->pathFor('user-show-' . $this->currentLocale));
+        }
         
         // if empty - generate new secret and update user
         if (empty($secret)) {
@@ -143,45 +149,56 @@ class UserController extends BaseController {
         }
 
         if ($request->isPost()) {
-            $code = $request->getParam('tf_code');
-            $checkResult = $ga->verifyCode($secret, $code, 2); // 2 = 2*30sec clock tolerance
-            if ($checkResult) {
-                $user->setTwoFactor(TRUE);
-                $this->em->flush($user);
+            $userPass = $request->getParam('user_pass');
+            $passCode = $request->getParam('pass_code');
             
-                // disable old recovery codes
-                $oldRecoveryCodes = $this->em->getRepository('App\Entity\RecoveryCode')->findBy(['user' => $this->currentUser, 'deleted' => 0]);
-                foreach ($oldRecoveryCodes as $oldRecoveryCode) {
-                    $oldRecoveryCode->setDeleted(TRUE);
-                    $this->em->persist($oldRecoveryCode);
-                }
+            if ($userPass !== NULL && $passCode === NULL && password_verify($userPass, $user->getPass())) {
+                $passValid = TRUE;
+                $_SESSION['pass_code'] = GeneralUtility::generateCode(6);
+            } elseif (isset($_SESSION['pass_code']) && $_SESSION['pass_code'] === $passCode) {
+                $passValid = TRUE;
+                $code = $request->getParam('tf_code');
+                $checkResult = $ga->verifyCode($secret, $code, 2); // 2 = 2*30sec clock tolerance
                 
-                // create unique recover codes
-                $countCodes = 0;
-                $recoveryCodes = [];
-                do {
-                    $newRecoveryCode = GeneralUtility::generateCode();
-                    $newEncryptRecoveryCode = GeneralUtility::encryptPassword($newRecoveryCode);
-                    $recoveryCode = $this->em->getRepository('App\Entity\RecoveryCode')->findOneBy(['code' => $newEncryptRecoveryCode]);
+                if ($checkResult) {
+                    $user->setTwoFactor(TRUE);
+                    $this->em->flush($user);
+                    unset($_SESSION['pass_code']);
 
-                    if (!($recoveryCode instanceof \App\Entity\RecoveryCode)) {
-                        $recoveryCode = new RecoveryCode();
-                        $recoveryCode->setCode($newEncryptRecoveryCode)
-                                ->setUser($user);
-                        $this->em->persist($recoveryCode);
-                        $recoveryCodes[] = $newRecoveryCode;
-                        $countCodes++;
+                    // disable old recovery codes
+                    $oldRecoveryCodes = $this->em->getRepository('App\Entity\RecoveryCode')->findBy(['user' => $this->currentUser]);
+                    foreach ($oldRecoveryCodes as $oldRecoveryCode) {
+                        $oldRecoveryCode->setDeleted(TRUE);
+                        $this->em->remove($oldRecoveryCode);
                     }
-                } while ($countCodes < 5);
-                
-                // save all changes
-                $this->em->flush();
-                
-                return $this->view->render($response, 'user/recovery-codes.html.twig', array_merge($args, 
-                    [
-                        'recoveryCodes' => $recoveryCodes,
-                    ]
-                ));
+
+                    // create unique recover codes
+                    $countCodes = 0;
+                    $recoveryCodes = [];
+                    do {
+                        $newRecoveryCode = GeneralUtility::generateCode();
+                        $newEncryptRecoveryCode = GeneralUtility::encryptPassword($newRecoveryCode);
+                        $recoveryCode = $this->em->getRepository('App\Entity\RecoveryCode')->findOneBy(['code' => $newEncryptRecoveryCode]);
+
+                        if (!($recoveryCode instanceof \App\Entity\RecoveryCode)) {
+                            $recoveryCode = new RecoveryCode();
+                            $recoveryCode->setCode($newEncryptRecoveryCode)
+                                    ->setUser($user);
+                            $this->em->persist($recoveryCode);
+                            $recoveryCodes[] = $newRecoveryCode;
+                            $countCodes++;
+                        }
+                    } while ($countCodes < 5);
+
+                    // save all changes
+                    $this->em->flush();
+
+                    return $this->view->render($response, 'user/recovery-codes.html.twig', array_merge($args, 
+                        [
+                            'recoveryCodes' => $recoveryCodes,
+                        ]
+                    ));
+                }
             }
         }
         
@@ -190,6 +207,8 @@ class UserController extends BaseController {
             [
                 'secret' => $secret,
                 'qr' => $ga->getQRCodeGoogleUrl($user->getName(), $secret, 'Slim Skeleton'),
+                'passValid' => $passValid,
+                'passCode' => isset($_SESSION['pass_code']) ? $_SESSION['pass_code'] : '',
             ]
         ));
     }
@@ -222,14 +241,15 @@ class UserController extends BaseController {
                 $checkResult = $ga->verifyCode($secret, $code, 2); // 2 = 2*30sec clock tolerance
                 
                 if ($checkResult === FALSE) {
-                    $userRecoveryCodes = $this->em->getRepository('App\Entity\RecoveryCode')->findBy(['user' => $user->getId(), 'deleted' => 0]);
+                    $userRecoveryCodes = $this->em->getRepository('App\Entity\RecoveryCode')->findBy(['user' => $user->getId()]);
                     
                     if (is_array($userRecoveryCodes) && count($userRecoveryCodes) > 0) {
                         foreach ($userRecoveryCodes as $recoveryCode) {
-                            if (!$recoveryCode->isDeleted() && password_verify($code, $recoveryCode->getCode())) {
+                            if (password_verify($code, $recoveryCode->getCode())) {
                                 $checkResult = TRUE;
-                                $recoveryCode->setDeleted(TRUE);
-                                $this->em->flush($recoveryCode);
+//                                $recoveryCode->setDeleted(TRUE);
+                                $this->em->remove($recoveryCode);
+                                $this->em->flush();
                                 break;
                             }
                         }

@@ -11,6 +11,13 @@ class RecoveryCode extends \App\MappedSuperclass\Base
 {
     
     /**
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="UUID")
+     * @ORM\Column(type="string")
+     */
+    protected $id;
+    
+    /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="recoveryCodes")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */

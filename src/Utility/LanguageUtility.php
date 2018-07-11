@@ -42,7 +42,7 @@ class LanguageUtility {
     }
     
     /**
-     * Detects browser languge and redirects to browser languge related page
+     * Detects browser language and redirects to browser language related page
      * 
      * @param string $routeName
      * @param array $routeArgs

@@ -1,15 +1,15 @@
 {
     "name": "insanitymeetshh/slim-skeleton",
     "description": "Slim 3 Skeleton Fork - InsanityMeetsHH",
-    "version": "4.1.0",
-    "keywords": ["microframework", "rest", "router", "psr7", "doctrine", "twig", "localisation", "acl", "login", "csrf"],
-    "homepage": "https://github.com/InsanityMeetsHH/Slim-Skeleton",
+    "version": "4.2.0-1",
+    "keywords": ["microframework", "rest", "router", "psr7", "doctrine", "twig", "localisation", "acl", "login", "csrf", "2fa"],
+    "homepage": "http://slim3.insanitymeetshh.net",
     "license": "MIT",
     "authors": [
         {
             "name": "InsanityMeetsHH",
             "email": "software@insanitymeetshh.net",
-            "homepage": "http://www.insanitymeetshh.net/"
+            "homepage": "http://www.insanitymeetshh.net"
         },
         {
             "name": "Josh Lockhart",
@@ -46,7 +46,7 @@
         "process-timeout" : 0
     },
     "scripts": {
-        "start": "php -S localhost:8080 -t public public/index.php",
+        "start": "php -S localhost:8080 -t public",
         "test": "phpunit"
     }
 

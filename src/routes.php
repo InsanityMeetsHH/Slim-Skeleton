@@ -34,8 +34,8 @@ $app->add(function (Request $request, Response $response, callable $next) {
 // initialize all routes from all active languages
 foreach ($settings['settings']['locale']['active'] as $activeLocale) {
     // if translation file exists, load file to $locale
-    if (is_readable($settings['settings']['locale']['path'] . $activeLocale . '.php')) {
-        $locale = require $settings['settings']['locale']['path'] . $activeLocale . '.php';
+    if (is_readable($settings['settings']['config_path'] . 'routes-' . $activeLocale . '.php')) {
+        $locale = require $settings['settings']['config_path'] . 'routes-' . $activeLocale . '.php';
         $suffixName = '-' . strtolower($activeLocale);
         
         if (isset($locale['routes']) && is_array($locale['routes'])) {

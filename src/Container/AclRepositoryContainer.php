@@ -54,8 +54,8 @@ class AclRepositoryContainer {
                 // initialize all resources from all active languages
                 foreach ($settings['locale']['active'] as $activeLocale) {
                     // if translation file exists, load file to $locale
-                    if (is_readable($settings['locale']['path'] . $activeLocale . '.php')) {
-                        $locale = require $settings['locale']['path'] . $activeLocale . '.php';
+                    if (is_readable($settings['config_path'] . 'routes-' . $activeLocale . '.php')) {
+                        $locale = require $settings['config_path'] . 'routes-' . $activeLocale . '.php';
 
                         if (isset($locale['routes']) && is_array($locale['routes'])) {
                             foreach ($locale['routes'] as $routeName => $route) {

@@ -23,6 +23,9 @@ return [
         // Cache settings
         'cache_path'  => __DIR__ . '/../cache/',
         
+        // config path
+        'config_path'  => __DIR__ . '/../config/',
+        
         // Locale settings
         'locale' => [
             'autoDetect' => TRUE,

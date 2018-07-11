@@ -30,7 +30,7 @@ return [
     'enable-2fa-step3' => '3. Trage den 6 stelligen Zahlencode der App unten ein.',
     '2fa-secret' => 'Secret',
     'recovery-codes' => 'Handhabe die Codes wie Passwörter und speichere diese sicher weg.<br/>Du wirst diese Codes nur dieses eine mal hier sehen.',
-    'back-to' => 'Zurück zu',
+    'back-to' => 'Zurück zu%1$s',
     '2fa-enabled' => 'Zwei-Faktor-Authentifizierung ist aktiviert.',
     
     // navigation labels
@@ -51,99 +51,4 @@ return [
     'date' => 'd.m.Y',
     'time' => 'H:i:s',
     'datetime' => 'd.m.Y H:i:s',
-    
-    // localized routing (e.g. CONTROLLER-ACTION)
-    'routes' => [
-        'user-enable-two-factor' => [
-            'route'      => '/de/zwei-faktor-aktivieren',
-            'method'     => 'App\Controller\UserController:enableTwoFactor',
-            'methods'    => ['GET', 'POST'],
-            'rolesAllow' => ['member', 'admin', 'superadmin'],
-            'rolesDeny'  => [],
-        ],
-        'user-two-factor' => [
-            'route'      => '/de/zwei-faktor',
-            'method'     => 'App\Controller\UserController:twoFactor',
-            'methods'    => ['GET', 'POST'],
-            'rolesAllow' => ['guest', 'member', 'admin', 'superadmin'],
-            'rolesDeny'  => [],
-        ],
-        'user-login' => [
-            'route'      => '/de/login',
-            'method'     => 'App\Controller\UserController:login',
-            'methods'    => ['GET'],
-            'rolesAllow' => ['guest', 'member', 'admin', 'superadmin'],
-            'rolesDeny'  => [],
-        ],
-        'user-logout' => [
-            'route'      => '/de/logout',
-            'method'     => 'App\Controller\UserController:logout',
-            'methods'    => ['GET'],
-            'rolesAllow' => ['guest', 'member', 'admin', 'superadmin'],
-            'rolesDeny'  => [],
-        ],
-        'user-login-success' => [
-            'route'      => '/de/erfolg',
-            'method'     => 'App\Controller\UserController:loginSuccess',
-            'methods'    => ['GET'],
-            'rolesAllow' => ['member', 'admin', 'superadmin'],
-            'rolesDeny'  => [],
-        ],
-        'user-login-validate' => [
-            'route'      => '/de/validate',
-            'method'     => 'App\Controller\UserController:loginValidate',
-            'methods'    => ['POST'],
-            'rolesAllow' => ['guest', 'member', 'admin', 'superadmin'],
-            'rolesDeny'  => [],
-        ],
-        'user-show' => [
-            'route'      => '/de/profil[/{name}]',
-            'method'     => 'App\Controller\UserController:show',
-            'methods'    => ['GET'],
-            'rolesAllow' => ['guest', 'member', 'admin', 'superadmin'],
-            'rolesDeny'  => [],
-        ],
-        'error-bad-request' => [
-            'route'      => '/de/400',
-            'method'     => 'App\Controller\ErrorController:badRequest',
-            'methods'    => ['GET'],
-            'rolesAllow' => ['guest', 'member', 'admin', 'superadmin'],
-            'rolesDeny'  => [],
-        ],
-        'error-not-allowed' => [
-            'route'      => '/de/405',
-            'method'     => 'App\Controller\ErrorController:notAllowed',
-            'methods'    => ['GET'],
-            'rolesAllow' => ['guest', 'member', 'admin', 'superadmin'],
-            'rolesDeny'  => [],
-        ],
-        'error-not-found' => [
-            'route'      => '/de/404',
-            'method'     => 'App\Controller\ErrorController:notFound',
-            'methods'    => ['GET'],
-            'rolesAllow' => ['guest', 'member', 'admin', 'superadmin'],
-            'rolesDeny'  => [],
-        ],
-        'error-unauthorized' => [
-            'route'      => '/de/401',
-            'method'     => 'App\Controller\ErrorController:unauthorized',
-            'methods'    => ['GET'],
-            'rolesAllow' => ['guest', 'member', 'admin', 'superadmin'],
-            'rolesDeny'  => [],
-        ],
-        'page-example' => [
-            'route'      => '/de/beispiel',
-            'method'     => 'App\Controller\PageController:example',
-            'methods'    => ['GET'],
-            'rolesAllow' => ['guest', 'member', 'admin', 'superadmin'],
-            'rolesDeny'  => [],
-        ],
-        'page-index' => [
-            'route'      => '/de/',
-            'method'     => 'App\Controller\PageController:index',
-            'methods'    => ['GET'],
-            'rolesAllow' => ['guest', 'member', 'admin', 'superadmin'],
-            'rolesDeny'  => [],
-        ],
-    ],
 ];

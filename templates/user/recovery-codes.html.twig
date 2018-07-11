@@ -11,5 +11,5 @@
         {% endfor %}
     {% endif %}
     <br/>
-    {{ 'back-to'|trans }} <a href="{{ path_for('user-show' ~ lk) }}">{{ trans('user-show' ~ ns) }}</a>.
+    {{ 'back-to'|trans({0: 'm'}) }} <a href="{{ path_for('user-show' ~ lk) }}">{{ trans('user-show' ~ ns) }}</a>.
 {% endblock %}

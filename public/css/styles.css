@@ -8,39 +8,39 @@ body {
     width: 100%;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-align: center;
-    color: black;
+    color: grey;
     font-size: 18px;
-    background-color: rgb(100,100,100);
+    background-color: #212121;
 }
 
 h1 {
-    color: #719e40;
+    color: #2E97BF;
     letter-spacing: -3px;
     font-family: 'Lato', sans-serif;
     font-size: 100px;
-    font-weight: 200;
+    font-weight: 400;
     margin-bottom: 0;
 }
 
 h2 {
-    color: #719e40;
-    font-weight: 200;
+    color: #2E97BF;
+    font-weight: 400;
 }
 
 a:visited {
-    color: #648c39;
+    color: #277e9e;
 }
 
 a, a:focus, a:hover, a.current:focus, a.current:hover {
-    color: #719e40;
+    color: #2E97BF;
 }
 
 a.current {
-    color: #aff473;
+    color: #3bbfef;
 }
 
 ul {
     text-align: left;
-    width: 150px;
+    width: 180px;
     margin: auto;
 }

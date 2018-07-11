@@ -1,0 +1,15 @@
+{% extends "layouts/layout.html.twig" %}
+
+{% block content %}
+    <br/>
+    {{ 'recovery-codes'|trans|raw }}<br/>
+    <br/>
+    {# loop through records #}
+    {% if recoveryCodes %}
+        {% for recoveryCode in recoveryCodes %}
+            {{ recoveryCode }}<br/>
+        {% endfor %}
+    {% endif %}
+    <br/>
+    {{ 'back-to'|trans }} <a href="{{ path_for('user-show' ~ lk) }}">{{ trans('user-show' ~ ns) }}</a>.
+{% endblock %}

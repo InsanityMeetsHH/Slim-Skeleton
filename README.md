@@ -9,6 +9,7 @@
 * [Monolog 1.x](https://seldaek.github.io/monolog/)
 * [Doctrine ORM 2.x](https://packagist.org/packages/doctrine/orm)
 * [Geggleto ACL 1.x](https://github.com/geggleto/geggleto-acl)
+* [Google Authenticator](https://github.com/PHPGangsta/GoogleAuthenticator)
 
 ## Required
 * PHP => 5.5

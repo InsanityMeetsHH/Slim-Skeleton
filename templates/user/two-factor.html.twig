@@ -1,0 +1,12 @@
+{% extends "layouts/layout.html.twig" %}
+
+{% block content %}
+    <br><br>
+    {{ 'auth-code'|trans }}
+    <form action="{{ path_for('user-two-factor' ~ lk) }}" method="post">
+        <input type="hidden" name="{{ csrf.keys.name }}" value="{{ csrf.name }}">
+        <input type="hidden" name="{{ csrf.keys.value }}" value="{{ csrf.value }}">
+        <input type="text" name="tf_code" placeholder="{{ 'code'|trans }}" autofocus="autofocus" />
+        <input type="submit" name="send" value="{{ 'submit'|trans }}" />
+    </form>
+{% endblock %}

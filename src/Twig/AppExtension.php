@@ -2,6 +2,7 @@
 namespace App\Twig;
 
 use App\Container\AclRepositoryContainer;
+use App\Utility\GeneralUtility;
 use App\Utility\LanguageUtility;
 
 /**
@@ -30,6 +31,8 @@ class AppExtension extends \Twig_Extension {
         return [
             new \Twig_SimpleFunction('has_role', [$this, 'hasRole']),
             new \Twig_SimpleFunction('is_allowed', [$this, 'isAllowed']),
+            new \Twig_SimpleFunction('current_user', [$this, 'currentUser']),
+            new \Twig_SimpleFunction('current_role', [$this, 'currentRole']),
             new \Twig_SimpleFunction('langswitch', [$this, 'langSwitch']),
             new \Twig_SimpleFunction('language', [$this, 'language']),
             new \Twig_SimpleFunction('trans', [$this, 'trans']),
@@ -131,5 +134,23 @@ class AppExtension extends \Twig_Extension {
         }
         
         return FALSE;
+    }
+    
+    /**
+     * Returns current user id or NULL if user not logged in.
+     * 
+     * @return mixed
+     */
+    public function currentUser() {
+        return GeneralUtility::getCurrentUser();
+    }
+    
+    /**
+     * Returns current role or 'guest' if user not logged in.
+     * 
+     * @return mixed
+     */
+    public function currentRole() {
+        return GeneralUtility::getCurrentRole();
     }
 }

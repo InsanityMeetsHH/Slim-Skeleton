@@ -161,7 +161,7 @@ class UserController extends BaseController {
                 $checkResult = $ga->verifyCode($secret, $code, 2); // 2 = 2*30sec clock tolerance
                 
                 if ($checkResult) {
-                    $user->setTwoFactor(TRUE);
+//                    $user->setTwoFactor(TRUE);
                     $this->em->flush($user);
                     unset($_SESSION['pass_code']);
 

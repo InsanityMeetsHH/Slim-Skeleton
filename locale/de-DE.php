@@ -27,7 +27,7 @@ return [
     'enable-2fa' => 'Aktiviere Zwei-Faktor-Authentifizierung',
     'enable-2fa-step1' => '1. Installiere "Google Authenticator" (<a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=de" target="_blank">Android</a> oder <a href="https://itunes.apple.com/de/app/google-authenticator/id388497605?mt=8" target="_blank">iOS</a>) auf deinem Mobilgerät.',
     'enable-2fa-step2' => '2. Trage "Secret" in die App ein oder scanne den QR-Code.<br/>Handhabe "Secret" wie ein Passwort und speichere diesen sicher weg.',
-    'enable-2fa-step3' => '3. Trage den 6-Stelligen Zahlencode der App unten ein.',
+    'enable-2fa-step3' => '3. Trage den 6 stelligen Zahlencode der App unten ein.',
     '2fa-secret' => 'Secret',
     'recovery-codes' => 'Handhabe die Codes wie Passwörter und speichere diese sicher weg.<br/>Du wirst diese Codes nur dieses eine mal hier sehen.',
     'back-to' => 'Zurück zu',

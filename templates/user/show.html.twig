@@ -2,6 +2,7 @@
 
 {% block content %}
     {% if user %}
+        <br/>
         {{ 'id'|trans }}: {{ user.id }}<br/>
         {{ 'name'|trans }}: {{ user.name }}<br/>
         {{ 'role'|trans }}: {{ user.role.name|trans }}<br/>

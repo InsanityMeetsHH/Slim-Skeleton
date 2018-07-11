@@ -6,10 +6,12 @@
         {{ 'enable-2fa-step1'|trans|raw }}<br/>
         <br/>
         {{ 'enable-2fa-step2'|trans|raw }}<br/>
+        <br/>
         {{ '2fa-secret'|trans }}: {{ secret }}<br/>
         <img src="{{ qr }}" alt=""/><br/>
         <br/>
         {{ 'enable-2fa-step3'|trans|raw }}<br/>
+        <br/>
         {{ 'auth-code'|trans }}
         <form action="{{ path_for('user-enable-two-factor' ~ lk) }}" method="post">
             <input type="hidden" name="{{ csrf.keys.name }}" value="{{ csrf.name }}">

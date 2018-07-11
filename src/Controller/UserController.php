@@ -72,7 +72,7 @@ class UserController extends BaseController {
         $user = $this->em->getRepository('App\Entity\User')->findOneBy(['name' => $request->getParam('user_name'), 'deleted' => 0]);
         unset($_SESSION['tempUser']);
         
-        // if user exist
+        // if user exists
         if ($user instanceof \App\Entity\User) {
             // if password valid
             if (password_verify($request->getParam('user_pass'), $user->getPass())) {

@@ -36,4 +36,22 @@ class GeneralUtility {
 
         return $code;
     }
+    
+    /**
+     * Returns current user id or NULL if user not logged in.
+     * 
+     * @return mixed
+     */
+    static function getCurrentUser() {
+        return isset($_SESSION['currentUser']) ? $_SESSION['currentUser'] : NULL;
+    }
+    
+    /**
+     * Returns current role or 'guest' if user not logged in.
+     * 
+     * @return string
+     */
+    static function getCurrentRole() {
+        return isset($_SESSION['currentRole']) ? $_SESSION['currentRole'] : 'guest';
+    }
 }

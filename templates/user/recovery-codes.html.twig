@@ -2,8 +2,7 @@
 
 {% block content %}
     <br/>
-    Treat this codes like passwords and save them.<br/>
-    You will see them only this time.<br/>
+    {{ 'recovery-codes'|trans|raw }}<br/>
     <br/>
     {# loop through records #}
     {% if recoveryCodes %}
@@ -12,5 +11,5 @@
         {% endfor %}
     {% endif %}
     <br/>
-    Back to <a href="{{ path_for('user-show' ~ lk) }}">{{ trans('user-show' ~ ns) }}</a>.
+    {{ 'back-to'|trans }} <a href="{{ path_for('user-show' ~ lk) }}">{{ trans('user-show' ~ ns) }}</a>.
 {% endblock %}

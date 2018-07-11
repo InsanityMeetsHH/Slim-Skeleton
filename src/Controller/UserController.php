@@ -229,11 +229,12 @@ class UserController extends BaseController {
             $ga = new \PHPGangsta_GoogleAuthenticator();
             $secret = $user->getTwoFactorSecret();
 
+            // if 2FA is disabled
             if (!$user->hasTwoFactor()) {
                 $_SESSION['currentRole'] = $user->getRole()->getName();
                 $_SESSION['currentUser'] = $user->getId();
                 $this->logger->info("User " . $user->getId() . " logged in - UserController:twoFactor");
-                return $response->withRedirect($this->router->pathFor('user-login-success-' . $this->currentLocale));
+                return $response->withRedirect($this->router->pathFor('user-show-' . $this->currentLocale));
             }
 
             if ($request->isPost()) {
@@ -261,7 +262,7 @@ class UserController extends BaseController {
                     $_SESSION['currentRole'] = $user->getRole()->getName();
                     $_SESSION['currentUser'] = $user->getId();
                     $this->logger->info("User " . $user->getId() . " logged in - UserController:twoFactor");
-                    return $response->withRedirect($this->router->pathFor('user-login-success-' . $this->currentLocale));
+                    return $response->withRedirect($this->router->pathFor('user-show-' . $this->currentLocale));
                 }
             }
         } else {

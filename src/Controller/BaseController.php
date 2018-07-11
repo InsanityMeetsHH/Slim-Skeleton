@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Container\AclRepositoryContainer;
+use App\Utility\GeneralUtility;
 use App\Utility\LanguageUtility;
 
 /**
@@ -48,8 +49,8 @@ class BaseController {
         $this->container = $container;
         $this->csrf = $container->get("csrf");
         $this->currentLocale = strtolower(LanguageUtility::getCurrentLocale());
-        $this->currentRole = isset($_SESSION['currentRole']) ? $_SESSION['currentRole'] : 'guest';
-        $this->currentUser = isset($_SESSION['currentUser']) ? $_SESSION['currentUser'] : NULL;
+        $this->currentRole = GeneralUtility::getCurrentRole();
+        $this->currentUser = GeneralUtility::getCurrentUser();
         $this->logger = $container->get("logger");
         $this->router = $container->get("router");
         $this->view = $container->get("view");

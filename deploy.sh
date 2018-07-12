@@ -1,5 +1,5 @@
-# git status
-# git pull
+git status
+git pull
 
-# php ../composer.phar install
-# php doctrine orm:schema-tool:update --force
+/usr/bin/php7.1-cli ../composer.phar install
+/usr/bin/php7.1-cli doctrine orm:schema-tool:update --force

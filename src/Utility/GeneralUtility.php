@@ -1,6 +1,8 @@
 <?php
 namespace App\Utility;
 
+use App\Container\AppContainer;
+
 class GeneralUtility {
     
     /**
@@ -53,5 +55,39 @@ class GeneralUtility {
      */
     static function getCurrentRole() {
         return isset($_SESSION['currentRole']) ? $_SESSION['currentRole'] : 'guest';
+    }
+    
+    /**
+     * Returns flash message text.
+     * 
+     * @return string
+     */
+    static function getFlashMessage() {
+        $flash = AppContainer::getInstance()->getContainer()->get('flash');
+        $flashMessage = $flash->getMessage('message');
+        $message = $style = '';
+        
+        if (is_array($flashMessage)) {
+            list($message, $style) = explode(';', $flashMessage[0]);
+        }
+        
+        return $message;
+    }
+    
+    /**
+     * Returns flash message style.
+     * 
+     * @return string
+     */
+    static function getFlashMessageStyle() {
+        $flash = AppContainer::getInstance()->getContainer()->get('flash');
+        $flashMessage = $flash->getMessage('message');
+        $message = $style = '';
+        
+        if (is_array($flashMessage)) {
+            list($message, $style) = explode(';', $flashMessage[0]);
+        }
+        
+        return $style;
     }
 }

@@ -27,11 +27,9 @@ class PageController extends BaseController {
         }
 
         // Render view
-        return $this->view->render($response, 'page/index.html.twig', array_merge($args, 
-            [
-                'users' => $users,
-            ]
-        ));
+        return $this->view->render($response, 'page/index.html.twig', array_merge($args, [
+            'users' => $users,
+        ]));
     }
 
     /**

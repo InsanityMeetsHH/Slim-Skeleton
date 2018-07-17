@@ -10,6 +10,9 @@ use App\Utility\LanguageUtility;
  */
 class BaseController {
     
+    const STYLE_DANGER = 'danger';
+    const STYLE_SUCCESS = 'success';
+    
     /** @var \Geggleto\Acl\AclRepository $aclRepository **/
     protected $aclRepository;
     

@@ -71,23 +71,6 @@ class GeneralUtility {
             list($message, $style) = explode(';', $flashMessage[0]);
         }
         
-        return $message;
-    }
-    
-    /**
-     * Returns flash message style.
-     * 
-     * @return string
-     */
-    static function getFlashMessageStyle() {
-        $flash = AppContainer::getInstance()->getContainer()->get('flash');
-        $flashMessage = $flash->getMessage('message');
-        $message = $style = '';
-        
-        if (is_array($flashMessage)) {
-            list($message, $style) = explode(';', $flashMessage[0]);
-        }
-        
-        return $style;
+        return ['text' => $message, 'style' => $style];
     }
 }

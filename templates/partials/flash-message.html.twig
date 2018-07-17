@@ -1,0 +1,5 @@
+{% if message.text|length > 0 %}
+    <div class="message message-{{ message.style }} text-center">
+        {{ message.text }}
+    </div>
+{% endif %}

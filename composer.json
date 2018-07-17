@@ -1,7 +1,7 @@
 {
     "name": "insanitymeetshh/slim-skeleton",
     "description": "Slim 3 Skeleton Fork - InsanityMeetsHH",
-    "version": "4.3.0-1",
+    "version": "4.3.0-2",
     "keywords": ["microframework", "rest", "router", "psr7", "doctrine", "twig", "localisation", "acl", "login", "csrf", "2fa"],
     "homepage": "http://slim3.insanitymeetshh.net",
     "license": "MIT",

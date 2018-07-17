@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Entity\RecoveryCode;
 use App\Utility\GeneralUtility;
+use App\Utility\LanguageUtility;
 
 /**
  * UserController is used for pages in context of user
@@ -40,11 +41,10 @@ class UserController extends BaseController {
         }
         
         // Render view
-        return $this->view->render($response, 'user/show.html.twig', array_merge($args, 
-            [
-                'user' => $user,
-            ]
-        ));
+        return $this->view->render($response, 'user/show.html.twig', array_merge($args, [
+            'message' => GeneralUtility::getFlashMessage(),
+            'user' => $user,
+        ]));
     }
     
     /**
@@ -192,25 +192,22 @@ class UserController extends BaseController {
 
                     // save all changes
                     $this->em->flush();
+                    $this->flash->addMessage('message', LanguageUtility::trans('2fa-enabled') . ';' . self::STYLE_SUCCESS);
 
-                    return $this->view->render($response, 'user/recovery-codes.html.twig', array_merge($args, 
-                        [
-                            'recoveryCodes' => $recoveryCodes,
-                        ]
-                    ));
+                    return $this->view->render($response, 'user/recovery-codes.html.twig', array_merge($args, [
+                        'recoveryCodes' => $recoveryCodes,
+                    ]));
                 }
             }
         }
         
         // Render view
-        return $this->view->render($response, 'user/enable-two-factor.html.twig', array_merge($args, 
-            [
-                'secret' => $secret,
-                'qr' => $ga->getQRCodeGoogleUrl($user->getName(), $secret, 'Slim Skeleton'),
-                'passValid' => $passValid,
-                'passCode' => isset($_SESSION['pass_code']) ? $_SESSION['pass_code'] : '',
-            ]
-        ));
+        return $this->view->render($response, 'user/enable-two-factor.html.twig', array_merge($args, [
+            'secret' => $secret,
+            'qr' => $ga->getQRCodeGoogleUrl($user->getName(), $secret, 'Slim Skeleton'),
+            'passValid' => $passValid,
+            'passCode' => isset($_SESSION['pass_code']) ? $_SESSION['pass_code'] : '',
+        ]));
     }
     
     /**

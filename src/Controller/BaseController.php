@@ -10,11 +10,17 @@ use App\Utility\LanguageUtility;
  */
 class BaseController {
     
+    const STYLE_DANGER = 'danger';
+    const STYLE_SUCCESS = 'success';
+    
     /** @var \Geggleto\Acl\AclRepository $aclRepository **/
     protected $aclRepository;
     
     /** @var \Doctrine\ORM\EntityManager $em **/
     protected $em;
+    
+    /** @var \Slim\Flash\Messages $flash **/
+    protected $flash;
     
     /** @var \Slim\Container $container **/
     protected $container;
@@ -46,6 +52,7 @@ class BaseController {
     public function __construct($container) {
         $this->aclRepository = AclRepositoryContainer::getInstance();
         $this->em = $container->get("em");
+        $this->flash = $container->get("flash");
         $this->container = $container;
         $this->csrf = $container->get("csrf");
         $this->currentLocale = strtolower(LanguageUtility::getCurrentLocale());

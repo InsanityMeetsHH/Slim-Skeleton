@@ -6,6 +6,7 @@
 * [Slim 3.x](https://www.slimframework.com)
 * [Slim Twig View 2.x](https://github.com/slimphp/Twig-View)
 * [Slim CSRF 0.x](https://github.com/slimphp/Slim-Csrf)
+* [Slim Flash 0.x](https://github.com/slimphp/Slim-Flash)
 * [Monolog 1.x](https://seldaek.github.io/monolog/)
 * [Doctrine ORM 2.x](https://packagist.org/packages/doctrine/orm)
 * [Geggleto ACL 1.x](https://github.com/geggleto/geggleto-acl)

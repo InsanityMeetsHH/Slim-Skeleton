@@ -3,12 +3,12 @@
 {# ns = naviagtion suffix #}
 {% set ns = '-label' %}
 <!DOCTYPE html>
-<html>
+<html lang="{{ lk|slice(1, 2) }}">
     <head>
         <meta charset="utf-8"/>
         <title>Slim 3 Skeleton Fork - InsanityMeetsHH</title>
         <link href="//fonts.googleapis.com/css?family=Lato:300" rel="stylesheet" type="text/css">
-        <link href="{{ base_url() }}/css/styles.css" rel="stylesheet" type="text/css">
+        <link href="{{ base_url() }}/css/styles.css?v=4.3.0" rel="stylesheet" type="text/css">
         
     </head>
     <body>
@@ -19,6 +19,7 @@
         </h2>
         {{ include('partials/langswitch.html.twig') }}
         {{ include('partials/navigation.html.twig') }}
+        {{ include('partials/flash-message.html.twig') }}
         
         {% block content %}{% endblock %}
     </body>

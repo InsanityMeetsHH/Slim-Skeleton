@@ -3,6 +3,11 @@
 
 $container = $app->getContainer();
 
+// Flash Message
+$container['flash'] = function () {
+    return new \Slim\Flash\Messages();
+};
+
 // CSRF
 $container['csrf'] = function ($c) {
     $guard = new \Slim\Csrf\Guard();

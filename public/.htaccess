@@ -1,5 +1,8 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteCond %{HTTP_HOST} insanitymeetshh\.net
+  RewriteRule ^(.*)$ https://slim3.insanitymeetshh.net/$1 [L,R=301]
 
   # Some hosts may require you to use the `RewriteBase` directive.
   # Determine the RewriteBase automatically and set it as environment variable.

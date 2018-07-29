@@ -38,7 +38,7 @@ Rename `config\additional-settings.dist` to `config\additional-settings.php`.
 
 Change `public_path` if you run the project in a sub directory.
 
-If you want to use **_not_** MySQL and/or your server is **_not_** 127.0.0.1 then you have to add [driver](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L48) and/or [host](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L49) in [additional-settings.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/additional-settings.dist#L6)
+If you want to use **_not_** MySQL and/or your server is **_not_** 127.0.0.1 then you have to add [driver](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L51) and/or [host](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L52) in [additional-settings.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/additional-settings.dist#L6)
 
 Change database conditions in `config\additional-settings.php` (without `dbname`).
 ```bash
@@ -60,15 +60,15 @@ $ php doctrine dbal:import sql/all-records.sql
 * Duplicate one existing file in folder `locale/` (e.g. copy `locale/de-DE.php` to `locale/fr-FR.php`)
 * Change route prefix from `/de/` to `/fr/` in `locale/fr-FR.php`
 * You can also define paths like `/fr-be/` (`locale/fr-BE.php`) for example
-* If you want to show language in langswitch [config/settings.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L31)
+* If you want to show language in langswitch [config/settings.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L34)
 * Add case for `fr/` in [src/localisation.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/localisation.php#L18)
 
 ## ACL settings
 With [Geggleto ACL](https://github.com/geggleto/geggleto-acl), routes are protected by role the current user has. By default every new route is not accessable until you give the route roles.
-Routes are defined in the locale files (e.g. [de-DE.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/locale/de-DE.php#L44)).
-Any other resource is defined in [settings.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L58).
-Inside the Twig templates you can use ACL functions [has_role](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/partials/navigation.html.twig#L5) and [is_allowed](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/page/index.html.twig#L14).
-Inside controllers you can also use this ACL functions and [many more](https://github.com/geggleto/geggleto-acl/blob/master/src/AclRepository.php) (e.g. [is_allowed](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Controller/UserController.php#L19)).
+Routes are defined in the route files (e.g. [routes-de-DE.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/routes-de-DE.php)).
+Any other resource is defined in [settings.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L61).
+Inside the Twig templates you can use ACL functions [has_role](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/partials/navigation.html.twig#L5) and [is_allowed](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/page/index.html.twig#L17).
+Inside controllers you can also use this ACL functions and [many more](https://github.com/geggleto/geggleto-acl/blob/master/src/AclRepository.php) (e.g. [is_allowed](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Controller/UserController.php#L23)).
 
 ## Troubleshooting
 In some cases you'll get the error message "Internal Server Error".

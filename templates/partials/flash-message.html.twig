@@ -1,5 +1,7 @@
-{% if message.text|length > 0 %}
-    <div class="message message-{{ message.style }} text-center">
+{% if flashMessages|length > 0 %}
+    {% for message in flashMessages %}
+    <div class="message message-{{ message.style }}">
         {{ message.text }}
     </div>
+    {% endfor %}
 {% endif %}

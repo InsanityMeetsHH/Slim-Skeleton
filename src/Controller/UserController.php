@@ -42,7 +42,7 @@ class UserController extends BaseController {
         
         // Render view
         return $this->view->render($response, 'user/show.html.twig', array_merge($args, [
-            'message' => GeneralUtility::getFlashMessage(),
+            'flashMessages' => GeneralUtility::getFlashMessages(),
             'user' => $user,
         ]));
     }

@@ -43,6 +43,9 @@ class BaseController {
     /** @var \Slim\Router $router **/
     protected $router;
     
+    /** @var array $settings **/
+    protected $settings;
+    
     /** @var \Slim\Views\Twig $view **/
     protected $view;
 
@@ -60,6 +63,7 @@ class BaseController {
         $this->currentUser = GeneralUtility::getCurrentUser();
         $this->logger = $container->get("logger");
         $this->router = $container->get("router");
+        $this->settings = $container->get("settings");
         $this->view = $container->get("view");
     }
 }

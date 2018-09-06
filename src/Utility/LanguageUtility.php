@@ -52,11 +52,11 @@ class LanguageUtility {
         $app = AppContainer::getInstance();
         $settings = $app->getContainer()->get('settings');
 
-        // if server has HTTP_ACCEPT_LANGUAGE and autoDetect is active
+        // if server has HTTP_ACCEPT_LANGUAGE and auto_detect is active
         if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) 
                 && is_string($_SERVER['HTTP_ACCEPT_LANGUAGE']) 
-                && isset($settings['locale']['autoDetect'])
-                && $settings['locale']['autoDetect'] === TRUE) {
+                && isset($settings['locale']['auto_detect'])
+                && $settings['locale']['auto_detect'] === TRUE) {
             $browserLocales = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
             $localeQuality = [];
 
@@ -83,7 +83,7 @@ class LanguageUtility {
 
             // if $localeQuality could decoded
             if (is_array($localeQuality) && count($localeQuality) > 0) {
-                foreach ($settings['locale']['active'] as $activeLocale) {
+                foreach ($settings['locale']['active'] as $activeLocale => $domain) {
                     $locale = $localeQuality[0]['locale'];
 
                     // locale has no '-' sign
@@ -93,14 +93,14 @@ class LanguageUtility {
                     }
 
                     // if translation file exists, load file to $locale
-                    $autoDetectCookie = isset($_COOKIE['autoDetect']) ? (int)$_COOKIE['autoDetect'] : 0;
+                    $autoDetectCookie = isset($_COOKIE['auto_detect']) ? (int)$_COOKIE['auto_detect'] : 0;
                     if (is_readable($settings['locale']['path'] . $activeLocale . '.php') 
                             && $activeLocale === $locale && $autoDetectCookie !== 1) {
                         $suffixName = '-' . strtolower($activeLocale);
                         $newRouteName = substr($routeName, 0, -6) . $suffixName;
                         $compiledRoute = $app->getContainer()->get('router')->pathFor($newRouteName, $routeArgs);
 
-                        setcookie('autoDetect', 1, 0, '/');
+                        setcookie('auto_detect', 1, 0, '/');
                         // if browser language unlike current language 
                         if ($routeName !== $newRouteName) {
                             header('Location: ' . $compiledRoute);

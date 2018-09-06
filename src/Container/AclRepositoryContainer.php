@@ -52,15 +52,19 @@ class AclRepositoryContainer {
                 $roleNames[] = $roleName;
 
                 // initialize all resources from all active languages
-                foreach ($settings['locale']['active'] as $activeLocale) {
+                foreach ($settings['locale']['active'] as $activeLocale => $domain) {
                     // if translation file exists, load file to $locale
                     if (is_readable($settings['config_path'] . 'routes-' . $activeLocale . '.php')) {
-                        $locale = require $settings['config_path'] . 'routes-' . $activeLocale . '.php';
-
-                        if (isset($locale['routes']) && is_array($locale['routes'])) {
-                            foreach ($locale['routes'] as $routeName => $route) {
+                        $routes = require $settings['config_path'] . 'routes-' . $activeLocale . '.php';
+                        
+                        if (isset($routes) && is_array($routes)) {
+                            foreach ($routes as $routeName => $route) {
                                 // if is first role
-                                if ($roleKey === 0) {
+//                                if ($roleKey === 0) {
+//                                    $allResources[] = $route['route'];
+//                                }
+                                
+                                if (!in_array($route['route'], $allResources)) {
                                     $allResources[] = $route['route'];
                                 }
 
@@ -76,8 +80,8 @@ class AclRepositoryContainer {
                     }
                 }
                 
-                if (isset($settings['aclResources']) && is_array($settings['aclResources'])) {
-                    foreach ($settings['aclResources'] as $aclResource => $aclRoles) {
+                if (isset($settings['acl_resources']) && is_array($settings['acl_resources'])) {
+                    foreach ($settings['acl_resources'] as $aclResource => $aclRoles) {
                         // if is first role
                         if ($roleKey === 0) {
                             $allResources[] = $aclResource;

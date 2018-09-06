@@ -1,14 +1,12 @@
 <?php
 namespace App\Twig;
 
-use App\Container\AclRepositoryContainer;
-use App\Utility\GeneralUtility;
 use App\Utility\LanguageUtility;
 
 /**
- * General twig extension for this application
+ * Language twig extension
  */
-class AppExtension extends \Twig_Extension {
+class LanguageExtension extends \Twig_Extension {
     /**
      * @var \Slim\Container $container
      */
@@ -19,7 +17,7 @@ class AppExtension extends \Twig_Extension {
     }
 
     public function getName() {
-        return 'app_ext';
+        return 'language_ext';
     }
 
     /**
@@ -30,12 +28,9 @@ class AppExtension extends \Twig_Extension {
     public function getFunctions() {
         return [
             new \Twig_SimpleFunction('current_locale', [$this, 'currentLocale']),
-            new \Twig_SimpleFunction('current_user', [$this, 'currentUser']),
-            new \Twig_SimpleFunction('current_role', [$this, 'currentRole']),
+            new \Twig_SimpleFunction('genericLanguage', [$this, 'genericLanguage']),
             new \Twig_SimpleFunction('langswitch', [$this, 'langSwitch']),
             new \Twig_SimpleFunction('language', [$this, 'language']),
-            new \Twig_SimpleFunction('is_allowed', [$this, 'isAllowed']),
-            new \Twig_SimpleFunction('has_role', [$this, 'hasRole']),
             new \Twig_SimpleFunction('trans', [$this, 'trans']),
         ];
     }
@@ -62,15 +57,24 @@ class AppExtension extends \Twig_Extension {
         $currentRouteName = substr($_SESSION['route'], 0, strlen($_SESSION['route']) - 5);
         $langSwitch = [];
         
-        foreach ($settings['locale']['active'] as $activeLocale) {
+        foreach ($settings['locale']['active'] as $activeLocale => $domain) {
             // if translation file exists, load file to $locale
-            if (is_readable($settings['locale']['path'] . $activeLocale . '.php')) {
+            if (is_readable($settings['locale']['path'] . $activeLocale . '.php') && $activeLocale != $settings['locale']['generic_code']) {
+                $routeSuffix = $activeLocale;
                 $locale = require $settings['locale']['path'] . $activeLocale . '.php';
+                $routes = require $settings['config_path'] . 'routes-' . $activeLocale . '.php';
+                $domain = $settings['locale']['active'][$activeLocale];
+                
+                if ($settings['locale']['use_domain'] && !isset($routes[rtrim($currentRouteName, '-')])) {
+                    $routeSuffix = $settings['locale']['generic_code'];
+                }
                 
                 $langSwitch[$currentRouteName . strtolower($activeLocale)] = [
                     'label' => $locale['langswitch-label'],
                     'image' => $locale['langswitch-image'],
-                    'route' => $currentRouteName . strtolower($activeLocale),
+                    'route' => $currentRouteName . strtolower($routeSuffix),
+                    'current' => $domain === $_SERVER['SERVER_NAME'],
+                    'domain' => $_SERVER['REQUEST_SCHEME'] . '://' . $domain,
                     'args' => $_SESSION['route-args'],
                 ];
             }
@@ -86,7 +90,19 @@ class AppExtension extends \Twig_Extension {
      * @return string
      */
     public function language() {
-        return '-' . substr($_SESSION['route'], -5);
+        $settings = $this->container->get('settings');
+        return '-' . strtolower($settings['locale']['code']);
+    }
+    
+    /**
+     * Get generic language code
+     * Sample: {{ genericLanguage() }}
+     * 
+     * @return string
+     */
+    public function genericLanguage() {
+        $settings = $this->container->get('settings');
+        return '-' . strtolower($settings['locale']['generic_code']);
     }
 
     /**
@@ -101,60 +117,6 @@ class AppExtension extends \Twig_Extension {
      */
     public function trans($key, $vars = []) {
         return LanguageUtility::trans($key, $vars);
-    }
-    
-    /**
-     * Checks if given role is current role
-     * 
-     * @param array|string $role
-     * @return bool
-     */
-    public function hasRole($role) {
-        if (is_string($role) && isset($_SESSION['currentRole']) && $_SESSION['currentRole'] === $role) {
-            return TRUE;
-        }
-        
-        if (is_array($role) && isset($_SESSION['currentRole']) && in_array($_SESSION['currentRole'], $role)) {
-            return TRUE;
-        }
-        
-        return FALSE;
-    }
-    
-    /**
-     * Checks if given resource is allowed by current role
-     * 
-     * @param string $resource
-     * @return bool
-     */
-    public function isAllowed($resource) {
-        $aclRepository = AclRepositoryContainer::getInstance();
-        
-        if (is_string($resource) && isset($_SESSION['currentRole']) && $aclRepository->isAllowed($_SESSION['currentRole'], $resource)) {
-            return TRUE;
-        }
-        
-        return FALSE;
-    }
-    
-    /**
-     * Returns current user id or NULL if user not logged in.
-     * Sample: {{ current_user() }}
-     * 
-     * @return mixed
-     */
-    public function currentUser() {
-        return GeneralUtility::getCurrentUser();
-    }
-    
-    /**
-     * Returns current role or 'guest' if user not logged in.
-     * Sample: {{ current_role() }}
-     * 
-     * @return mixed
-     */
-    public function currentRole() {
-        return GeneralUtility::getCurrentRole();
     }
     
     /**

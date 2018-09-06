@@ -29,7 +29,7 @@ class UserController extends BaseController {
             } else {
                 // if user not found
                 $this->logger->info("User '" . $args['name'] . "' not found - UserController:show");
-                return $response->withRedirect($this->router->pathFor('error-not-found-' . $this->currentLocale));
+                return $response->withRedirect($this->router->pathFor('error-not-found-' . strtolower($this->settings['locale']['generic_code'])));
             }
         } elseif (!is_null($this->currentUser) && !isset($args['name']) && $this->aclRepository->isAllowed($this->currentRole, 'show_user')) {
             // if is logged in user and allowed show_user
@@ -37,7 +37,7 @@ class UserController extends BaseController {
         } else {
             // if user is not logged in
             $this->logger->info("User not logged in - UserController:show");
-            return $response->withRedirect($this->router->pathFor('user-login-' . $this->currentLocale));
+            return $response->withRedirect($this->router->pathFor('user-login-' . strtolower($this->settings['locale']['generic_code'])));
         }
         
         // Render view
@@ -86,7 +86,7 @@ class UserController extends BaseController {
         }
         
         // user or password not valid - redirect to login
-        return $response->withRedirect($this->router->pathFor('user-login-' . $this->currentLocale));
+        return $response->withRedirect($this->router->pathFor('user-login-' . strtolower($this->settings['locale']['generic_code'])));
     }
     
     /**
@@ -114,7 +114,7 @@ class UserController extends BaseController {
         $_SESSION['currentRole'] = 'guest';
         unset($_SESSION['currentUser']);
         $this->logger->info("User " . $this->currentUser . " logged out - UserController:logout");
-        return $response->withRedirect($this->router->pathFor('user-login-' . $this->currentLocale));
+        return $response->withRedirect($this->router->pathFor('user-login-' . strtolower($this->settings['locale']['generic_code'])));
     }
     
     /**
@@ -264,7 +264,7 @@ class UserController extends BaseController {
             }
         } else {
             $this->logger->info("User '" . $_SESSION['tempUser'] . "' not found - UserController:twoFactor");
-            return $response->withRedirect($this->router->pathFor('user-login-' . $this->currentLocale));
+            return $response->withRedirect($this->router->pathFor('user-login-' . strtolower($this->settings['locale']['generic_code'])));
         }
         
         // Render view

@@ -70,8 +70,9 @@ $container['view'] = function ($c) {
     $router = $c->get('router');
     $uri = Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
     $view->addExtension(new Slim\Views\TwigExtension($router, $uri));
-    $view->addExtension(new App\Twig\AppExtension($c));
+    $view->addExtension(new App\Twig\AclExtension($c));
     $view->addExtension(new App\Twig\CsrfExtension($c));
+    $view->addExtension(new App\Twig\LanguageExtension($c));
 
     return $view;
 };

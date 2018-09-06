@@ -28,13 +28,17 @@ return [
         
         // Locale settings
         'locale' => [
-            'autoDetect' => TRUE,
-            'code' => 'en-US', // default language
+            'auto_detect' => FALSE,
+            'use_domain' => TRUE,
+            'default_domain' => 'slim3.insanitymeetshh.net',
+            'code' => 'en-US', // default / current language
+            'generic_code' => 'xx-XX', // routes with out localization
             'path' => __DIR__ . '/../locale/',
             'active' => [
-                'de-DE',
-                'en-US',
-            ]
+                'xx-XX' => 0,
+                'en-US' => 'slim3.insanitymeetshh.net',
+                'de-DE' => 'slim3de.insanitymeetshh.net',
+            ],
         ],
         
         // Doctrine settings
@@ -58,7 +62,7 @@ return [
         ],
         
         // resources for acl
-        'aclResources' => [
+        'acl_resources' => [
             'create_user' => ['guest', 'admin', 'superadmin'],
             'edit_user' => ['member', 'admin', 'superadmin'], // edit own user information
             'show_user' => ['member', 'admin', 'superadmin'], // show own user information

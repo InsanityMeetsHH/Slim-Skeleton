@@ -124,7 +124,7 @@ class LanguageUtility {
     /**
      * Returns the current locale code
      * 
-     * @return array
+     * @return string
      */
     static function getCurrentLocale() {
         $settings = AppContainer::getInstance()->getContainer()->get('settings');

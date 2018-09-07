@@ -18,7 +18,7 @@ class UserController extends BaseController {
      * @param array $args
      * @return \Slim\Http\Response
      */
-    public function show($request, $response, $args) {
+    public function showAction($request, $response, $args) {
         // if is other user and current user is alowed show_user_other
         if (isset($args['name']) && $this->aclRepository->isAllowed($this->currentRole, 'show_user_other')) {
             $user = $this->em->getRepository('App\Entity\User')->findOneBy(['name' => $args['name'], 'deleted' => 0]);
@@ -55,7 +55,7 @@ class UserController extends BaseController {
      * @param array $args
      * @return \Slim\Http\Response
      */
-    public function login($request, $response, $args) {
+    public function loginAction($request, $response, $args) {
         // Render view
         return $this->view->render($response, 'user/login.html.twig', array_merge($args, []));
     }
@@ -68,7 +68,7 @@ class UserController extends BaseController {
      * @param array $args
      * @return static
      */
-    public function loginValidate($request, $response, $args) {
+    public function loginValidateAction($request, $response, $args) {
         $user = $this->em->getRepository('App\Entity\User')->findOneBy(['name' => $request->getParam('user_name'), 'deleted' => 0]);
         unset($_SESSION['tempUser']);
         
@@ -97,7 +97,7 @@ class UserController extends BaseController {
      * @param array $args
      * @return \Slim\Http\Response
      */
-    public function loginSuccess($request, $response, $args) {
+    public function loginSuccessAction($request, $response, $args) {
         // Render view
         return $this->view->render($response, 'user/login-success.html.twig', array_merge($args, []));
     }
@@ -110,7 +110,7 @@ class UserController extends BaseController {
      * @param array $args
      * @return \Slim\Http\Response
      */
-    public function logout($request, $response, $args) {
+    public function logoutAction($request, $response, $args) {
         $_SESSION['currentRole'] = 'guest';
         unset($_SESSION['currentUser']);
         $this->logger->info("User " . $this->currentUser . " logged out - UserController:logout");
@@ -125,7 +125,7 @@ class UserController extends BaseController {
      * @param array $args
      * @return \Slim\Http\Response
      */
-    public function enableTwoFactor($request, $response, $args) {
+    public function enableTwoFactorAction($request, $response, $args) {
         $user = $this->em->getRepository('App\Entity\User')->findOneBy(['id' => $this->currentUser]);
         $ga = new \PHPGangsta_GoogleAuthenticator();
         $secret = $user->getTwoFactorSecret();
@@ -218,7 +218,7 @@ class UserController extends BaseController {
      * @param array $args
      * @return \Slim\Http\Response
      */
-    public function twoFactor($request, $response, $args) {
+    public function twoFactorAction($request, $response, $args) {
         $user = $this->em->getRepository('App\Entity\User')->findOneBy(['id' => $_SESSION['tempUser']]);
         
         // if user exists

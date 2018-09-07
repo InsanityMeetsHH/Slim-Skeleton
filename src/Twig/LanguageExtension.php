@@ -12,8 +12,10 @@ class LanguageExtension extends \Twig_Extension {
      */
     private $container;
 
-    public function __construct($container) {
+    public function __construct($container, $router, $uri) {
         $this->container = $container;
+        $this->router = $router;
+        $this->uri = $uri;
     }
 
     public function getName() {
@@ -28,7 +30,8 @@ class LanguageExtension extends \Twig_Extension {
     public function getFunctions() {
         return [
             new \Twig_SimpleFunction('current_locale', [$this, 'currentLocale']),
-            new \Twig_SimpleFunction('genericLanguage', [$this, 'genericLanguage']),
+            new \Twig_SimpleFunction('generic_language', [$this, 'genericLanguage']),
+            new \Twig_SimpleFunction('is_current_locale_path', array($this, 'isCurrentLocalePath')),
             new \Twig_SimpleFunction('langswitch', [$this, 'langSwitch']),
             new \Twig_SimpleFunction('language', [$this, 'language']),
             new \Twig_SimpleFunction('trans', [$this, 'trans']),
@@ -62,7 +65,7 @@ class LanguageExtension extends \Twig_Extension {
             if (is_readable($settings['locale']['path'] . $activeLocale . '.php') && $activeLocale != $settings['locale']['generic_code']) {
                 $routeSuffix = $activeLocale;
                 $locale = require $settings['locale']['path'] . $activeLocale . '.php';
-                $routes = require $settings['config_path'] . 'routes-' . $activeLocale . '.php';
+                $routes = require $settings['config_path'] . 'routes/' . $activeLocale . '.php';
                 $domain = $settings['locale']['active'][$activeLocale];
                 
                 if ($settings['locale']['use_domain'] && !isset($routes[rtrim($currentRouteName, '-')])) {
@@ -73,14 +76,35 @@ class LanguageExtension extends \Twig_Extension {
                     'label' => $locale['langswitch-label'],
                     'image' => $locale['langswitch-image'],
                     'route' => $currentRouteName . strtolower($routeSuffix),
-                    'current' => $domain === $_SERVER['SERVER_NAME'],
                     'domain' => $_SERVER['REQUEST_SCHEME'] . '://' . $domain,
                     'args' => $_SESSION['route-args'],
+                    'locale' => $activeLocale,
                 ];
             }
         }
         
         return $langSwitch;
+    }
+    
+    /**
+     * 
+     * @param string $locale
+     * @param string $name
+     * @param array $data
+     * @return boolean
+     */
+    public function isCurrentLocalePath($locale, $name, $data = []) {
+        $result = FALSE;
+        $settings = $this->container->get('settings');
+        if ($settings['locale']['use_domain']) {
+            if ($locale === LanguageUtility::getCurrentLocale()) {
+                $result = TRUE;
+            }
+        } else {
+            $result = $this->router->pathFor($name, $data) === $this->uri->getBasePath() . '/' . ltrim($this->uri->getPath(), '/');
+        }
+        
+        return $result;
     }
     
     /**
@@ -102,7 +126,11 @@ class LanguageExtension extends \Twig_Extension {
      */
     public function genericLanguage() {
         $settings = $this->container->get('settings');
-        return '-' . strtolower($settings['locale']['generic_code']);
+        if ($settings['locale']['use_domain']) {
+            return '-' . strtolower($settings['locale']['generic_code']);
+        } else {
+            return '-' . strtolower($settings['locale']['code']);
+        }
     }
 
     /**

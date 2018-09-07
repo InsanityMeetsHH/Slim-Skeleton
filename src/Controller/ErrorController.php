@@ -13,7 +13,7 @@ class ErrorController extends BaseController {
      * @param \Slim\Http\Response $response
      * @return \Slim\Http\Response
      */
-    public function notFound($request, $response) {
+    public function notFoundAction($request, $response) {
         // Render view
         $this->logger->warning("Route '" . $_SESSION['notFoundRoute'] . "' not found - ErrorController:notFound");
         return $this->view->render($response, 'error/not-found.html.twig', [])->withStatus(404);
@@ -27,7 +27,7 @@ class ErrorController extends BaseController {
      * @param array $args
      * @return \Slim\Http\Response
      */
-    public function notAllowed($request, $response, $args) {
+    public function notAllowedAction($request, $response, $args) {
         // Render view
         $this->logger->warning("Route '" . $_SESSION['notAllowedRoute'] . "' not allowed '" . $_SESSION['notAllowedMethod'] . "' - ErrorController:notAllowed");
         return $this->view->render($response, 'error/not-allowed.html.twig', [
@@ -42,7 +42,7 @@ class ErrorController extends BaseController {
      * @param \Slim\Http\Response $response
      * @return \Slim\Http\Response
      */
-    public function unauthorized($request, $response) {
+    public function unauthorizedAction($request, $response) {
         // Render view
         $this->logger->warning("Route '" . $request->getUri()->getPath() . "' unauthorized - ErrorController:unauthorized");
         return $this->view->render($response, 'error/unauthorized.html.twig', [])->withStatus(401);
@@ -55,7 +55,7 @@ class ErrorController extends BaseController {
      * @param \Slim\Http\Response $response
      * @return \Slim\Http\Response
      */
-    public function badRequest($request, $response) {
+    public function badRequestAction($request, $response) {
         // Render view
         $this->logger->warning("Bad request - ErrorController:badRequest");
         return $this->view->render($response, 'error/bad-request.html.twig', [])->withStatus(400);

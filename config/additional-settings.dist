@@ -14,6 +14,7 @@ return [
         
         // Locale settings
         'locale' => [
+            'use_domain' => TRUE,
             'default_domain' => 'imhh-slim.localhost',
             'active' => [
                 'xx-XX' => FALSE,

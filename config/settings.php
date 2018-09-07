@@ -35,7 +35,7 @@ return [
             'generic_code' => 'xx-XX', // routes with out localization
             'path' => __DIR__ . '/../locale/',
             'active' => [
-                'xx-XX' => 0,
+//                'xx-XX' => 0,
                 'en-US' => 'slim3.insanitymeetshh.net',
                 'de-DE' => 'slim3de.insanitymeetshh.net',
             ],

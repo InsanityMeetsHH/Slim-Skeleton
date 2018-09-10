@@ -2,11 +2,11 @@
 
 {% block content %}
     <br><br>
-    {{ 'auth-code'|trans }}
+    <label for="tf_code">{{ 'auth-code'|trans }}</label>
     <form action="{{ path_for('user-two-factor' ~ lk) }}" method="post" autocomplete="off">
         <input type="hidden" name="{{ csrf.keys.name }}" value="{{ csrf.name }}">
         <input type="hidden" name="{{ csrf.keys.value }}" value="{{ csrf.value }}">
-        <input type="text" name="tf_code" placeholder="{{ 'code'|trans }}" autofocus="autofocus" />
+        <input type="text" name="tf_code" id="tf_code" placeholder="{{ 'code'|trans }}" autofocus="autofocus" />
         <input type="submit" name="send" value="{{ 'submit'|trans }}" />
     </form>
 {% endblock %}

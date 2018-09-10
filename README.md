@@ -11,6 +11,7 @@
 * [Doctrine ORM 2.x](https://packagist.org/packages/doctrine/orm)
 * [Geggleto ACL 1.x](https://github.com/geggleto/geggleto-acl)
 * [Google Authenticator](https://github.com/PHPGangsta/GoogleAuthenticator)
+* [Google reCaptcha](https://github.com/google/recaptcha)
 
 ## Required
 * PHP => 5.5
@@ -33,7 +34,7 @@ $ cd [my-app-name]
 ```
 
 ## Setup database and config\additional-settings.php 
-Rename `config\additional-settings.dist` to `config\additional-settings.php`.
+Duplicate `config\additional-settings.dist` to `config\additional-settings.php`.
 (`config\additional-settings.php` is useful for working with git and your local environment is different to live or to your team mates)
 
 Change `public_path` if you run the project in a sub directory.
@@ -63,9 +64,29 @@ $ php doctrine dbal:import sql/all-records.sql
 * If you want to show language in langswitch [config/settings.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L34)
 * Add case for `fr/` in [src/localisation.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/localisation.php#L18)
 
+## How to switch from example.com/de/ to de.example.com or example.de
+* (EN is default language and DE is alternative language for this example)
+* Got to `config\additional-settings.php`
+* Set `'use_domain' => TRUE,`
+* Enter your domains in `default_domain` and `active`
+* Activate `'xx-XX' => FALSE,`
+* Go to `config/routes/de-DE.php`
+* Remove `/de` from every `route`
+* Go to `config/routes/xx-XX.php`
+* Insert all routes where the config is equal in `config/routes/en-US.php` and `config/routes/de-DE.php`
+* Remove these equal routes in `config/routes/en-US.php` and `config/routes/de-DE.php`
+
+## How to use same url for all languages (like youtube or twitter)
+* (EN is default language and DE is alternative language for this example)
+* Got to `config\additional-settings.php`
+* Set `'process' => 'session',`
+* Set `'use_domain' => FALSE,`
+* Activate `'xx-XX' => FALSE,`
+* Set up all routes in `config/routes/xx-XX.php`
+
 ## ACL settings
 With [Geggleto ACL](https://github.com/geggleto/geggleto-acl), routes are protected by role the current user has. By default every new route is not accessable until you give the route roles.
-Routes are defined in the route files (e.g. [routes-de-DE.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/routes-de-DE.php)).
+Routes are defined in the route files (e.g. [config/routes/de-DE.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/routes/de-DE.php)).
 Any other resource is defined in [settings.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L61).
 Inside the Twig templates you can use ACL functions [has_role](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/partials/navigation.html.twig#L5) and [is_allowed](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/page/index.html.twig#L17).
 Inside controllers you can also use this ACL functions and [many more](https://github.com/geggleto/geggleto-acl/blob/master/src/AclRepository.php) (e.g. [is_allowed](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Controller/UserController.php#L23)).

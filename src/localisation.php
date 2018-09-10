@@ -1,7 +1,12 @@
 <?php
-// Detect localisation by REQUEST_URI
-
-if ($settings['settings']['locale']['use_domain']) {
+if (!$settings['settings']['locale']['use_domain'] 
+        && $settings['settings']['locale']['process'] === 'session') {
+    if (isset($_COOKIE['current_locale'])) {
+        $settings['settings']['locale']['code'] = $_COOKIE['current_locale'];
+    } else {
+        setcookie('current_locale', $settings['settings']['locale']['code'], 0, '/');
+    }
+} elseif ($settings['settings']['locale']['use_domain']) {
     $uri = $_SERVER['SERVER_NAME'];
 
     if (array_search($uri, $settings['settings']['locale']['active']) === FALSE) {

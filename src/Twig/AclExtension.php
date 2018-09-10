@@ -8,9 +8,7 @@ use App\Utility\GeneralUtility;
  * ACL twig extension
  */
 class AclExtension extends \Twig_Extension {
-    /**
-     * @var \Slim\Container $container
-     */
+    /** @var \Slim\Container $container */
     private $container;
 
     public function __construct($container) {

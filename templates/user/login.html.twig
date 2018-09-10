@@ -2,12 +2,12 @@
 
 {% block content %}
     <br><br>
-    {{ 'user'|trans }} / {{ 'password'|trans }}
+    <label for="user_name">{{ 'user'|trans }}</label> / <label for="user_pass">{{ 'password'|trans }}</label>
     <form action="{{ path_for('user-login-validate' ~ lk) }}" method="post">
         <input type="hidden" name="{{ csrf.keys.name }}" value="{{ csrf.name }}">
         <input type="hidden" name="{{ csrf.keys.value }}" value="{{ csrf.value }}">
-        <input type="text" name="user_name" placeholder="" autofocus="autofocus" />
-        <input type="password" name="user_pass" />
+        <input type="text" name="user_name" id="user_name" placeholder="" autofocus="autofocus" />
+        <input type="password" name="user_pass" id="user_pass" />
         <input type="submit" name="send" value="{{ 'login'|trans }}" />
     </form>
     ({{ 'user'|trans }} = user / {{ 'password'|trans }} = password)

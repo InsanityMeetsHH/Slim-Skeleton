@@ -96,13 +96,29 @@ class LanguageUtility {
                     $autoDetectCookie = isset($_COOKIE['auto_detect']) ? (int)$_COOKIE['auto_detect'] : 0;
                     if (is_readable($settings['locale']['path'] . $activeLocale . '.php') 
                             && $activeLocale === $locale && $autoDetectCookie !== 1) {
-                        $suffixName = '-' . strtolower($activeLocale);
-                        $newRouteName = substr($routeName, 0, -6) . $suffixName;
+                        if (!$settings['locale']['use_domain'] && $settings['locale']['process'] === 'session') {
+                            setcookie('current_locale', $activeLocale, 0, '/');
+                            $activeLocale = $settings['locale']['generic_code'];
+                        }
+                        
+                        $currentRouteName = substr($routeName, 0, -6);
+                        $suffixName = strtolower($activeLocale);
+                        $newRouteName = substr($routeName, 0, -6) . '-' . $suffixName;
+                        $routes = require $settings['config_path'] . 'routes/' . $activeLocale . '.php';
+                
+                        if ($settings['locale']['use_domain'] && !isset($routes[$currentRouteName])) {
+                            $newRouteName = substr($routeName, 0, -6) . '-' . strtolower($settings['locale']['generic_code']);
+                        }
+                        
                         $compiledRoute = $app->getContainer()->get('router')->pathFor($newRouteName, $routeArgs);
+                        
+                        if ($settings['locale']['use_domain']) {
+                            $compiledRoute = $_SERVER['REQUEST_SCHEME'] . '://' . $domain . $compiledRoute;
+                        }
 
                         setcookie('auto_detect', 1, 0, '/');
                         // if browser language unlike current language 
-                        if ($routeName !== $newRouteName) {
+                        if ($routeName !== $newRouteName || $domain !== $_SERVER['SERVER_NAME']) {
                             header('Location: ' . $compiledRoute);
                             exit;
                         }
@@ -129,5 +145,36 @@ class LanguageUtility {
     static function getCurrentLocale() {
         $settings = AppContainer::getInstance()->getContainer()->get('settings');
         return $settings['locale']['code'];
+    }
+    
+    /**
+     * Get current language-region combination
+     * Sample: {{ language() }}
+     * 
+     * @return string
+     */
+    static function getLocale() {
+        $settings = AppContainer::getInstance()->getContainer()->get('settings');
+        if (!$settings['locale']['use_domain'] && $settings['locale']['process'] === 'session') {
+            return strtolower($settings['locale']['generic_code']);
+        } else {
+            return strtolower($settings['locale']['code']);
+        }
+    }
+    
+    /**
+     * Get generic language code
+     * Sample: {{ genericLanguage() }}
+     * 
+     * @return string
+     */
+    static function getGenericLocale() {
+        $settings = AppContainer::getInstance()->getContainer()->get('settings');
+        if ($settings['locale']['use_domain'] 
+                || (!$settings['locale']['use_domain'] && $settings['locale']['process'] === 'session')) {
+            return strtolower($settings['locale']['generic_code']);
+        } else {
+            return strtolower($settings['locale']['code']);
+        }
     }
 }

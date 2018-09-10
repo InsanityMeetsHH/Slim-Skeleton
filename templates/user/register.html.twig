@@ -1,0 +1,17 @@
+{% extends "layouts/layout.html.twig" %}
+
+{% block content %}
+    <h2>{{ 'user-register-label'|trans }}</h2>
+    <form action="{{ path_for('user-add' ~ lk) }}" method="post">
+        <input type="hidden" name="{{ csrf.keys.name }}" value="{{ csrf.name }}">
+        <input type="hidden" name="{{ csrf.keys.value }}" value="{{ csrf.value }}">
+        <label for="user_name">{{ 'user'|trans }}</label><br>
+        <input type="text" name="user_name" id="user_name" placeholder="" autofocus="autofocus" /><br><br>
+        <label for="user_pass">{{ 'password'|trans }}</label><br>
+        <input type="password" name="user_pass" id="user_pass" /><br><br>
+        <label for="user_pass_repeat">{{ 'password-repeat'|trans }}</label><br>
+        <input type="password" name="user_pass_repeat" id="user_pass_repeat" /><br><br>
+        <div class="g-recaptcha" data-sitekey="{{ settings.recaptcha.site }}"></div><br>
+        <input type="submit" name="send" value="{{ 'user-register-label'|trans }}" />
+    </form>
+{% endblock %}

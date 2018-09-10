@@ -5,6 +5,7 @@ return [
     'db-records' => 'Datenbank-Datensätze',
     'user' => 'Benutzer',
     'password' => 'Passwort',
+    'password-repeat' => 'Passwort wiederholen',
     'user-name' => 'Benutzername',
     'login' => 'Login',
     'id' => 'ID',
@@ -37,11 +38,20 @@ return [
     'page-index-label' => 'Startseite',
     'page-example-label' => 'Beispielseite',
     'user-show-label' => 'Profil',
+    'user-register-label' => 'Registrieren',
     'user-login-label' => 'Login',
     'user-logout-label' => 'Logout',
     'user-two-factor-label' => 'Zwei-Faktor-Authentifizierung aktivieren',
     'langswitch-label' => 'DE',
     'langswitch-image' => '<img src="https://cdn.rawgit.com/hjnilsson/country-flags/master/svg/de.svg" style="max-height: 20px;">',
+    
+    // flash messages
+    'register-flash-1' => 'Benutzername bereits vergeben',
+    'register-flash-2' => 'Benutzername zu kurz (mind. 4 Zeichen)',
+    'register-flash-3' => 'Passwort zu kurz (mind. 6 Zeichen)',
+    'register-flash-4' => 'Passwort wurde falsch wiederholt',
+    'register-flash-5' => 'Registrierung abgeschlossen',
+    'register-flash-6' => 'Captcha nicht bestanden',
     
     // misc
     // decimal point

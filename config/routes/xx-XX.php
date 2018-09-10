@@ -1,6 +1,6 @@
 <?php
 /**
- * This routes fits all locales
+ * Theses routes fits all locales
  * localized routing (e.g. CONTROLLER-ACTION)
  */
 

@@ -42,12 +42,12 @@ class User extends \App\MappedSuperclass\LowerCaseUniqueName
     /**
      * @ORM\Column(type="boolean", name="two_factor")
      */
-    private $twoFactor;
+    private $twoFactor = FALSE;
     
     /**
      * @ORM\Column(type="string", name="two_factor_secret")
      */
-    private $twoFactorSecret;
+    private $twoFactorSecret = '';
 
     public function __construct() {
         $this->recoveryCodes = new ArrayCollection();

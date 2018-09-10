@@ -4,10 +4,19 @@ return [
         'determineRouteBeforeAppMiddleware' => true,
         'displayErrorDetails' => false, // set to false in production
         'addContentLengthHeader' => false, // Allow the web server to send the content-length header
+        'public_path' => '/', // Relative to domain (e.g. project is in sub directory '/project/public/')
+        'cache_path'  => __DIR__ . '/../cache/',
+        'config_path'  => __DIR__ . '/../config/',
 
         // Renderer settings
         'renderer' => [
             'template_path' => __DIR__ . '/../templates/',
+        ],
+        
+        // Google recaptcha
+        'recaptcha' => [
+            'site' => '',
+            'secret' => '',
         ],
 
         // Monolog settings
@@ -17,19 +26,11 @@ return [
             'level' => \Monolog\Logger::DEBUG,
         ],
         
-        // Relative to domain (e.g. project is in sub directory '/project/public/')
-        'public_path' => '/',
-        
-        // Cache settings
-        'cache_path'  => __DIR__ . '/../cache/',
-        
-        // config path
-        'config_path'  => __DIR__ . '/../config/',
-        
         // Locale settings
         'locale' => [
-            'auto_detect' => FALSE,
-            'use_domain' => TRUE,
+            'process' => 'url', // url or session
+            'auto_detect' => TRUE,
+            'use_domain' => FALSE,
             'default_domain' => 'slim3.insanitymeetshh.net',
             'code' => 'en-US', // default / current language
             'generic_code' => 'xx-XX', // routes with out localization

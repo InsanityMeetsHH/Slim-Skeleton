@@ -14,10 +14,11 @@ return [
         
         // Locale settings
         'locale' => [
-            'use_domain' => TRUE,
+            'process' => 'url', // url or session
+            'use_domain' => FALSE,
             'default_domain' => 'imhh-slim.localhost',
             'active' => [
-                'xx-XX' => FALSE,
+//                'xx-XX' => '', // domain not necessary here
                 'en-US' => 'imhh-slim.localhost',
                 'de-DE' => 'de.imhh-slim.localhost',
             ],

@@ -7,9 +7,7 @@ use App\Utility\LanguageUtility;
  * Language twig extension
  */
 class LanguageExtension extends \Twig_Extension {
-    /**
-     * @var \Slim\Container $container
-     */
+    /** * @var \Slim\Container $container */
     private $container;
 
     public function __construct($container, $router, $uri) {
@@ -30,10 +28,10 @@ class LanguageExtension extends \Twig_Extension {
     public function getFunctions() {
         return [
             new \Twig_SimpleFunction('current_locale', [$this, 'currentLocale']),
-            new \Twig_SimpleFunction('generic_language', [$this, 'genericLanguage']),
+            new \Twig_SimpleFunction('generic_locale', [$this, 'genericLocale']),
             new \Twig_SimpleFunction('is_current_locale_path', array($this, 'isCurrentLocalePath')),
             new \Twig_SimpleFunction('langswitch', [$this, 'langSwitch']),
-            new \Twig_SimpleFunction('language', [$this, 'language']),
+            new \Twig_SimpleFunction('locale', [$this, 'locale']),
             new \Twig_SimpleFunction('trans', [$this, 'trans']),
         ];
     }
@@ -61,8 +59,13 @@ class LanguageExtension extends \Twig_Extension {
         $langSwitch = [];
         
         foreach ($settings['locale']['active'] as $activeLocale => $domain) {
+            
             // if translation file exists, load file to $locale
-            if (is_readable($settings['locale']['path'] . $activeLocale . '.php') && $activeLocale != $settings['locale']['generic_code']) {
+            if (is_readable($settings['locale']['path'] . $activeLocale . '.php')) {
+                if ($activeLocale === $settings['locale']['generic_code']) {
+                    continue;
+                }
+                
                 $routeSuffix = $activeLocale;
                 $locale = require $settings['locale']['path'] . $activeLocale . '.php';
                 $routes = require $settings['config_path'] . 'routes/' . $activeLocale . '.php';
@@ -70,6 +73,14 @@ class LanguageExtension extends \Twig_Extension {
                 
                 if ($settings['locale']['use_domain'] && !isset($routes[rtrim($currentRouteName, '-')])) {
                     $routeSuffix = $settings['locale']['generic_code'];
+                }
+                
+                if (!$settings['locale']['use_domain']) {
+                    $domain = $settings['locale']['default_domain'];
+                    
+                    if ($settings['locale']['process'] === 'session') {
+                        $routeSuffix = $settings['locale']['generic_code'];
+                    }
                 }
                 
                 $langSwitch[$currentRouteName . strtolower($activeLocale)] = [
@@ -96,7 +107,8 @@ class LanguageExtension extends \Twig_Extension {
     public function isCurrentLocalePath($locale, $name, $data = []) {
         $result = FALSE;
         $settings = $this->container->get('settings');
-        if ($settings['locale']['use_domain']) {
+        if ($settings['locale']['use_domain'] 
+                || (!$settings['locale']['use_domain'] && $settings['locale']['process'] === 'session')) {
             if ($locale === LanguageUtility::getCurrentLocale()) {
                 $result = TRUE;
             }
@@ -108,29 +120,23 @@ class LanguageExtension extends \Twig_Extension {
     }
     
     /**
-     * Get current language-region combination
-     * Sample: {{ language() }}
+     * Returns current language-region or generic code
+     * Sample: {{ locale() }}
      * 
      * @return string
      */
-    public function language() {
-        $settings = $this->container->get('settings');
-        return '-' . strtolower($settings['locale']['code']);
+    public function locale() {
+        return '-' . LanguageUtility::getLocale();
     }
     
     /**
-     * Get generic language code
-     * Sample: {{ genericLanguage() }}
+     * Returns generic language code
+     * Sample: {{ generic_locale() }}
      * 
      * @return string
      */
-    public function genericLanguage() {
-        $settings = $this->container->get('settings');
-        if ($settings['locale']['use_domain']) {
-            return '-' . strtolower($settings['locale']['generic_code']);
-        } else {
-            return '-' . strtolower($settings['locale']['code']);
-        }
+    public function genericLocale() {
+        return '-' . LanguageUtility::getGenericLocale();
     }
 
     /**

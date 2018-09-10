@@ -60,3 +60,8 @@ ul {
 .message.message-danger {
     background-color: #915f5f;
 }
+
+.g-recaptcha {
+    margin: auto;
+    width: 305px;
+}

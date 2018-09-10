@@ -33,6 +33,10 @@ $app->add(function (Request $request, Response $response, callable $next) {
 
 // initialize all routes from all active languages
 foreach ($settings['settings']['locale']['active'] as $activeLocale => $domain) {
+    if (!$settings['settings']['locale']['use_domain'] && $settings['settings']['locale']['process'] === 'session') {
+        $activeLocale = $settings['settings']['locale']['generic_code'];
+    }
+    
     // if translation file exists, load file to $locale
     if (is_readable($settings['settings']['config_path'] . 'routes/' . $activeLocale . '.php')) {
         $routes = require $settings['settings']['config_path'] . 'routes/' . $activeLocale . '.php';
@@ -43,5 +47,10 @@ foreach ($settings['settings']['locale']['active'] as $activeLocale => $domain) 
                 $app->map($route['methods'], $route['route'], $route['method'])->setName($routeName . $suffixName);
             }
         }
+    }
+    
+    if ($settings['settings']['locale']['process'] === 'session' 
+            && $activeLocale === $settings['settings']['locale']['generic_code']) {
+        break;
     }
 }

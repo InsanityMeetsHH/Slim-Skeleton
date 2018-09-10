@@ -7,9 +7,7 @@ namespace App\Twig;
 class CsrfExtension extends \Twig_Extension implements \Twig_Extension_GlobalsInterface
 {
 
-    /**
-     * @var \Slim\Csrf\Guard
-     */
+    /** @var \Slim\Csrf\Guard $csrf */
     protected $csrf;
     
     public function __construct($container) {
@@ -36,6 +34,6 @@ class CsrfExtension extends \Twig_Extension implements \Twig_Extension_GlobalsIn
     }
 
     public function getName() {
-        return 'slim/csrf';
+        return 'csrf_ext';
     }
 }

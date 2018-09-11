@@ -126,7 +126,7 @@ class LanguageExtension extends \Twig_Extension {
      * @return string
      */
     public function locale() {
-        return '-' . LanguageUtility::getLocale();
+        return LanguageUtility::getLocale();
     }
     
     /**
@@ -136,7 +136,7 @@ class LanguageExtension extends \Twig_Extension {
      * @return string
      */
     public function genericLocale() {
-        return '-' . LanguageUtility::getGenericLocale();
+        return LanguageUtility::getGenericLocale();
     }
 
     /**

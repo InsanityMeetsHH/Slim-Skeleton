@@ -3,7 +3,7 @@
 {% block content %}
     <br><br>
     <label for="user_name">{{ 'user'|trans }}</label> / <label for="user_pass">{{ 'password'|trans }}</label>
-    <form action="{{ path_for('user-login-validate' ~ lk) }}" method="post">
+    <form action="{{ path_for('user-login-validate-' ~ lc) }}" method="post">
         <input type="hidden" name="{{ csrf.keys.name }}" value="{{ csrf.name }}">
         <input type="hidden" name="{{ csrf.keys.value }}" value="{{ csrf.value }}">
         <input type="text" name="user_name" id="user_name" placeholder="" autofocus="autofocus" />

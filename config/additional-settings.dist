@@ -12,6 +12,12 @@ return [
             ],
         ],
         
+        // Google recaptcha
+        'recaptcha' => [
+            'site' => '',
+            'secret' => '',
+        ],
+        
         // Locale settings
         'locale' => [
             'process' => 'url', // url or session

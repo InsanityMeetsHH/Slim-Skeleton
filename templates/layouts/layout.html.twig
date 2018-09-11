@@ -1,16 +1,14 @@
-{# lk = locale key #}
-{% set lk = locale() %}
-{# lk = generic locale key #}
-{% set glk = generic_locale() %}
-{# ns = naviagtion suffix #}
-{% set ns = '-label' %}
+{# lc = locale code #}
+{% set lc = locale() %}
+{# glc = generic locale code #}
+{% set glc = generic_locale() %}
 <!DOCTYPE html>
 <html lang="{{ current_locale() }}" class="locale-process-{{ settings.locale.process }}">
     <head>
         <meta charset="utf-8"/>
         <title>Slim 3 Skeleton Fork - InsanityMeetsHH</title>
-        <link href="//fonts.googleapis.com/css?family=Lato:300" rel="stylesheet" type="text/css">
-        <link href="{{ base_url() }}/css/styles.css?v=4.3.0" rel="stylesheet" type="text/css">
+        <link href="//fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet" type="text/css">
+        <link href="{{ base_url() }}/css/styles.css?v=5.0.0" rel="stylesheet" type="text/css">
         <script src='https://www.google.com/recaptcha/api.js'></script>
     </head>
     <body>

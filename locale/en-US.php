@@ -45,6 +45,14 @@ return [
     'langswitch-label' => 'EN',
     'langswitch-image' => '<img src="https://cdn.rawgit.com/hjnilsson/country-flags/master/svg/us.svg" style="max-height: 20px;">',
     
+    // flash messages
+    'register-flash-1' => 'Username is taken',
+    'register-flash-2' => 'Username too short (at least 4 characters)',
+    'register-flash-3' => 'Password too short (at least 6 characters)',
+    'register-flash-4' => 'Password was repeated incorrectly',
+    'register-flash-5' => 'Registration complete',
+    'register-flash-6' => 'Captcha failed',
+    
     // misc
     // decimal point
     'dp' => '.',

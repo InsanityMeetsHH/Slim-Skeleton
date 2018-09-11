@@ -62,20 +62,22 @@ $container['notAllowedHandler'] = function ($c) {
 $container['view'] = function ($c) {
     $settings = $c->get('settings');
     $view = new \Slim\Views\Twig($settings['renderer']['template_path'], [
-        'cache' => FALSE,
-//        'debug' => true,
-//        'cache' => $settings['cache_path']
+        'cache' => $settings['renderer']['cache'],
+        'debug' => $settings['renderer']['debug'],
     ]);
     
     // Instantiate and add Slim specific extension
     $router = $c->get('router');
     $uri = Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
     $view->addExtension(new Slim\Views\TwigExtension($router, $uri));
-//    $view->addExtension(new Twig_Extension_Debug());
     $view->addExtension(new App\Twig\AclExtension($c));
     $view->addExtension(new App\Twig\CsrfExtension($c));
     $view->addExtension(new App\Twig\GeneralExtension($c));
     $view->addExtension(new App\Twig\LanguageExtension($c, $router, $uri));
+    
+    if ($settings['renderer']['debug']) {
+        $view->addExtension(new Twig_Extension_Debug());
+    }
 
     return $view;
 };

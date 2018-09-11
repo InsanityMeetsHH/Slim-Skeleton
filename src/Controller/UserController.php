@@ -57,9 +57,7 @@ class UserController extends BaseController {
      */
     public function registerAction($request, $response, $args) {
         // Render view
-        return $this->view->render($response, 'user/register.html.twig', array_merge($args, [
-//            'flashMessages' => GeneralUtility::getFlashMessages(),
-        ]));
+        return $this->view->render($response, 'user/register.html.twig', array_merge($args, []));
     }
     
     /**
@@ -120,8 +118,6 @@ class UserController extends BaseController {
         }
         
         return $response->withRedirect($this->router->pathFor('user-register-' . LanguageUtility::getLocale()));
-        // Render view
-//        return $this->view->render($response, 'user/register.html.twig', array_merge($args, []));
     }
     
     /**

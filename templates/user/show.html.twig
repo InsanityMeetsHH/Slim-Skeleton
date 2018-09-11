@@ -13,7 +13,7 @@
             {% if user.hasTwoFactor %}
                 {{ '2fa-enabled'|trans }}
             {% else %}
-                <a href="{{ path_for('user-enable-two-factor' ~ lk) }}">{{ trans('user-two-factor' ~ ns) }}</a>
+                <a href="{{ path_for('user-enable-two-factor-' ~ lc) }}">{{ trans('user-two-factor-label') }}</a>
             {% endif %}
         {% endif %}
     {% endif %}

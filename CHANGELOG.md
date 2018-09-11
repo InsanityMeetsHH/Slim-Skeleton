@@ -44,7 +44,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Web font from Lato to Roboto
 
 ### Removed
-- Twig extension AppExtension - replaced by LanguageExtension and AclExtension
-- Route file config/routes-de-DE.php
-- Route file config/routes-en-US.php
+- `src/Twig/AppExtension.php` - replaced by `src/Twig/LanguageExtension.php` and `src/Twig/AclExtension.php`
+- `config/routes-de-DE.php` - replaced by `config/routes/de-DE.php`
+- `config/routes-en-US.php` - replaced by `config/routes/en-US.php`
+- `src/MappedSuperclass/LowerCaseUniqueName.php`
 - `{% set ns = '-label' %}` in `templates/layouts/layout.html.twig`

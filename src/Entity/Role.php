@@ -8,8 +8,13 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Table(name="role")
  */
-class Role extends \App\MappedSuperclass\LowerCaseUniqueName
+class Role extends \App\MappedSuperclass\Base
 {
+    
+    /**
+     * @ORM\Column(type="string", unique=true)
+     */
+    protected $name;
     
     /**
      * One Role has many Users.
@@ -18,6 +23,30 @@ class Role extends \App\MappedSuperclass\LowerCaseUniqueName
      */
     private $users;
 
+    public function __construct() {
+        $this->users = new ArrayCollection();
+    }
+
+    /**
+     * Get $name
+     * 
+     * @return string
+     */
+    public function getName() {
+        return $this->name;
+    }
+    
+    /**
+     * Set $name
+     * 
+     * @param string $name
+     */
+    public function setName($name) {
+        $this->name = strtolower($name);
+        
+        return $this;
+    }
+
     /**
      * Get $users
      * 
@@ -25,9 +54,5 @@ class Role extends \App\MappedSuperclass\LowerCaseUniqueName
      */
     public function getUsers() {
         return $this->users;
-    }
-
-    public function __construct() {
-        $this->users = new ArrayCollection();
     }
 }

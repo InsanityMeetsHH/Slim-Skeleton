@@ -29,7 +29,7 @@ class LanguageExtension extends \Twig_Extension {
         return [
             new \Twig_SimpleFunction('current_locale', [$this, 'currentLocale']),
             new \Twig_SimpleFunction('generic_locale', [$this, 'genericLocale']),
-            new \Twig_SimpleFunction('is_current_locale_path', array($this, 'isCurrentLocalePath')),
+            new \Twig_SimpleFunction('is_current_locale_path', [$this, 'isCurrentLocalePath']),
             new \Twig_SimpleFunction('langswitch', [$this, 'langSwitch']),
             new \Twig_SimpleFunction('locale', [$this, 'locale']),
             new \Twig_SimpleFunction('trans', [$this, 'trans']),

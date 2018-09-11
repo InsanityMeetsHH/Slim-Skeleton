@@ -26,7 +26,7 @@ class AclRepositoryContainer {
      */
     public static function setup() {
         /** @var \Doctrine\ORM\EntityManager $em **/
-        $em = AppContainer::getInstance()->getContainer()->get("em");
+        $em = AppContainer::getInstance()->getContainer()->get('em');
         $settings = AppContainer::getInstance()->getContainer()->get('settings');
         $currentRole = 'guest';
         $roles = $roleNames = $allow = $deny = $allResources = [];

@@ -29,7 +29,7 @@ class Base {
     /**
      * @ORM\Column(type="datetime", name="created_at")
      */
-    protected $createdAt = null;
+    protected $createdAt;
     
     /**
      * Get $id
@@ -105,10 +105,10 @@ class Base {
      * @ORM\PreUpdate
      */
     public function updatedTimestamps() {
-        $this->setUpdatedAt(new \DateTime("now", new \DateTimeZone("UTC")));
+        $this->setUpdatedAt(new \DateTime('now', new \DateTimeZone('UTC')));
 
         if ($this->getCreatedAt() == null) {
-            $this->setCreatedAt(new \DateTime("now", new \DateTimeZone("UTC")));
+            $this->setCreatedAt(new \DateTime('now', new \DateTimeZone('UTC')));
         }
     }
     

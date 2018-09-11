@@ -54,16 +54,16 @@ class BaseController {
      */
     public function __construct($container) {
         $this->aclRepository = AclRepositoryContainer::getInstance();
-        $this->em = $container->get("em");
-        $this->flash = $container->get("flash");
+        $this->em = $container->get('em');
+        $this->flash = $container->get('flash');
         $this->container = $container;
-        $this->csrf = $container->get("csrf");
+        $this->csrf = $container->get('csrf');
         $this->currentLocale = strtolower(LanguageUtility::getCurrentLocale());
         $this->currentRole = GeneralUtility::getCurrentRole();
         $this->currentUser = GeneralUtility::getCurrentUser();
-        $this->logger = $container->get("logger");
-        $this->router = $container->get("router");
-        $this->settings = $container->get("settings");
-        $this->view = $container->get("view");
+        $this->logger = $container->get('logger');
+        $this->router = $container->get('router');
+        $this->settings = $container->get('settings');
+        $this->view = $container->get('view');
     }
 }

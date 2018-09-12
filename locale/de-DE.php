@@ -59,6 +59,7 @@ return [
     // thousands separator
     'ts' => '.',
     'date' => 'd.m.Y',
-    'time' => 'H:i:s',
-    'datetime' => 'd.m.Y H:i:s',
+    'time' => 'H:i \U\h\r',
+    'datetime' => 'd.m.Y H:i \U\h\r',
+    'timezone' => 'Europe/Berlin',
 ];

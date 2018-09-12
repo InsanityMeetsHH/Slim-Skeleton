@@ -12,6 +12,7 @@ if (PHP_SAPI == 'cli-server') {
 require __DIR__ . '/../vendor/autoload.php';
 
 session_start();
+date_default_timezone_set('UTC');
 
 // Instantiate the app
 $generalSettings = require __DIR__ . '/../config/settings.php';

@@ -19,7 +19,7 @@
         <p>&nbsp;</p>
         <p>{{ 'db-records'|trans }}</p>
         {% for user in users %}
-            {{ user.id }} <a href="{{ path_for('user-show-' ~ lc, { 'name': user.name }) }}">{{ user.name }}</a> {{ user.role.name|trans }} {{ user.createdAt|date('datetime'|trans) }}<br/>
+            {{ user.id }} <a href="{{ path_for('user-show-' ~ lc, { 'name': user.name }) }}">{{ user.name }}</a> {{ user.role.name|trans }} {{ user.createdAt|date('datetime'|trans, 'timezone'|trans) }}<br/>
         {% endfor %}
     {% endif %}
 {% endblock %}

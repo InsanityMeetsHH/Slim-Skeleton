@@ -105,10 +105,10 @@ class Base {
      * @ORM\PreUpdate
      */
     public function updatedTimestamps() {
-        $this->setUpdatedAt(new \DateTime('now', new \DateTimeZone('UTC')));
+        $this->setUpdatedAt(new \DateTime('now'));
 
         if ($this->getCreatedAt() == null) {
-            $this->setCreatedAt(new \DateTime('now', new \DateTimeZone('UTC')));
+            $this->setCreatedAt(new \DateTime('now'));
         }
     }
     

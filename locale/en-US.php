@@ -58,7 +58,8 @@ return [
     'dp' => '.',
     // thousands separator
     'ts' => ',',
-    'date' => 'm/d/Y',
-    'time' => 'H:i:s',
-    'datetime' => 'm/d/Y H:i:s',
+    'date' => 'Y-m-d',
+    'time' => 'g:ia',
+    'datetime' => 'Y-m-d g:ia',
+    'timezone' => 'Europe/London',
 ];

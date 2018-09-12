@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Route file `config/routes/de-DE.php`
 - Route file `config/routes/en-US.php`
 - Route file `config/routes/xx-XX.php`
-- UTC time zone for created_at and updates_at
+- UTC time zone as default for this application
 - HTML label in forms
 - Google reCAPTCHA package
 - Google reCAPTCHA settings to `config/settings.php`

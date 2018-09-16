@@ -17,7 +17,7 @@ return [
         
         // Google recaptcha
         'recaptcha' => [
-            'site' => '',
+            'site'   => '',
             'secret' => '',
         ],
 
@@ -30,15 +30,14 @@ return [
         
         // Locale settings
         'locale' => [
-            'process' => 'url', // url or session
+            'process' => \App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_DISABLED,
             'auto_detect' => TRUE,
-            'use_domain' => FALSE,
             'default_domain' => 'slim3.insanitymeetshh.net',
             'code' => 'en-US', // default / current language
             'generic_code' => 'xx-XX', // routes with out localization
             'path' => __DIR__ . '/../locale/',
             'active' => [
-//                'xx-XX' => 0,
+//                'xx-XX' => '', // domain not necessary here
                 'en-US' => 'slim3.insanitymeetshh.net',
                 'de-DE' => 'slim3de.insanitymeetshh.net',
             ],

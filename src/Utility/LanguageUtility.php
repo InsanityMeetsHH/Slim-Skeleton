@@ -4,6 +4,11 @@ namespace App\Utility;
 use App\Container\AppContainer;
 
 class LanguageUtility {
+    
+    const LOCALE_URL = 1;
+    const LOCALE_SESSION = 2;
+    const DOMAIN_ENABLED = 4;
+    const DOMAIN_DISABLED = 8;
 
     /**
      * Get translation by translation key
@@ -96,7 +101,7 @@ class LanguageUtility {
                     $autoDetectCookie = isset($_COOKIE['auto_detect']) ? (int)$_COOKIE['auto_detect'] : 0;
                     if (is_readable($settings['locale']['path'] . $activeLocale . '.php') 
                             && $activeLocale === $locale && $autoDetectCookie !== 1) {
-                        if (!$settings['locale']['use_domain'] && $settings['locale']['process'] === 'session') {
+                        if (self::processHas(self::DOMAIN_DISABLED) && self::processHas(self::LOCALE_SESSION)) {
                             setcookie('current_locale', $activeLocale, 0, '/');
                             $activeLocale = $settings['locale']['generic_code'];
                         }
@@ -106,13 +111,13 @@ class LanguageUtility {
                         $newRouteName = substr($routeName, 0, -6) . '-' . $suffixName;
                         $routes = require $settings['config_path'] . 'routes/' . $activeLocale . '.php';
                 
-                        if ($settings['locale']['use_domain'] && !isset($routes[$currentRouteName])) {
+                        if (self::processHas(self::DOMAIN_ENABLED) && !isset($routes[$currentRouteName])) {
                             $newRouteName = substr($routeName, 0, -6) . '-' . strtolower($settings['locale']['generic_code']);
                         }
                         
                         $compiledRoute = $app->getContainer()->get('router')->pathFor($newRouteName, $routeArgs);
                         
-                        if ($settings['locale']['use_domain']) {
+                        if (self::processHas(self::DOMAIN_ENABLED)) {
                             $compiledRoute = $_SERVER['REQUEST_SCHEME'] . '://' . $domain . $compiledRoute;
                         }
 
@@ -138,6 +143,17 @@ class LanguageUtility {
     }
     
     /**
+     * Returns TRUE if process has $flag
+     * 
+     * @param integer $flag
+     * @return boolean
+     */
+    static function processHas($flag) {
+        $settings = AppContainer::getInstance()->getContainer()->get('settings');
+        return (($settings['locale']['process'] & $flag) == $flag);
+    }
+    
+    /**
      * Returns the current locale code
      * 
      * @return string
@@ -155,7 +171,7 @@ class LanguageUtility {
      */
     static function getLocale() {
         $settings = AppContainer::getInstance()->getContainer()->get('settings');
-        if (!$settings['locale']['use_domain'] && $settings['locale']['process'] === 'session') {
+        if (self::processHas(self::DOMAIN_DISABLED) && self::processHas(self::LOCALE_SESSION)) {
             return strtolower($settings['locale']['generic_code']);
         } else {
             return strtolower($settings['locale']['code']);
@@ -170,8 +186,8 @@ class LanguageUtility {
      */
     static function getGenericLocale() {
         $settings = AppContainer::getInstance()->getContainer()->get('settings');
-        if ($settings['locale']['use_domain'] 
-                || (!$settings['locale']['use_domain'] && $settings['locale']['process'] === 'session')) {
+        if (self::processHas(self::DOMAIN_ENABLED) 
+                || (self::processHas(self::DOMAIN_DISABLED) && self::processHas(self::LOCALE_SESSION))) {
             return strtolower($settings['locale']['generic_code']);
         } else {
             return strtolower($settings['locale']['code']);

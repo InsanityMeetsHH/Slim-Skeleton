@@ -30,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `{{ glc }}` in `templates/layouts/layout.html.twig`
 - Website session script in `templates/layouts/layout.html.twig`
 - `public/favicon.ico`
-- `process`, `use_domain`, `default_domain` and `generic_code` to `locale` in `config/settings.php`
+- `process`, `default_domain` and `generic_code` to `locale` in `config/settings.php`
 - Domains to `locale => active`
 - `$settings` to `src/Controller/BaseController.php`
 - `debug` and `cache` to `renderer` in `config/settings.php`
@@ -47,5 +47,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `src/Twig/AppExtension.php` - replaced by `src/Twig/LanguageExtension.php` and `src/Twig/AclExtension.php`
 - `config/routes-de-DE.php` - replaced by `config/routes/de-DE.php`
 - `config/routes-en-US.php` - replaced by `config/routes/en-US.php`
+- `config/additional-settings.dist` - replaced by `config/additional-settings.dist.php`
 - `src/MappedSuperclass/LowerCaseUniqueName.php`
 - `{% set ns = '-label' %}` in `templates/layouts/layout.html.twig`

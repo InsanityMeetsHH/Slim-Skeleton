@@ -1,8 +1,7 @@
-/vendor/
+/cache/
 /logs/*
 !/logs/README.md
-/src/additional-settings.php
-/composer.lock
-/composer.phar
-/config/additional-settings.php
-/cache/
+/vendor/
+additional-settings.php
+composer.lock
+composer.phar

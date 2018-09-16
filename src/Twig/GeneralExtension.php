@@ -2,6 +2,7 @@
 namespace App\Twig;
 
 use App\Utility\GeneralUtility;
+use App\Utility\LanguageUtility;
 
 /**
  * General Twig extension
@@ -20,6 +21,7 @@ class GeneralExtension extends \Twig_Extension implements \Twig_Extension_Global
         return [
             'settings' => $this->settings,
             'flashMessages' => GeneralUtility::getFlashMessages(),
+            'localeProcess' => LanguageUtility::processHas(LanguageUtility::LOCALE_URL) ? 'url' : 'session',
         ];
     }
 

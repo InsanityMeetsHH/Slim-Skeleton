@@ -34,7 +34,7 @@ $ cd [my-app-name]
 ```
 
 ## Setup database and config\additional-settings.php 
-Duplicate `config\additional-settings.dist` to `config\additional-settings.php`.
+Duplicate `config\additional-settings.dist.php` to `config\additional-settings.php`.
 (`config\additional-settings.php` is useful for working with git and your local environment is different to live or to your team mates)
 
 Change `public_path` if you run the project in a sub directory.
@@ -67,8 +67,7 @@ $ php doctrine dbal:import sql/all-records.sql
 ## How to switch from example.com/de/ to de.example.com or example.de
 * (EN is default language and DE is alternative language for this example)
 * Got to `config\additional-settings.php`
-* Set `'process' => 'url',`
-* Set `'use_domain' => TRUE,`
+* Set `'process' => \App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_ENABLED,`
 * Enter your domains in `default_domain` and `active`
 * Activate `'xx-XX' => '',`
 * Go to `config/routes/de-DE.php`
@@ -80,14 +79,14 @@ $ php doctrine dbal:import sql/all-records.sql
 ## How to use same url for all languages (like youtube or twitter)
 * (EN is default language and DE is alternative language for this example)
 * Got to `config\additional-settings.php`
-* Set `'process' => 'session',`
-* Set `'use_domain' => FALSE,`
+* Set `'process' => \App\Utility\LanguageUtility::LOCALE_SESSION | \App\Utility\LanguageUtility::DOMAIN_DISABLED,`
 * Activate `'xx-XX' => '',`
 * Set up all routes in `config/routes/xx-XX.php`
 
 ## Path generation with Locale code and Generic locale code
-Local code = route is NOT in `config/routes/xx-XX.php`
-Generic code = route is in `config/routes/xx-XX.php`
+* example.com/de/ = `'process' => \App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_DISABLED,`
+* example.de = `'process' => \App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_ENABLED,`
+* example.com (de-DE session) = `'process' => \App\Utility\LanguageUtility::LOCALE_SESSION | \App\Utility\LanguageUtility::DOMAIN_DISABLED,`
 
 |                     | Twig        | PHP                                   | Twig Example                           | PHP Example                                                                   |
 |---------------------|-------------|---------------------------------------|----------------------------------------|-------------------------------------------------------------------------------|

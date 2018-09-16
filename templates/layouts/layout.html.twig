@@ -3,13 +3,13 @@
 {# glc = generic locale code #}
 {% set glc = generic_locale() %}
 <!DOCTYPE html>
-<html lang="{{ current_locale() }}" class="locale-process-{{ settings.locale.process }}">
+<html lang="{{ current_locale() }}" class="locale-process-{{ localeProcess }}">
     <head>
         <meta charset="utf-8"/>
         <title>Slim 3 Skeleton Fork - InsanityMeetsHH</title>
         <link href="//fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet" type="text/css">
         <link href="{{ base_url() }}/css/styles.css?v=5.0.0" rel="stylesheet" type="text/css">
-        <script src='https://www.google.com/recaptcha/api.js'></script>
+        <script src="https://www.google.com/recaptcha/api.js?hl={{ current_locale() }}"></script>
     </head>
     <body>
         <h2 class="text-center my-5">

@@ -33,7 +33,8 @@ $app->add(function (Request $request, Response $response, callable $next) {
 
 // initialize all routes from all active languages
 foreach ($settings['settings']['locale']['active'] as $activeLocale => $domain) {
-    if (!$settings['settings']['locale']['use_domain'] && $settings['settings']['locale']['process'] === 'session') {
+    if (\App\Utility\LanguageUtility::processHas(\App\Utility\LanguageUtility::DOMAIN_DISABLED) 
+            && \App\Utility\LanguageUtility::processHas(\App\Utility\LanguageUtility::LOCALE_SESSION)) {
         $activeLocale = $settings['settings']['locale']['generic_code'];
     }
     
@@ -49,7 +50,8 @@ foreach ($settings['settings']['locale']['active'] as $activeLocale => $domain) 
         }
     }
     
-    if ($settings['settings']['locale']['process'] === 'session' 
+    if (\App\Utility\LanguageUtility::processHas(\App\Utility\LanguageUtility::DOMAIN_DISABLED) 
+            && \App\Utility\LanguageUtility::processHas(\App\Utility\LanguageUtility::LOCALE_SESSION)
             && $activeLocale === $settings['settings']['locale']['generic_code']) {
         break;
     }

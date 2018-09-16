@@ -1,11 +1,12 @@
 <?php
 # See http://php.net/manual/de/function.sprintf.php if you want to use placeholders in strings
 return [
+    'included' => 'Included',
     'example' => 'This is a %1$s example page with number %2$s.',
     'db-records' => 'Database records',
     'user' => 'User',
     'password' => 'Password',
-    'password-repeat' => 'Passwor again',
+    'password-repeat' => 'Password again',
     'user-name' => 'User name',
     'login' => 'Login',
     'id' => 'ID',

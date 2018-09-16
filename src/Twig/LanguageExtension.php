@@ -71,14 +71,14 @@ class LanguageExtension extends \Twig_Extension {
                 $routes = require $settings['config_path'] . 'routes/' . $activeLocale . '.php';
                 $domain = $settings['locale']['active'][$activeLocale];
                 
-                if ($settings['locale']['use_domain'] && !isset($routes[rtrim($currentRouteName, '-')])) {
+                if (LanguageUtility::processHas(LanguageUtility::DOMAIN_ENABLED) && !isset($routes[rtrim($currentRouteName, '-')])) {
                     $routeSuffix = $settings['locale']['generic_code'];
                 }
                 
-                if (!$settings['locale']['use_domain']) {
+                if (LanguageUtility::processHas(LanguageUtility::DOMAIN_DISABLED)) {
                     $domain = $settings['locale']['default_domain'];
                     
-                    if ($settings['locale']['process'] === 'session') {
+                    if (LanguageUtility::processHas(LanguageUtility::LOCALE_SESSION)) {
                         $routeSuffix = $settings['locale']['generic_code'];
                     }
                 }
@@ -106,9 +106,8 @@ class LanguageExtension extends \Twig_Extension {
      */
     public function isCurrentLocalePath($locale, $name, $data = []) {
         $result = FALSE;
-        $settings = $this->container->get('settings');
-        if ($settings['locale']['use_domain'] 
-                || (!$settings['locale']['use_domain'] && $settings['locale']['process'] === 'session')) {
+        if (LanguageUtility::processHas(LanguageUtility::DOMAIN_ENABLED) 
+                || (LanguageUtility::processHas(LanguageUtility::DOMAIN_DISABLED) && LanguageUtility::processHas(LanguageUtility::LOCALE_SESSION))) {
             if ($locale === LanguageUtility::getCurrentLocale()) {
                 $result = TRUE;
             }

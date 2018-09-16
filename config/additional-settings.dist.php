@@ -1,7 +1,7 @@
 <?php
 return [
     'settings' => [
-        'displayErrorDetails' => FALSE,
+        'displayErrorDetails' => FALSE, // set to false in production
         
         // Doctrine settings
         'doctrine' => [
@@ -14,14 +14,13 @@ return [
         
         // Google recaptcha
         'recaptcha' => [
-            'site' => '',
+            'site'   => '',
             'secret' => '',
         ],
         
         // Locale settings
         'locale' => [
-            'process' => 'url', // url or session
-            'use_domain' => FALSE,
+            'process' => \App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_DISABLED,
             'default_domain' => 'imhh-slim.localhost',
             'active' => [
 //                'xx-XX' => '', // domain not necessary here

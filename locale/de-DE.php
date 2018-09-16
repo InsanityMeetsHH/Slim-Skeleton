@@ -1,6 +1,7 @@
 <?php
 # See http://php.net/manual/de/function.sprintf.php if you want to use placeholders in strings
 return [
+    'included' => 'Beinhaltet',
     'example' => 'Dies ist eine %1$s Beispielseite mit Nummer %2$s.',
     'db-records' => 'Datenbank-Datensätze',
     'user' => 'Benutzer',

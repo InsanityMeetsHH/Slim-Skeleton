@@ -1,4 +1,11 @@
 <?php
+if ((($settings['settings']['locale']['process'] & \App\Utility\LanguageUtility::DOMAIN_ENABLED) == \App\Utility\LanguageUtility::DOMAIN_ENABLED 
+    && ($settings['settings']['locale']['process'] & \App\Utility\LanguageUtility::LOCALE_URL) == \App\Utility\LanguageUtility::LOCALE_URL) 
+    || (($settings['settings']['locale']['process'] & \App\Utility\LanguageUtility::DOMAIN_DISABLED) == \App\Utility\LanguageUtility::DOMAIN_DISABLED 
+        && ($settings['settings']['locale']['process'] & \App\Utility\LanguageUtility::LOCALE_SESSION) == \App\Utility\LanguageUtility::LOCALE_SESSION)) {
+    $settings['settings']['locale']['active'][$settings['settings']['locale']['generic_code']] = '';
+}
+
 if (($settings['settings']['locale']['process'] & \App\Utility\LanguageUtility::DOMAIN_DISABLED) == \App\Utility\LanguageUtility::DOMAIN_DISABLED 
         && ($settings['settings']['locale']['process'] & \App\Utility\LanguageUtility::LOCALE_SESSION) == \App\Utility\LanguageUtility::LOCALE_SESSION) {
     if (isset($_COOKIE['current_locale'])) {
@@ -42,5 +49,5 @@ if (($settings['settings']['locale']['process'] & \App\Utility\LanguageUtility::
             break;
     }
 } else {
-    die('Locale process setting not allowed');
+    die("Locale process setting not allowed in \$settings['locale']['process']");
 }

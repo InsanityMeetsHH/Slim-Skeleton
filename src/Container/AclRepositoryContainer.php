@@ -9,14 +9,14 @@ class AclRepositoryContainer {
     /**
      * @var \Geggleto\Acl\AclRepository 
      */
-    private static $aclRepository = null;
+    private static $acl = null;
 
     /**
      * @param array $settings
      * @return \Geggleto\Acl\AclRepository
      */
     public static function getInstance() {
-        return self::$aclRepository;
+        return self::$acl;
     }
 
     /**
@@ -59,11 +59,6 @@ class AclRepositoryContainer {
                         
                         if (isset($routes) && is_array($routes)) {
                             foreach ($routes as $routeName => $route) {
-                                // if is first role
-//                                if ($roleKey === 0) {
-//                                    $allResources[] = $route['route'];
-//                                }
-                                
                                 if (!in_array($route['route'], $allResources)) {
                                     $allResources[] = $route['route'];
                                 }
@@ -103,10 +98,10 @@ class AclRepositoryContainer {
                 ]
             ];
 
-            self::$aclRepository = new \App\Repository\AclRepository([$currentRole], $aclSettings);
+            self::$acl = new \App\Repository\AclRepository([$currentRole], $aclSettings);
         }
 
-        return self::$aclRepository;
+        return self::$acl;
     }
 
     /**

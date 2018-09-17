@@ -13,8 +13,8 @@ class BaseController {
     const STYLE_DANGER = 'danger';
     const STYLE_SUCCESS = 'success';
     
-    /** @var \Geggleto\Acl\AclRepository $aclRepository **/
-    protected $aclRepository;
+    /** @var \Geggleto\Acl\AclRepository $acl **/
+    protected $acl;
     
     /** @var \Doctrine\ORM\EntityManager $em **/
     protected $em;
@@ -53,7 +53,7 @@ class BaseController {
      * @param \Slim\Container $container
      */
     public function __construct($container) {
-        $this->aclRepository = AclRepositoryContainer::getInstance();
+        $this->acl = AclRepositoryContainer::getInstance();
         $this->em = $container->get('em');
         $this->flash = $container->get('flash');
         $this->container = $container;

@@ -62,5 +62,5 @@ return [
     'date' => 'Y-m-d',
     'time' => 'g:ia',
     'datetime' => 'Y-m-d g:ia',
-    'timezone' => 'Europe/London',
+    'timezone' => 'America/New_York',
 ];

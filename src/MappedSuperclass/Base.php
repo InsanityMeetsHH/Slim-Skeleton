@@ -29,7 +29,7 @@ class Base {
     /**
      * @ORM\Column(type="datetime", name="created_at")
      */
-    protected $createdAt;
+    protected $createdAt = NULL;
     
     /**
      * Get $id
@@ -107,7 +107,7 @@ class Base {
     public function updatedTimestamps() {
         $this->setUpdatedAt(new \DateTime('now'));
 
-        if ($this->getCreatedAt() == null) {
+        if ($this->getCreatedAt() === NULL) {
             $this->setCreatedAt(new \DateTime('now'));
         }
     }

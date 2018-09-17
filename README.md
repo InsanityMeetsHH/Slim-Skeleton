@@ -34,12 +34,12 @@ $ cd [my-app-name]
 ```
 
 ## Setup database and config\additional-settings.php 
-Duplicate `config\additional-settings.dist.php` to `config\additional-settings.php`.
+Duplicate [`config\additional-settings.dist.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/additional-settings.dist.php) to `config\additional-settings.php`.
 (`config\additional-settings.php` is useful for working with git and your local environment is different to live or to your team mates)
 
 Change `public_path` if you run the project in a sub directory.
 
-If you want to use **_not_** MySQL and/or your server is **_not_** 127.0.0.1 then you have to add [driver](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L56) and/or [host](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L57) in [additional-settings.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/additional-settings.dist#L7)
+If you want to use **_not_** MySQL and/or your server is **_not_** 127.0.0.1 then you have to add [`driver`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L56) and/or [`host`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L57) in `config/additional-settings.php`
 
 Change database conditions in `config\additional-settings.php` (without `dbname`).
 ```bash
@@ -52,46 +52,39 @@ $ php doctrine orm:schema-tool:update --force
 ```
 Now you've created the database tables named [user](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Entity/User.php) and [role](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Entity/Role.php).
 
-If you want to fill the table with some roles and one user
+The last step is to fill the table with some roles and one user
 ```bash
 $ php doctrine dbal:import sql/all-records.sql
 ```
 
 ## How to create further localisations
-* Duplicate one existing file in folder `locale/` (e.g. copy `locale/de-DE.php` to `locale/fr-FR.php`)
+* Duplicate one existing file in folder [`locale/`](https://github.com/InsanityMeetsHH/Slim-Skeleton/tree/master/locale) (e.g. copy `locale/de-DE.php` to `locale/fr-FR.php`)
 * Change route prefix from `/de/` to `/fr/` in `locale/fr-FR.php`
 * You can also define paths like `/fr-be/` (`locale/fr-BE.php`) for example
-* If you want to show language in langswitch [config/settings.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L38)
-* Add case for `fr/` in [src/localisation.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/localisation.php#L34)
+* If you want to show language in langswitch [`config/settings.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L38)
+* Add case for `fr/` in [`src/localisation.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/localisation.php#L34)
 
 ## How to switch from example.com/de/ to de.example.com or example.de
 * (EN is default language and DE is alternative language for this example)
 * Got to `config\additional-settings.php`
 * Set `'process' => \App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_ENABLED,`
 * Enter your domains in `default_domain` and `active`
-* Activate `'xx-XX' => '',`
-* Go to `config/routes/de-DE.php`
+* Go to [`config/routes/de-DE.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/routes/de-DE.php)
 * Remove `/de` from every `route`
-* Go to `config/routes/xx-XX.php`
-* Insert all routes where the config is equal in `config/routes/en-US.php` and `config/routes/de-DE.php`
-* Remove these equal routes in `config/routes/en-US.php` and `config/routes/de-DE.php`
+* Go to [`config/routes/xx-XX.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/routes/xx-XX.php)
+* Insert all routes where the config is equal in [`config/routes/en-US.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/routes/en-US.php) and [`config/routes/de-DE.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/routes/de-DE.php)
+* Remove these equal routes in [`config/routes/en-US.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/routes/en-US.php) and [`config/routes/de-DE.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/routes/de-DE.php)
 
-## How to use same url for all languages (like youtube or twitter)
+## How to use same url for all languages (like [youtube](https://www.youtube.com/) or [twitter](https://twitter.com/))
 * (EN is default language and DE is alternative language for this example)
 * Got to `config\additional-settings.php`
 * Set `'process' => \App\Utility\LanguageUtility::LOCALE_SESSION | \App\Utility\LanguageUtility::DOMAIN_DISABLED,`
-* Activate `'xx-XX' => '',`
-* Set up all routes in `config/routes/xx-XX.php`
+* Set up all routes in [`config/routes/xx-XX.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/routes/xx-XX.php)
 
 ## Path generation with Locale code and Generic locale code
 * example.com/de/ = `'process' => \App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_DISABLED,`
 * example.de = `'process' => \App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_ENABLED,`
 * example.com (de-DE session) = `'process' => \App\Utility\LanguageUtility::LOCALE_SESSION | \App\Utility\LanguageUtility::DOMAIN_DISABLED,`
-
-|                     | Twig        | PHP                                   | Twig Example                           | PHP Example                                                                   |
-|---------------------|-------------|---------------------------------------|----------------------------------------|-------------------------------------------------------------------------------|
-| locale code         | `{{ lc }}`  | `LanguageUtility::getLocale()`        | `{{ path_for('user-register-' ~ lc) }}` | `$this->router->pathFor('user-register-' . LanguageUtility::getLocale())`     |
-| generic locale code | `{{ glc }}` | `LanguageUtility::getGenericLocale()` | `{{ path_for('user-login-' ~ glc) }}`   | `$this->router->pathFor('user-login-' . LanguageUtility::getGenericLocale())` |
 
 It depends on your configuration what will be returned.
 
@@ -99,6 +92,11 @@ It depends on your configuration what will be returned.
 |---------------------|-----------------|------------|-----------------------------|
 | locale code         | de-DE           | de-DE      | xx-XX                       |
 | generic locale code | de-DE           | xx-XX      | xx-XX                       |
+
+|                     | Twig        | PHP                                   | Twig Example                           | PHP Example                                                                   |
+|---------------------|-------------|---------------------------------------|----------------------------------------|-------------------------------------------------------------------------------|
+| locale code         | `{{ lc }}`  | `LanguageUtility::getLocale()`        | `{{ path_for('user-register-' ~ lc) }}` | `$this->router->pathFor('user-register-' . LanguageUtility::getLocale())`     |
+| generic locale code | `{{ glc }}` | `LanguageUtility::getGenericLocale()` | `{{ path_for('user-login-' ~ glc) }}`   | `$this->router->pathFor('user-login-' . LanguageUtility::getGenericLocale())` |
 
 ## ACL settings
 With [Geggleto ACL](https://github.com/geggleto/geggleto-acl), routes are protected by role the current user has. By default every new route is not accessable until you give the route roles.
@@ -110,7 +108,7 @@ Inside controllers you can also use this ACL functions and [many more](https://g
 ## Troubleshooting
 In some cases you'll get the error message "Internal Server Error".
 
-If this happened, go to public/.htaccess and enable `RewriteBase /`.
+If this happened, go to `public/.htaccess` and enable `RewriteBase /`.
 
 If project is in sub directory then `RewriteBase /project/public/`.
 

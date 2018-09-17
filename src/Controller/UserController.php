@@ -21,7 +21,7 @@ class UserController extends BaseController {
      */
     public function showAction($request, $response, $args) {
         // if is other user and current user is alowed show_user_other
-        if (isset($args['name']) && $this->aclRepository->isAllowed($this->currentRole, 'show_user_other')) {
+        if (isset($args['name']) && $this->acl->isAllowed($this->currentRole, 'show_user_other')) {
             $user = $this->em->getRepository('App\Entity\User')->findOneBy(['name' => $args['name'], 'deleted' => 0]);
             
             // if user exists
@@ -32,7 +32,7 @@ class UserController extends BaseController {
                 $this->logger->info("User '" . $args['name'] . "' not found - UserController:show");
                 return $response->withRedirect($this->router->pathFor('error-not-found-' . LanguageUtility::getGenericLocale()));
             }
-        } elseif (!is_null($this->currentUser) && !isset($args['name']) && $this->aclRepository->isAllowed($this->currentRole, 'show_user')) {
+        } elseif (!is_null($this->currentUser) && !isset($args['name']) && $this->acl->isAllowed($this->currentRole, 'show_user')) {
             // if is logged in user and allowed show_user
             $user = $this->em->getRepository('App\Entity\User')->findOneBy(['id' => $this->currentUser]);
         } else {

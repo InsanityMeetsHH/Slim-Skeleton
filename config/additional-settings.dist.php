@@ -23,7 +23,6 @@ return [
             'process' => \App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_DISABLED,
             'default_domain' => 'imhh-slim.localhost',
             'active' => [
-//                'xx-XX' => '', // domain not necessary here
                 'en-US' => 'imhh-slim.localhost',
                 'de-DE' => 'de.imhh-slim.localhost',
             ],

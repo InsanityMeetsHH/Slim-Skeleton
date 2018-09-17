@@ -58,9 +58,9 @@ class AclExtension extends \Twig_Extension {
      * @return bool
      */
     public function isAllowed($resource) {
-        $aclRepository = AclRepositoryContainer::getInstance();
+        $acl = AclRepositoryContainer::getInstance();
         
-        if (is_string($resource) && isset($_SESSION['currentRole']) && $aclRepository->isAllowed($_SESSION['currentRole'], $resource)) {
+        if (is_string($resource) && isset($_SESSION['currentRole']) && $acl->isAllowed($_SESSION['currentRole'], $resource)) {
             return TRUE;
         }
         

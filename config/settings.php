@@ -34,10 +34,9 @@ return [
             'auto_detect' => TRUE,
             'default_domain' => 'slim3.insanitymeetshh.net',
             'code' => 'en-US', // default / current language
-            'generic_code' => 'xx-XX', // routes with out localization
+            'generic_code' => 'xx-XX', // routes which fits all localizations
             'path' => __DIR__ . '/../locale/',
             'active' => [
-//                'xx-XX' => '', // domain not necessary here
                 'en-US' => 'slim3.insanitymeetshh.net',
                 'de-DE' => 'slim3de.insanitymeetshh.net',
             ],

@@ -1,18 +1,48 @@
-version: '2'
+version: '3'
 
 volumes:
+    db_data:
     logs:
         driver: local
 
 services:
-    slim:
+    db:
+        image: mysql:5.7
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: rootdockerpw
+            MYSQL_DATABASE: application
+            MYSQL_USER: dockeruser
+            MYSQL_PASSWORD: dockerpw
+        ports:
+            - 9906:3306
+        volumes:
+            - db_data:/var/lib/mysql
+            - ./sql/docker-dump.sql:/docker-entrypoint-initdb.d/docker-dump.sql
+    
+    # http://localhost:8080
+    webserver:
         image: php:7-alpine
+        restart: always
         working_dir: /var/www
         command: php -S 0.0.0.0:8080 -t public
         environment:
             docker: "true"
+            #APP_DB_HOST: db:3306
+            APP_DB_NAME: application
+            APP_DB_USER: dockeruser
+            APP_DB_PASSWORD: dockerpw
         ports:
             - 8080:8080
         volumes:
             - .:/var/www
             - logs:/var/www/logs
+        depends_on:
+            - db
+    
+    # http://localhost:9999
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+            - 9999:8080

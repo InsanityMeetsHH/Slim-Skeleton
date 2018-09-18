@@ -33,7 +33,7 @@ Go to your project directory for following steps.
 $ cd [my-app-name]
 ```
 
-## Setup database and config\additional-settings.php 
+## Setup database and `config\additional-settings.php`
 Duplicate [`config\additional-settings.dist.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/additional-settings.dist.php) to `config\additional-settings.php`.
 (`config\additional-settings.php` is useful for working with git and your local environment is different to live or to your team mates)
 
@@ -93,8 +93,8 @@ It depends on your configuration what will be returned.
 | locale code         | de-DE           | de-DE      | xx-XX                       |
 | generic locale code | de-DE           | xx-XX      | xx-XX                       |
 
-|                     | Twig        | PHP                                   | Twig Example                           | PHP Example                                                                   |
-|---------------------|-------------|---------------------------------------|----------------------------------------|-------------------------------------------------------------------------------|
+|                     | Twig        | PHP                                   | Twig Example                            | PHP Example                                                                   |
+|---------------------|-------------|---------------------------------------|-----------------------------------------|-------------------------------------------------------------------------------|
 | locale code         | `{{ lc }}`  | `LanguageUtility::getLocale()`        | `{{ path_for('user-register-' ~ lc) }}` | `$this->router->pathFor('user-register-' . LanguageUtility::getLocale())`     |
 | generic locale code | `{{ glc }}` | `LanguageUtility::getGenericLocale()` | `{{ path_for('user-login-' ~ glc) }}`   | `$this->router->pathFor('user-login-' . LanguageUtility::getGenericLocale())` |
 
@@ -104,6 +104,15 @@ Routes are defined in the route files (e.g. [config/routes/de-DE.php](https://gi
 Any other resource is defined in [settings.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L66).
 Inside the Twig templates you can use ACL functions [has_role](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/partials/navigation.html.twig#L5) and [is_allowed](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/page/index.html.twig#L18).
 Inside controllers you can also use this ACL functions and [many more](https://github.com/geggleto/geggleto-acl/blob/master/src/AclRepository.php) (e.g. [is_allowed](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Controller/UserController.php#L24)).
+
+## Docker
+* `docker-compose up`
+* `docker container ls`
+* `docker inspect imhh-slim_db_1 | grep IPAddress` set ip as Doctrine `host` in `config\additional-settings.php`
+* `docker exec -it imhh-slim_webserver_1 docker-php-ext-install pdo pdo_mysql`
+* `docker container restart imhh-slim_webserver_1`
+* If you want to stop all container `docker rm $(docker ps -a -q) -f`
+* If you want to stop all volumes `docker volume prune` (first stop all container)
 
 ## Troubleshooting
 In some cases you'll get the error message "Internal Server Error".

@@ -30,10 +30,10 @@ CREATE TABLE `role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `role` (`id`, `name`, `updated_at`, `created_at`, `deleted`) VALUES
-(1,	'guest',	'2018-07-11 12:23:53',	'2018-07-11 12:23:53',	0),
-(2,	'member',	'2018-07-11 12:23:53',	'2018-07-11 12:23:53',	0),
-(3,	'admin',	'2018-07-11 12:23:53',	'2018-07-11 12:23:53',	0),
-(4,	'superadmin',	'2018-07-11 12:23:53',	'2018-07-11 12:23:53',	0);
+(1,	'guest',	NOW(),	NOW(),	0),
+(2,	'member',	NOW(),	NOW(),	0),
+(3,	'admin',	NOW(),	NOW(),	0),
+(4,	'superadmin',	NOW(),	NOW(),	0);
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
@@ -53,6 +53,6 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `user` (`id`, `role_id`, `name`, `pass`, `updated_at`, `created_at`, `two_factor`, `two_factor_secret`, `deleted`) VALUES
-(1,	2,	'user',	'$2y$11$eVVKcwwsb1UP7RSvdea21OWGJM3cYLBKSoPlAowBa0uQHjkguRB.K',	'2018-07-17 13:41:34',	'2018-05-18 15:04:38',	0,	'',	0);
+(1,	2,	'user',	'$2y$11$eVVKcwwsb1UP7RSvdea21OWGJM3cYLBKSoPlAowBa0uQHjkguRB.K',	NOW(),	NOW(),	0,	'',	0);
 
 -- 2018-09-18 12:06:36

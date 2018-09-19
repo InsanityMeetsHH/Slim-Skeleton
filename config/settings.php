@@ -32,7 +32,6 @@ return [
         'locale' => [
             'process' => \App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_DISABLED,
             'auto_detect' => TRUE,
-            'default_domain' => 'slim3.insanitymeetshh.net',
             'code' => 'en-US', // default / current language
             'generic_code' => 'xx-XX', // routes which fits all localizations
             'path' => __DIR__ . '/../locale/',

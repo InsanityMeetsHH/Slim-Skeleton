@@ -6,7 +6,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [5.0.0]
+## [5.0.1]
+### Added
+- [Docker documentation](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/README.md#L108)
+- [`Dockerfile`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/Dockerfile)
+- [`docker-dump.sql`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/sql/docker-dump.sql)
+
+### Changed
+- [`docker-compose.yml`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/docker-compose.yml)
+- [`CONTRIBUTING.md`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/CONTRIBUTING.md)
+
+### Removed
+- `default_domain` from `locale` in [`config/settings.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L32) and [`config/additional-settings.dist.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/additional-settings.dist.php#L23)
+- `default_domain` from [`LanguageExtension`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Twig/LanguageExtension.php#L79)
+
+## [5.0.0] - 2018-08-17
 ### Added
 - Localized website by domain (exampl.de / de.example.com)
 - Localized website by session (exampl.com for every language)
@@ -23,24 +37,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - UTC time zone as default for this application
 - HTML label in forms
 - [Google reCAPTCHA package](https://github.com/google/recaptcha)
-- Google reCAPTCHA settings to [`config/settings.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php)
+- Google reCAPTCHA settings to [`config/settings.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L19)
 - [CSS](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/public/css/styles.css#L64) for Google reCAPTCHA widget
 - Registration form
 - Localized flash messages for registration form
 - Documentation in README.md
-- `{{ glc }}` in [`templates/layouts/layout.html.twig`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/layouts/layout.html.twig)
-- Website session script in [`templates/layouts/layout.html.twig`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/layouts/layout.html.twig)
+- `{{ glc }}` in [`templates/layouts/layout.html.twig`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/layouts/layout.html.twig#L4)
+- Website session script in [`templates/layouts/layout.html.twig`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/layouts/layout.html.twig#L33)
 - `public/favicon.ico`
-- `process`, `default_domain` and `generic_code` to `locale` in [`config/settings.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php)
+- `process`, `default_domain` and `generic_code` to `locale` in [`config/settings.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L32)
 - Domains to `locale => active`
-- `$settings` to [`src/Controller/BaseController.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Controller/BaseController.php)
-- `debug` and `cache` to `renderer` in [`config/settings.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php)
+- `$settings` to [`src/Controller/BaseController.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Controller/BaseController.php#L66)
+- `debug` and `cache` to `renderer` in [`config/settings.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L12)
 
 ### Changed
-- `{{ lk }}` is now `{{ lc }}` in [`templates/layouts/layout.html.twig`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/layouts/layout.html.twig)
+- `{{ lk }}` is now `{{ lc }}` in [`templates/layouts/layout.html.twig`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/layouts/layout.html.twig#L2)
 - `AppExtension::language()` is now [`LanguageExtension::locale()`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Twig/LanguageExtension.php#L127)
-- `locale => autoDetect` is now `locale => auto_detect` in [`config/settings.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php)
-- `aclResources` is now `acl_resources` in [`config/settings.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php)
+- `locale => autoDetect` is now `locale => auto_detect` in [`config/settings.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L34)
+- `aclResources` is now `acl_resources` in [`config/settings.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L65)
 - `{{ path_for('route-name' ~ lc) }}` is now `{{ path_for('route-name-' ~ lc) }}` (with dash after route-name)
 - `BaseController::$aclRepository` is now [`BaseController::$acl`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Controller/BaseController.php#L17)
 - `AclRepositoryContainer::$aclRepository` is now [`AclRepositoryContainer::$acl`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Container/AclRepositoryContainer.php#L12)

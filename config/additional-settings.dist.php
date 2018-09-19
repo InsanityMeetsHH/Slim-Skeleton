@@ -22,7 +22,6 @@ return [
         // Locale settings
         'locale' => [
             'process' => \App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_DISABLED,
-            'default_domain' => 'imhh-slim.localhost',
             'active' => [
                 'en-US' => 'imhh-slim.localhost',
                 'de-DE' => 'de.imhh-slim.localhost',

@@ -17,9 +17,20 @@
 * PHP => 5.5
 * Database like MySQL
 
-## Installation
+## Installation with [Docker](https://www.docker.com/)
+* Get skeleton via `git clone`, `composer create-project` or zip download
+* `docker pull composer`
+* `docker run --rm --interactive --tty --volume $PWD:/app composer update`
+* `docker-compose build`
+* `docker-compose up -d`
+* `docker container ls`
+* `cp config\additional-settings.dist.php config\additional-settings.php`
+* `docker inspect slim-db | grep IPAddress` set ip as Doctrine `host` in `config\additional-settings.php`
+* Open [localhost:8080](http://localhost:8080) for website or [localhost:9999](http://localhost:9999) for database gui
+* If you want to remove all container `docker rm $(docker ps -a -q) -f`
+* If you want to stop all volumes `docker volume prune` (first remove all container)
 
-It's recommended that you use [Composer](https://getcomposer.org/) to install.
+## Installation with [Composer](https://getcomposer.org/)
 
 ```bash
 $ composer create-project insanitymeetshh/slim-skeleton [my-app-name]
@@ -43,7 +54,7 @@ If you want to use **_not_** MySQL and/or your server is **_not_** 127.0.0.1 the
 
 Change database conditions in `config\additional-settings.php` (without `dbname`).
 ```bash
-$ php doctrine dbal:run-sql "CREATE DATABASE slim3_database"
+$ php doctrine dbal:run-sql "CREATE DATABASE slim_database"
 ```
 
 Add database name to `dbname` in `config\additional-settings.php` and run following command.
@@ -66,9 +77,9 @@ $ php doctrine dbal:import sql/all-records.sql
 
 ## How to switch from example.com/de/ to de.example.com or example.de
 * (EN is default language and DE is alternative language for this example)
-* Got to `config\additional-settings.php`
+* Got to `config\additional-settings.php` `locale`
 * Set `'process' => \App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_ENABLED,`
-* Enter your domains in `default_domain` and `active`
+* Enter your domains in `active`
 * Go to [`config/routes/de-DE.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/routes/de-DE.php)
 * Remove `/de` from every `route`
 * Go to [`config/routes/xx-XX.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/routes/xx-XX.php)
@@ -77,7 +88,7 @@ $ php doctrine dbal:import sql/all-records.sql
 
 ## How to use same url for all languages (like [youtube](https://www.youtube.com/) or [twitter](https://twitter.com/))
 * (EN is default language and DE is alternative language for this example)
-* Got to `config\additional-settings.php`
+* Got to `config\additional-settings.php` `locale`
 * Set `'process' => \App\Utility\LanguageUtility::LOCALE_SESSION | \App\Utility\LanguageUtility::DOMAIN_DISABLED,`
 * Set up all routes in [`config/routes/xx-XX.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/routes/xx-XX.php)
 
@@ -104,15 +115,6 @@ Routes are defined in the route files (e.g. [config/routes/de-DE.php](https://gi
 Any other resource is defined in [settings.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L66).
 Inside the Twig templates you can use ACL functions [has_role](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/partials/navigation.html.twig#L5) and [is_allowed](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/page/index.html.twig#L18).
 Inside controllers you can also use this ACL functions and [many more](https://github.com/geggleto/geggleto-acl/blob/master/src/AclRepository.php) (e.g. [is_allowed](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Controller/UserController.php#L24)).
-
-## Docker
-* `docker-compose up`
-* `docker container ls`
-* `docker inspect imhh-slim_db_1 | grep IPAddress` set ip as Doctrine `host` in `config\additional-settings.php`
-* `docker exec -it imhh-slim_webserver_1 docker-php-ext-install pdo pdo_mysql`
-* `docker container restart imhh-slim_webserver_1`
-* If you want to stop all container `docker rm $(docker ps -a -q) -f`
-* If you want to stop all volumes `docker volume prune` (first stop all container)
 
 ## Troubleshooting
 In some cases you'll get the error message "Internal Server Error".

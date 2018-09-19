@@ -69,14 +69,14 @@ class LanguageExtension extends \Twig_Extension {
                 $routeSuffix = $activeLocale;
                 $locale = require $settings['locale']['path'] . $activeLocale . '.php';
                 $routes = require $settings['config_path'] . 'routes/' . $activeLocale . '.php';
-                $domain = $settings['locale']['active'][$activeLocale];
+                $domain = $_SERVER['REQUEST_SCHEME'] . '://' . $settings['locale']['active'][$activeLocale];
                 
                 if (LanguageUtility::processHas(LanguageUtility::DOMAIN_ENABLED) && !isset($routes[rtrim($currentRouteName, '-')])) {
                     $routeSuffix = $settings['locale']['generic_code'];
                 }
                 
                 if (LanguageUtility::processHas(LanguageUtility::DOMAIN_DISABLED)) {
-                    $domain = $settings['locale']['default_domain'];
+                    $domain = '';
                     
                     if (LanguageUtility::processHas(LanguageUtility::LOCALE_SESSION)) {
                         $routeSuffix = $settings['locale']['generic_code'];
@@ -87,7 +87,7 @@ class LanguageExtension extends \Twig_Extension {
                     'label' => $locale['langswitch-label'],
                     'image' => $locale['langswitch-image'],
                     'route' => $currentRouteName . strtolower($routeSuffix),
-                    'domain' => $_SERVER['REQUEST_SCHEME'] . '://' . $domain,
+                    'domain' => $domain,
                     'args' => $_SESSION['route-args'],
                     'locale' => $activeLocale,
                 ];

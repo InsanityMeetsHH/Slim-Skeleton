@@ -9,9 +9,10 @@ services:
     db:
         image: mysql:5.7
         restart: always
+        container_name: slim-db
         environment:
             MYSQL_ROOT_PASSWORD: rootdockerpw
-            MYSQL_DATABASE: application
+            MYSQL_DATABASE: slim_database
             MYSQL_USER: dockeruser
             MYSQL_PASSWORD: dockerpw
         ports:
@@ -22,16 +23,20 @@ services:
     
     # http://localhost:8080
     webserver:
-        image: php:7-alpine
+        #image: php:7-alpine
+        container_name: slim-webserver
         restart: always
         working_dir: /var/www
         command: php -S 0.0.0.0:8080 -t public
         environment:
             docker: "true"
             #APP_DB_HOST: db:3306
-            APP_DB_NAME: application
+            APP_DB_NAME: slim_database
             APP_DB_USER: dockeruser
             APP_DB_PASSWORD: dockerpw
+        build:
+            context: ./
+            dockerfile: Dockerfile
         ports:
             - 8080:8080
         volumes:
@@ -43,6 +48,7 @@ services:
     # http://localhost:9999
     adminer:
         image: adminer
+        container_name: slim-adminer
         restart: always
         ports:
             - 9999:8080

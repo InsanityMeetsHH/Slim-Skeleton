@@ -17,20 +17,7 @@
 * PHP => 5.5
 * Database like MySQL
 
-## Installation with [Docker](https://www.docker.com/)
-* Get skeleton via `git clone`, `composer create-project` or zip download
-* `docker pull composer`
-* `docker run --rm --interactive --tty --volume $PWD:/app composer update`
-* `docker-compose build`
-* `docker-compose up -d`
-* `docker container ls`
-* `cp config\additional-settings.dist.php config\additional-settings.php`
-* `docker inspect slim-db | grep IPAddress` set ip as Doctrine `host` in `config\additional-settings.php`
-* Open [localhost:8080](http://localhost:8080) for website or [localhost:9999](http://localhost:9999) for database gui
-* If you want to remove all container `docker rm $(docker ps -a -q) -f`
-* If you want to stop all volumes `docker volume prune` (first remove all container)
-
-## Installation with [Composer](https://getcomposer.org/)
+## Installation with [Composer](https://getcomposer.org/) (Recommended)
 
 ```bash
 $ composer create-project insanitymeetshh/slim-skeleton [my-app-name]
@@ -115,6 +102,21 @@ Routes are defined in the route files (e.g. [config/routes/de-DE.php](https://gi
 Any other resource is defined in [settings.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L66).
 Inside the Twig templates you can use ACL functions [has_role](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/partials/navigation.html.twig#L5) and [is_allowed](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/page/index.html.twig#L18).
 Inside controllers you can also use this ACL functions and [many more](https://github.com/geggleto/geggleto-acl/blob/master/src/AclRepository.php) (e.g. [is_allowed](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Controller/UserController.php#L24)).
+
+## Installation with [Docker](https://www.docker.com/)
+* Get skeleton via `git clone`, `composer create-project` or zip download
+* `docker pull composer`
+* `docker run --rm --interactive --tty --volume $PWD:/app composer update`
+* `docker-compose build`
+* `docker-compose up -d`
+* `docker container ls`
+* `cp config\additional-settings.dist.php config\additional-settings.php`
+* `docker inspect slim-db | grep IPAddress` set ip as Doctrine `host` in `config\additional-settings.php`
+* Open [localhost:8080](http://localhost:8080) for website or [localhost:9999](http://localhost:9999) for database gui
+* If you want to remove a container `docker rm [container-name] -f` e.g. `docker rm slim-db -f`
+* If you want to remove a volume `docker volume rm [volume-name]` e.g. `docker volume rm imhh-slim_db_data` (first remove matching container)
+* If you want to remove all container `docker rm $(docker ps -a -q) -f`
+* If you want to remove all volumes `docker volume prune` (first remove all container)
 
 ## Troubleshooting
 In some cases you'll get the error message "Internal Server Error".

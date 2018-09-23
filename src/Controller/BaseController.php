@@ -13,8 +13,8 @@ class BaseController {
     const STYLE_DANGER = 'danger';
     const STYLE_SUCCESS = 'success';
     
-    /** @var \Geggleto\Acl\AclRepository $aclRepository **/
-    protected $aclRepository;
+    /** @var \Geggleto\Acl\AclRepository $acl **/
+    protected $acl;
     
     /** @var \Doctrine\ORM\EntityManager $em **/
     protected $em;
@@ -43,6 +43,9 @@ class BaseController {
     /** @var \Slim\Router $router **/
     protected $router;
     
+    /** @var array $settings **/
+    protected $settings;
+    
     /** @var \Slim\Views\Twig $view **/
     protected $view;
 
@@ -50,16 +53,17 @@ class BaseController {
      * @param \Slim\Container $container
      */
     public function __construct($container) {
-        $this->aclRepository = AclRepositoryContainer::getInstance();
-        $this->em = $container->get("em");
-        $this->flash = $container->get("flash");
+        $this->acl = AclRepositoryContainer::getInstance();
+        $this->em = $container->get('em');
+        $this->flash = $container->get('flash');
         $this->container = $container;
-        $this->csrf = $container->get("csrf");
+        $this->csrf = $container->get('csrf');
         $this->currentLocale = strtolower(LanguageUtility::getCurrentLocale());
         $this->currentRole = GeneralUtility::getCurrentRole();
         $this->currentUser = GeneralUtility::getCurrentUser();
-        $this->logger = $container->get("logger");
-        $this->router = $container->get("router");
-        $this->view = $container->get("view");
+        $this->logger = $container->get('logger');
+        $this->router = $container->get('router');
+        $this->settings = $container->get('settings');
+        $this->view = $container->get('view');
     }
 }

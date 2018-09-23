@@ -6,14 +6,14 @@
         {{ 'id'|trans }}: {{ user.id }}<br/>
         {{ 'name'|trans }}: {{ user.name }}<br/>
         {{ 'role'|trans }}: {{ user.role.name|trans }}<br/>
-        {{ 'created-at'|trans }} {{ user.createdAt|date('datetime'|trans) }}<br/>
-        {{ 'updated-at'|trans }} {{ user.updatedAt|date('datetime'|trans) }}<br/>
+        {{ 'created-at'|trans }} {{ user.createdAt|date('datetime'|trans, 'timezone'|trans) }}<br/>
+        {{ 'updated-at'|trans }} {{ user.updatedAt|date('datetime'|trans, 'timezone'|trans) }}<br/>
         
         {% if has_role({0: 'member', 1: 'admin', 2: 'superadmin'}) and user.id == current_user() %}
             {% if user.hasTwoFactor %}
                 {{ '2fa-enabled'|trans }}
             {% else %}
-                <a href="{{ path_for('user-enable-two-factor' ~ lk) }}">{{ trans('user-two-factor' ~ ns) }}</a>
+                <a href="{{ path_for('user-enable-two-factor-' ~ lc) }}">{{ trans('user-two-factor-label') }}</a>
             {% endif %}
         {% endif %}
     {% endif %}

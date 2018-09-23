@@ -6,7 +6,7 @@ body {
     margin: 50px 0 0 0;
     padding: 0;
     width: 100%;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
     text-align: center;
     color: grey;
     font-size: 18px;
@@ -16,7 +16,6 @@ body {
 h1 {
     color: #2E97BF;
     letter-spacing: -3px;
-    font-family: 'Lato', sans-serif;
     font-size: 100px;
     font-weight: 400;
     margin-bottom: 0;
@@ -33,6 +32,7 @@ a:visited {
 
 a, a:focus, a:hover, a.current:focus, a.current:hover {
     color: #2E97BF;
+    text-decoration: none;
 }
 
 a.current {
@@ -59,4 +59,9 @@ ul {
 
 .message.message-danger {
     background-color: #915f5f;
+}
+
+.g-recaptcha {
+    margin: auto;
+    width: 305px;
 }

@@ -41,7 +41,7 @@ class AclRepository extends \Geggleto\Acl\AclRepository
             return $next($requestInterface, $responseInterface);
         } else {
             $error = new \App\Controller\ErrorController(\App\Container\AppContainer::getInstance()->getContainer());
-            return $error->unauthorized($requestInterface, $responseInterface);
+            return $error->unauthorizedAction($requestInterface, $responseInterface);
 //            return $responseInterface->withStatus(401);
         }
     }

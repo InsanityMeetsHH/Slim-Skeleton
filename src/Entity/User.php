@@ -9,8 +9,18 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Table(name="user")
  */
-class User extends \App\MappedSuperclass\LowerCaseUniqueName
+class User extends \App\MappedSuperclass\Base
 {
+    
+    /**
+     * @ORM\Column(type="string", unique=true)
+     */
+    protected $name;
+    
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $pass;
     
     /**
      * @ORM\ManyToOne(targetEntity="Role", inversedBy="users")
@@ -24,33 +34,39 @@ class User extends \App\MappedSuperclass\LowerCaseUniqueName
      * @ORM\OneToMany(targetEntity="RecoveryCode", mappedBy="user")
      */
     private $recoveryCodes;
-
-    /**
-     * Get $recoveryCodes
-     * 
-     * @return ArrayCollection
-     */
-    public function getRecoveryCodes() {
-        return $this->recoveryCodes;
-    }
-    
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $pass;
     
     /**
      * @ORM\Column(type="boolean", name="two_factor")
      */
-    private $twoFactor;
+    private $twoFactor = FALSE;
     
     /**
      * @ORM\Column(type="string", name="two_factor_secret")
      */
-    private $twoFactorSecret;
+    private $twoFactorSecret = '';
 
     public function __construct() {
         $this->recoveryCodes = new ArrayCollection();
+    }
+
+    /**
+     * Get $name
+     * 
+     * @return string
+     */
+    public function getName() {
+        return $this->name;
+    }
+    
+    /**
+     * Set $name
+     * 
+     * @param string $name
+     */
+    public function setName($name) {
+        $this->name = strtolower($name);
+        
+        return $this;
     }
 
     /**
@@ -91,6 +107,15 @@ class User extends \App\MappedSuperclass\LowerCaseUniqueName
         $this->role = $role;
         
         return $this;
+    }
+
+    /**
+     * Get $recoveryCodes
+     * 
+     * @return ArrayCollection
+     */
+    public function getRecoveryCodes() {
+        return $this->recoveryCodes;
     }
     
     /**

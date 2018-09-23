@@ -1,10 +1,12 @@
 <?php
 # See http://php.net/manual/de/function.sprintf.php if you want to use placeholders in strings
 return [
+    'included' => 'Included',
     'example' => 'This is a %1$s example page with number %2$s.',
     'db-records' => 'Database records',
     'user' => 'User',
     'password' => 'Password',
+    'password-repeat' => 'Password again',
     'user-name' => 'User name',
     'login' => 'Login',
     'id' => 'ID',
@@ -37,18 +39,28 @@ return [
     'page-index-label' => 'Home',
     'page-example-label' => 'Example page',
     'user-show-label' => 'Profile',
+    'user-register-label' => 'Register',
     'user-login-label' => 'Login',
     'user-logout-label' => 'Logout',
     'user-two-factor-label' => 'Enable two factor authentication',
     'langswitch-label' => 'EN',
     'langswitch-image' => '<img src="https://cdn.rawgit.com/hjnilsson/country-flags/master/svg/us.svg" style="max-height: 20px;">',
     
+    // flash messages
+    'register-flash-1' => 'Username is taken',
+    'register-flash-2' => 'Username too short (at least 4 characters)',
+    'register-flash-3' => 'Password too short (at least 6 characters)',
+    'register-flash-4' => 'Password was repeated incorrectly',
+    'register-flash-5' => 'Registration complete',
+    'register-flash-6' => 'Captcha failed',
+    
     // misc
     // decimal point
     'dp' => '.',
     // thousands separator
     'ts' => ',',
-    'date' => 'm/d/Y',
-    'time' => 'H:i:s',
-    'datetime' => 'm/d/Y H:i:s',
+    'date' => 'Y-m-d',
+    'time' => 'g:ia',
+    'datetime' => 'Y-m-d g:ia',
+    'timezone' => 'America/New_York',
 ];

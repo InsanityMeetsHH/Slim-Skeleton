@@ -1,15 +1,15 @@
-{# lk = locale key #}
-{% set lk = language() %}
-{# ns = naviagtion suffix #}
-{% set ns = '-label' %}
+{# lc = locale code #}
+{% set lc = locale() %}
+{# glc = generic locale code #}
+{% set glc = generic_locale() %}
 <!DOCTYPE html>
-<html lang="{{ lk|slice(1, 2) }}">
+<html lang="{{ current_locale() }}" class="locale-process-{{ localeProcess }}">
     <head>
         <meta charset="utf-8"/>
         <title>Slim 3 Skeleton Fork - InsanityMeetsHH</title>
-        <link href="//fonts.googleapis.com/css?family=Lato:300" rel="stylesheet" type="text/css">
-        <link href="{{ base_url() }}/css/styles.css?v=4.3.0" rel="stylesheet" type="text/css">
-        
+        <link href="//fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet" type="text/css">
+        <link href="{{ base_url() }}/css/styles.css?v=5.0.0" rel="stylesheet" type="text/css">
+        <script src="https://www.google.com/recaptcha/api.js?hl={{ current_locale() }}"></script>
     </head>
     <body>
         <h2 class="text-center my-5">
@@ -22,6 +22,24 @@
         {{ include('partials/flash-message.html.twig') }}
         
         {% block content %}{% endblock %}
+        <script>
+            function setCookie(cname, cvalue, exdays) {
+                var d = new Date();
+                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                var expires = "expires="+d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            }
+            
+            if (document.querySelector('html').classList.contains('locale-process-session')) {
+                for(var i = 0; i < document.querySelectorAll('.langswitch a').length; i++) {
+                    document.querySelectorAll('.langswitch a')[i].onclick = function(event){
+                        event.preventDefault();
+                        setCookie('current_locale', this.getAttribute('data-locale'), 365);
+                        window.location.reload();
+                    };
+                }
+            }
+        </script>
     </body>
 </html>
 

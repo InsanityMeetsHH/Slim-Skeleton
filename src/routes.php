@@ -32,16 +32,27 @@ $app->add(function (Request $request, Response $response, callable $next) {
 });
 
 // initialize all routes from all active languages
-foreach ($settings['settings']['locale']['active'] as $activeLocale) {
+foreach ($settings['settings']['locale']['active'] as $activeLocale => $domain) {
+    if (\App\Utility\LanguageUtility::processHas(\App\Utility\LanguageUtility::DOMAIN_DISABLED) 
+            && \App\Utility\LanguageUtility::processHas(\App\Utility\LanguageUtility::LOCALE_SESSION)) {
+        $activeLocale = $settings['settings']['locale']['generic_code'];
+    }
+    
     // if translation file exists, load file to $locale
-    if (is_readable($settings['settings']['config_path'] . 'routes-' . $activeLocale . '.php')) {
-        $locale = require $settings['settings']['config_path'] . 'routes-' . $activeLocale . '.php';
+    if (is_readable($settings['settings']['config_path'] . 'routes/' . $activeLocale . '.php')) {
+        $routes = require $settings['settings']['config_path'] . 'routes/' . $activeLocale . '.php';
         $suffixName = '-' . strtolower($activeLocale);
         
-        if (isset($locale['routes']) && is_array($locale['routes'])) {
-            foreach ($locale['routes'] as $routeName => $route) {
+        if (isset($routes) && is_array($routes)) {
+            foreach ($routes as $routeName => $route) {
                 $app->map($route['methods'], $route['route'], $route['method'])->setName($routeName . $suffixName);
             }
         }
+    }
+    
+    if (\App\Utility\LanguageUtility::processHas(\App\Utility\LanguageUtility::DOMAIN_DISABLED) 
+            && \App\Utility\LanguageUtility::processHas(\App\Utility\LanguageUtility::LOCALE_SESSION)
+            && $activeLocale === $settings['settings']['locale']['generic_code']) {
+        break;
     }
 }

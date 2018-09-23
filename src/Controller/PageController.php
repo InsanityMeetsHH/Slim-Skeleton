@@ -15,7 +15,7 @@ class PageController extends BaseController {
      * @param array $args
      * @return \Slim\Http\Response
      */
-    public function index($request, $response, $args) {
+    public function indexAction($request, $response, $args) {
         // Sample log message
         //$this->logger->info("Slim-Skeleton '/' route");
         
@@ -30,7 +30,6 @@ class PageController extends BaseController {
         // Render view
         return $this->view->render($response, 'page/index.html.twig', array_merge($args, [
             'users' => $users,
-            'flashMessages' => GeneralUtility::getFlashMessages(),
         ]));
     }
 
@@ -42,7 +41,7 @@ class PageController extends BaseController {
      * @param array $args
      * @return \Slim\Http\Response
      */
-    public function example($request, $response, $args) {
+    public function exampleAction($request, $response, $args) {
         // Render view
         return $this->view->render($response, 'page/example.html.twig', $args);
     }

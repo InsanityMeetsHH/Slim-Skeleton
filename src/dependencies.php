@@ -12,7 +12,7 @@ $container['flash'] = function () {
 $container['csrf'] = function ($c) {
     $guard = new \Slim\Csrf\Guard();
     $guard->setFailureCallable(function ($request, $response, $next) {
-        $request = $request->withAttribute("csrf_status", false);
+        $request = $request->withAttribute('csrf_status', false);
         return $next($request, $response);
     });
     return $guard;
@@ -62,16 +62,22 @@ $container['notAllowedHandler'] = function ($c) {
 $container['view'] = function ($c) {
     $settings = $c->get('settings');
     $view = new \Slim\Views\Twig($settings['renderer']['template_path'], [
-        'cache' => FALSE
-//        'cache' => $settings['cache_path']
+        'cache' => $settings['renderer']['cache'],
+        'debug' => $settings['renderer']['debug'],
     ]);
     
     // Instantiate and add Slim specific extension
     $router = $c->get('router');
     $uri = Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
     $view->addExtension(new Slim\Views\TwigExtension($router, $uri));
-    $view->addExtension(new App\Twig\AppExtension($c));
+    $view->addExtension(new App\Twig\AclExtension($c));
     $view->addExtension(new App\Twig\CsrfExtension($c));
+    $view->addExtension(new App\Twig\GeneralExtension($c));
+    $view->addExtension(new App\Twig\LanguageExtension($c, $router, $uri));
+    
+    if ($settings['renderer']['debug']) {
+        $view->addExtension(new Twig_Extension_Debug());
+    }
 
     return $view;
 };

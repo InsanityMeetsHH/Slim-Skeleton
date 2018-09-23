@@ -1,7 +1,7 @@
 {% extends "layouts/layout.html.twig" %}
 
 {% block content %}
-    <h2>Included</h2>
+    <h2>{{ 'included'|trans }}</h2>
     <ul>
         <li><a href="https://twig.symfony.com" target="_blank">Twig</a></li>
         <li><a href="https://www.doctrine-project.org" target="_blank">Doctrine</a></li>
@@ -11,6 +11,7 @@
         <li><a href="https://github.com/slimphp/Slim-Flash" target="_blank">Flash Message</a></li>
         <li><a href="https://seldaek.github.io/monolog/" target="_blank">Monolog</a></li>
         <li><a href="https://github.com/PHPGangsta/GoogleAuthenticator" target="_blank">Google Authenticator</a></li>
+        <li><a href="https://github.com/google/recaptcha" target="_blank">Google reCAPTCHA</a></li>
     </ul>
 
     {# loop through database records #}
@@ -18,7 +19,7 @@
         <p>&nbsp;</p>
         <p>{{ 'db-records'|trans }}</p>
         {% for user in users %}
-            {{ user.id }} <a href="{{ path_for('user-show' ~ lk, { 'name': user.name }) }}">{{ user.name }}</a> {{ user.role.name|trans }} {{ user.createdAt|date('datetime'|trans) }}<br/>
+            {{ user.id }} <a href="{{ path_for('user-show-' ~ lc, { 'name': user.name }) }}">{{ user.name }}</a> {{ user.role.name|trans }} {{ user.createdAt|date('datetime'|trans, 'timezone'|trans) }}<br/>
         {% endfor %}
     {% endif %}
 {% endblock %}

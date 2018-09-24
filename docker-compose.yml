@@ -19,7 +19,7 @@ services:
             - 9906:3306
         volumes:
             - db_data:/var/lib/mysql
-            - ./sql/docker-dump.sql:/docker-entrypoint-initdb.d/docker-dump.sql
+            - ./sql/db-dump.sql:/docker-entrypoint-initdb.d/db-dump.sql
     
     # http://localhost:8080
     webserver:
@@ -30,7 +30,8 @@ services:
         command: php -S 0.0.0.0:8080 -t public
         environment:
             docker: "true"
-            #APP_DB_HOST: db:3306
+            #APP_DB_HOST: db
+            APP_DB_PORT: 3306
             APP_DB_NAME: slim_database
             APP_DB_USER: dockeruser
             APP_DB_PASSWORD: dockerpw

@@ -1,7 +1,7 @@
 {
     "name": "insanitymeetshh/slim-skeleton",
     "description": "Slim 3 Skeleton Fork - InsanityMeetsHH",
-    "version": "5.0.1",
+    "version": "5.0.2-dev",
     "keywords": ["microframework", "rest", "router", "psr7", "doctrine", "twig", "localisation", "acl", "login", "csrf", "2fa", "recaptcha", "docker"],
     "homepage": "http://slim3.insanitymeetshh.net",
     "license": "MIT",
@@ -37,7 +37,8 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/",
+            "Skeleton\\Composer\\": "Skeleton/Composer/"
         }
     },
     "autoload-dev": {
@@ -46,11 +47,19 @@
         }
     },
     "config": {
-        "process-timeout" : 0
+        "process-timeout": 0
     },
     "scripts": {
-        "start": "php -S localhost:8080 -t public",
-        "test": "phpunit"
+        "test": "phpunit",
+        "post-install-cmd": [
+            "Skeleton\\Composer\\Setup::run"
+        ],
+        "post-update-cmd": [
+            "Skeleton\\Composer\\Setup::run"
+        ],
+        "post-create-project-cmd": [
+            "Skeleton\\Composer\\Setup::run"
+        ]
     }
 
 }

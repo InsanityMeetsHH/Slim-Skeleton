@@ -6,7 +6,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [5.0.1]
+## [5.0.2]
+### Added
+- [Composer callbacks](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/composer.json#L54)
+- [Composer setup script](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/Skeleton/Composer/Setup.php)
+- [Database port](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L57)
+
+### Changed
+- `docker-dump.sql` is now [`db-dump.sql`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/sql/db-dump.sql)
+
+### Removed
+- `"start": "php -S localhost:8080 -t public",` from `composer.json` (use docker instead)
+
+## [5.0.1] - 2018-09-23
 ### Added
 - [Docker documentation](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/README.md#L108)
 - [`Dockerfile`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/Dockerfile)
@@ -20,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `default_domain` from `locale` in [`config/settings.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L32) and [`config/additional-settings.dist.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/additional-settings.dist.php#L23)
 - `default_domain` from [`LanguageExtension`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Twig/LanguageExtension.php#L79)
 
-## [5.0.0] - 2018-08-17
+## [5.0.0] - 2018-09-17
 ### Added
 - Localized website by domain (exampl.de / de.example.com)
 - Localized website by session (exampl.com for every language)

@@ -1,5 +1,5 @@
 <?php
-namespace Skeleton\Composer;
+namespace App\Composer;
 
 use Composer\Script\Event;
 
@@ -66,7 +66,7 @@ class Setup {
             } else {
                 $arrConfig['database']['host'] = $strHost;
             }
-            $settings .= "$s$s$s$s'host' => '" . $arrConfig['database']['host'] . "',\n";
+            $settings .= "$s$s$s$s'host' => isset(\$_ENV['APP_DB_HOST']) ? \$_ENV['APP_DB_HOST'] : '" . $arrConfig['database']['host'] . "',\n";
 
             // Ask for database port
             echo "Please enter database port (default: 3306): ";
@@ -236,9 +236,9 @@ class Setup {
         $sql = "CREATE DATABASE IF NOT EXISTS `". $configuration['dbname'] . "` CHARACTER SET utf8 COLLATE utf8_general_ci;";
 
         if ($mysql->query($sql) === TRUE) {
-            echo "Database created successfully\n";
+            echo "\033[0;32mDatabase created successfully\033[0m\n";
         } else {
-            echo "Error creating database: " . $mysql->error . "\n";
+            echo "\033[0;31mError creating database: " . $mysql->error . "\033[0m\n";
         }
 
         $mysql->close();
@@ -272,7 +272,7 @@ class Setup {
             // If it has a semicolon at the end, it's the end of the query
             if (substr(trim($line), -1, 1) == ';') {
                 // Perform the query
-                $mysql->query($templine) or print('Error performing query ' . $templine . '\': ' . $mysql->error . "\n");
+                $mysql->query($templine) or print("\033[0;31mError performing query " . $templine . "': " . $mysql->error . "\033[0m\n");
                 // Reset temp variable to empty
                 $templine = '';
             }

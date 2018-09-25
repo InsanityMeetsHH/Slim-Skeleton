@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [5.0.2]
 ### Added
 - [Composer callbacks](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/composer.json#L54)
-- [Composer setup script](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/Skeleton/Composer/Setup.php)
+- [Composer setup script](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Composer/Setup.php)
 - [Database port](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L57)
 
 ### Changed

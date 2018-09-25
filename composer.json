@@ -37,8 +37,7 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/",
-            "Skeleton\\Composer\\": "Skeleton/Composer/"
+            "App\\": "src/"
         }
     },
     "autoload-dev": {
@@ -51,14 +50,15 @@
     },
     "scripts": {
         "test": "phpunit",
+        "setup": "App\\Composer\\Setup::run",
         "post-install-cmd": [
-            "Skeleton\\Composer\\Setup::run"
+            "@setup"
         ],
         "post-update-cmd": [
-            "Skeleton\\Composer\\Setup::run"
+            "@setup"
         ],
         "post-create-project-cmd": [
-            "Skeleton\\Composer\\Setup::run"
+            "@setup"
         ]
     }
 

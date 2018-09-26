@@ -31,7 +31,7 @@ Go to your project directory for following steps.
 $ cd [my-app-name]
 ```
 
-## Setup database and `config\additional-settings.php`
+## Setup database and `config\additional-settings.php` (only if you don't use `composer create-project`)
 Duplicate [`config\additional-settings.dist.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/additional-settings.dist.php) to `config\additional-settings.php`.
 (`config\additional-settings.php` is useful for working with git and your local environment is different to live or to your team mates)
 

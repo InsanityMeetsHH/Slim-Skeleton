@@ -105,8 +105,8 @@ Inside the Twig templates you can use ACL functions [has_role](https://github.co
 Inside controllers you can also use this ACL functions and [many more](https://github.com/geggleto/geggleto-acl/blob/master/src/AclRepository.php) (e.g. [is_allowed](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Controller/UserController.php#L24)).
 
 ## Installation with [Docker](https://www.docker.com/)
-* Get skeleton via `git clone` or zip download
-* Open a command prompt on your OS and navigate to the project folder
+* Get skeleton via `$ git clone` or zip download
+* Open a command prompt on your OS (if not already open) and navigate to the project folder
 * `$ docker pull composer`
 * `$ docker run --rm --env docker=true --interactive --tty --volume $PWD:/app composer update`
 * `$ docker-compose build`
@@ -114,10 +114,10 @@ Inside controllers you can also use this ACL functions and [many more](https://g
 * `$ cp config\additional-settings.dist.php config\additional-settings.php`
 * `$ docker inspect slim-db | grep IPAddress` set ip as Doctrine `host` in `config\additional-settings.php`
 * Open [localhost:8080](http://localhost:8080) for website or [localhost:9999](http://localhost:9999) for database gui
-* If you want to remove a container `docker rm [container-name] -f` e.g. `docker rm slim-db -f`
-* If you want to remove a volume `docker volume rm [volume-name]` e.g. `docker volume rm imhh-slim_db_data` (first remove matching container)
-* If you want to remove all container `docker rm $(docker ps -a -q) -f`
-* If you want to remove all volumes `docker volume prune` (first remove all container)
+* If you want to remove a container `$ docker rm [container-name] -f` e.g. `$ docker rm slim-db -f`
+* If you want to remove a volume `$ docker volume rm [volume-name]` e.g. `$ docker volume rm imhh-slim_db_data` (first remove matching container)
+* If you want to remove all container `$ docker rm $(docker ps -a -q) -f`
+* If you want to remove all volumes `$ docker volume prune` (first remove all container)
 
 ## Troubleshooting
 In some cases you'll get the error message "Internal Server Error".

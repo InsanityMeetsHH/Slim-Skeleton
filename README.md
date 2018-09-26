@@ -16,6 +16,7 @@
 ## Required
 * PHP => 5.5
 * Database like MySQL
+* [Docker](https://www.docker.com/) ([for installation with Docker](https://github.com/InsanityMeetsHH/Slim-Skeleton#installation-with-docker))
 
 ## Installation with [Composer](https://getcomposer.org/) (Recommended)
 
@@ -105,12 +106,13 @@ Inside controllers you can also use this ACL functions and [many more](https://g
 
 ## Installation with [Docker](https://www.docker.com/)
 * Get skeleton via `git clone` or zip download
-* `docker pull composer`
-* `docker run --rm --env docker=true --interactive --tty --volume $PWD:/app composer update`
-* `docker-compose build`
-* `docker-compose up -d`
-* `cp config\additional-settings.dist.php config\additional-settings.php`
-* `docker inspect slim-db | grep IPAddress` set ip as Doctrine `host` in `config\additional-settings.php`
+* Open a command prompt on your OS and navigate to the project folder
+* `$ docker pull composer`
+* `$ docker run --rm --env docker=true --interactive --tty --volume $PWD:/app composer update`
+* `$ docker-compose build`
+* `$ docker-compose up -d`
+* `$ cp config\additional-settings.dist.php config\additional-settings.php`
+* `$ docker inspect slim-db | grep IPAddress` set ip as Doctrine `host` in `config\additional-settings.php`
 * Open [localhost:8080](http://localhost:8080) for website or [localhost:9999](http://localhost:9999) for database gui
 * If you want to remove a container `docker rm [container-name] -f` e.g. `docker rm slim-db -f`
 * If you want to remove a volume `docker volume rm [volume-name]` e.g. `docker volume rm imhh-slim_db_data` (first remove matching container)

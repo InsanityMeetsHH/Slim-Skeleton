@@ -11,6 +11,11 @@ class Setup {
      * @param Event $event
      */
     public static function run(Event $event) {
+        if (isset($_ENV['docker'])) {
+            echo self::getColoredString("Skiped App\\Composer\\Setup in Docker environment.\n", 'green');
+            return;
+        }
+        
         $arrConfig = [];
         $s = '    ';
         $settings = "<?php\nreturn [\n$s'settings' => [\n";

@@ -104,12 +104,11 @@ Inside the Twig templates you can use ACL functions [has_role](https://github.co
 Inside controllers you can also use this ACL functions and [many more](https://github.com/geggleto/geggleto-acl/blob/master/src/AclRepository.php) (e.g. [is_allowed](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Controller/UserController.php#L24)).
 
 ## Installation with [Docker](https://www.docker.com/)
-* Get skeleton via `git clone`, `composer create-project` or zip download
+* Get skeleton via `git clone` or zip download
 * `docker pull composer`
-* `docker run --rm --interactive --tty --volume $PWD:/app composer update`
+* `docker run --rm --env docker=true --interactive --tty --volume $PWD:/app composer update`
 * `docker-compose build`
 * `docker-compose up -d`
-* `docker container ls`
 * `cp config\additional-settings.dist.php config\additional-settings.php`
 * `docker inspect slim-db | grep IPAddress` set ip as Doctrine `host` in `config\additional-settings.php`
 * Open [localhost:8080](http://localhost:8080) for website or [localhost:9999](http://localhost:9999) for database gui

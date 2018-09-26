@@ -13,14 +13,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Database port](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L57)
 
 ### Changed
+- [Docker documentation](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/README.md#L106)
 - `docker-dump.sql` is now [`db-dump.sql`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/sql/db-dump.sql)
 
 ### Removed
-- `"start": "php -S localhost:8080 -t public",` from `composer.json` (use docker instead)
+- `"start": "php -S localhost:8080 -t public",` from [`composer.json`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/composer.json) (use docker instead)
 
 ## [5.0.1] - 2018-09-23
 ### Added
-- [Docker documentation](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/README.md#L108)
+- [Docker documentation](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/README.md#L106)
 - [`Dockerfile`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/Dockerfile)
 - [`docker-dump.sql`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/sql/docker-dump.sql)
 

@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Composer callbacks](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/composer.json#L54)
 - [Composer setup script](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Composer/Setup.php)
 - [Database port](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L57)
+- [`scripts.js`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/public/js/scripts.js)
 
 ### Changed
 - [Docker documentation](https://github.com/InsanityMeetsHH/Slim-Skeleton#installation-with-docker)

@@ -12,7 +12,7 @@ class Setup {
      */
     public static function run(Event $event) {
         if (isset($_ENV['docker'])) {
-            echo self::getColoredString("Skiped App\\Composer\\Setup in Docker environment.\n", 'green');
+            echo self::getColoredString("Skipped App\\Composer\\Setup in Docker environment.\n", 'green');
             return;
         }
         
@@ -65,7 +65,7 @@ class Setup {
             $settings .= "$s$s$s$s'dbname' => isset(\$_ENV['APP_DB_NAME']) ? \$_ENV['APP_DB_NAME'] : '" . $arrConfig['database']['dbname'] . "',\n";
 
             // Ask for database host
-            echo self::getColoredString("Please enter database host (default: ", 'green') . self::getColoredString("localhost", 'yellow') . self::getColoredString("): ", 'green');
+            echo self::getColoredString("Please enter database host (default: ", 'green') . self::getColoredString("127.0.0.1", 'yellow') . self::getColoredString("): ", 'green');
             $strHandle = fopen("php://stdin", "r");
             echo "\n";
 
@@ -73,7 +73,7 @@ class Setup {
             fclose($strHandle);
 
             if (empty($strHost)) {
-                $arrConfig['database']['host'] = "localhost";
+                $arrConfig['database']['host'] = "127.0.0.1";
             } else {
                 $arrConfig['database']['host'] = $strHost;
             }

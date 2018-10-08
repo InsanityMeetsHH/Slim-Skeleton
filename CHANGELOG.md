@@ -6,7 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [5.0.4]
+## [5.0.5]
+### Changed
+- [`README.md`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/README.md)
+
+### Fixed
+- `doctrine/orm` version at `php >= 5.5.0` in [`composer.json`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/composer.json#L24)
+
+## [5.0.4] - 2018-10-08
 ### Added
 - Dynamic generated [`public_path`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L7)
 - [Docker condition](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Controller/UserController.php#L77) to reCAPTCHA validation

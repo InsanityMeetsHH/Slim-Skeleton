@@ -3,15 +3,15 @@
 [**Demo page**](http://slim3.insanitymeetshh.net)
 
 ## Included
-* [Slim 3.x](https://www.slimframework.com)
-* [Slim Twig View 2.x](https://github.com/slimphp/Twig-View)
-* [Slim CSRF 0.x](https://github.com/slimphp/Slim-Csrf)
-* [Slim Flash 0.x](https://github.com/slimphp/Slim-Flash)
-* [Monolog 1.x](https://seldaek.github.io/monolog/)
-* [Doctrine ORM 2.x](https://packagist.org/packages/doctrine/orm)
-* [Geggleto ACL 1.x](https://github.com/geggleto/geggleto-acl)
+* [Slim 3](https://www.slimframework.com)
+* [Slim Twig View 2](https://github.com/slimphp/Twig-View)
+* [Slim CSRF 0.8](https://github.com/slimphp/Slim-Csrf)
+* [Slim Flash 0.4](https://github.com/slimphp/Slim-Flash)
+* [Monolog 1](https://seldaek.github.io/monolog/)
+* [Doctrine ORM 2](https://packagist.org/packages/doctrine/orm)
+* [Geggleto ACL 1](https://github.com/geggleto/geggleto-acl)
 * [Google Authenticator](https://github.com/PHPGangsta/GoogleAuthenticator)
-* [Google reCAPTCHA](https://github.com/google/recaptcha)
+* [Google reCAPTCHA 1](https://github.com/google/recaptcha)
 
 ## Required
 * PHP => 5.5

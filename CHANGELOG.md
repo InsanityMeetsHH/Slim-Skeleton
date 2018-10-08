@@ -6,14 +6,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [5.0.3]
+## [5.0.4]
+### Added
+- Dynamic generated [`public_path`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L7)
+- [Docker condition](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Controller/UserController.php#L77) to reCAPTCHA validation
+- `remove-cache` [Composer script](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/composer.json#L52)
+
+### Changed
+- [`README.md`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/README.md)
+- [`GeneralUtility::encryptPassword`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Utility/GeneralUtility.php#L15) from `mcrypt_create_iv` to `random_bytes`
+- Return of [`GeneralUtility::getUserIP`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Utility/GeneralUtility.php#L124)
+
+### Removed
+- `public_path` from [`additional-settings.dist.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/additional-settings.dist.php)
+
+### Fixed
+- `public_path` setup in [Composer setup script](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Composer/Setup.php#L203)
+
+## [5.0.3] - 2018-10-02
 ### Fixed
 - Typo in [Composer setup script](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Composer/Setup.php)
 - ErrorException `mysqli::__construct(): (HY000/2002): No such file or directory` in [Composer setup script](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Composer/Setup.php)
 
 ## [5.0.2] - 2018-09-30
 ### Added
-- [Composer callbacks](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/composer.json#L54)
+- [Composer callbacks](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/composer.json#L55)
 - [Composer setup script](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Composer/Setup.php)
 - [Database port](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L57)
 - [`scripts.js`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/public/js/scripts.js)
@@ -60,7 +77,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [CSS](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/public/css/styles.css#L64) for Google reCAPTCHA widget
 - Registration form
 - Localized flash messages for registration form
-- Documentation in README.md
+- Documentation in [`README.md`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/README.md)
 - `{{ glc }}` in [`templates/layouts/layout.html.twig`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/layouts/layout.html.twig#L4)
 - Website session script in [`templates/layouts/layout.html.twig`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/layouts/layout.html.twig#L33)
 - `public/favicon.ico`

@@ -1,7 +1,7 @@
 {
     "name": "insanitymeetshh/slim-skeleton",
     "description": "Slim 3 Skeleton Fork - InsanityMeetsHH",
-    "version": "5.0.3",
+    "version": "5.0.4-dev",
     "keywords": ["microframework", "rest", "router", "psr7", "doctrine", "twig", "localisation", "acl", "login", "csrf", "2fa", "recaptcha", "docker"],
     "homepage": "http://slim3.insanitymeetshh.net",
     "license": "MIT",
@@ -49,6 +49,7 @@
         "process-timeout": 0
     },
     "scripts": {
+        "remove-cache": "rm -rf cache/*",
         "test": "phpunit",
         "setup": "App\\Composer\\Setup::run",
         "post-install-cmd": [

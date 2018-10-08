@@ -36,8 +36,6 @@ $ cd [my-app-name]
 Duplicate [`config\additional-settings.dist.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/additional-settings.dist.php) to `config\additional-settings.php`.
 (`config\additional-settings.php` is useful for working with git and your local environment is different to live or to your team mates)
 
-Change `public_path` if you run the project in a sub directory.
-
 If you want to use **_not_** MySQL and/or your server is **_not_** 127.0.0.1 then you have to add [`driver`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L56) and/or [`host`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L57) in `config/additional-settings.php`
 
 Change database conditions in `config\additional-settings.php` (without `dbname`).

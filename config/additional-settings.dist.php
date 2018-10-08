@@ -6,9 +6,9 @@ return [
         // Doctrine settings
         'doctrine' => [
             'connection' => [
-                'host'     => 'localhost',
+                'dbname'   => isset($_ENV['APP_DB_NAME']) ? $_ENV['APP_DB_NAME'] : 'slim_database',
+                'host'     => isset($_ENV['APP_DB_HOST']) ? $_ENV['APP_DB_HOST'] : '127.0.0.1',
                 'port'     => isset($_ENV['APP_DB_PORT']) ? $_ENV['APP_DB_PORT'] : 3306,
-                'dbname'   => isset($_ENV['APP_DB_NAME']) ? $_ENV['APP_DB_NAME'] : '',
                 'user'     => isset($_ENV['APP_DB_USER']) ? $_ENV['APP_DB_USER'] : '',
                 'password' => isset($_ENV['APP_DB_PASSWORD']) ? $_ENV['APP_DB_PASSWORD'] : '',
             ],
@@ -28,8 +28,5 @@ return [
                 'de-DE' => 'de.imhh-slim.localhost',
             ],
         ],
-        
-        // Relative to domain (e.g. project is in sub directory '/project/public/')
-        'public_path' => '/',
     ],
 ];

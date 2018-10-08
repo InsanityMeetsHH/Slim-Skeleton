@@ -4,14 +4,14 @@ return [
         'determineRouteBeforeAppMiddleware' => true,
         'displayErrorDetails' => false, // set to false in production
         'addContentLengthHeader' => false, // Allow the web server to send the content-length header
-        'public_path' => '/', // Relative to domain (e.g. project is in sub directory '/project/public/')
+        'public_path' => isset($_ENV['docker']) ? '/' : str_replace('index.php', '', $_SERVER['PHP_SELF']), // Relative to domain (e.g. project is in sub directory '/project/public/')
         'cache_path'  => __DIR__ . '/../cache/',
-        'config_path'  => __DIR__ . '/../config/',
+        'config_path' => __DIR__ . '/../config/',
 
         // Renderer settings
         'renderer' => [
             'debug' => FALSE,
-            'cache' => FALSE, // FALSE or path to cache folder '/../cache/'
+            'cache' => FALSE, // FALSE or path to cache folder "__DIR__ . '/../cache/'"
             'template_path' => __DIR__ . '/../templates/',
         ],
         
@@ -23,8 +23,8 @@ return [
 
         // Monolog settings
         'logger' => [
-            'name' => 'slim-app',
-            'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',
+            'name'  => 'slim-app',
+            'path'  => __DIR__ . '/../logs/app.log',
             'level' => \Monolog\Logger::DEBUG,
         ],
         

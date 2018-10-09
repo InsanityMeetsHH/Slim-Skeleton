@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [5.0.5]
 ### Changed
 - [`README.md`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/README.md)
+- Text of import database process in [Composer setup script](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Composer/Setup.php#L152)
 
 ### Fixed
 - `doctrine/orm` version at `php >= 5.5.0` in [`composer.json`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/composer.json#L24)

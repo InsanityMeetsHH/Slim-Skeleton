@@ -1,4 +1,4 @@
-# Slim 3 Skeleton Fork - InsanityMeetsHH
+# Slim Skeleton Fork - InsanityMeetsHH
 
 [**Demo page**](http://slim3.insanitymeetshh.net)
 

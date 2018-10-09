@@ -1,6 +1,6 @@
 {
     "name": "insanitymeetshh/slim-skeleton",
-    "description": "Slim 3 Skeleton Fork - InsanityMeetsHH",
+    "description": "Slim Skeleton Fork - InsanityMeetsHH",
     "version": "5.0.5-dev",
     "keywords": ["microframework", "rest", "router", "psr7", "doctrine", "twig", "localisation", "acl", "login", "csrf", "2fa", "recaptcha", "docker"],
     "homepage": "http://slim3.insanitymeetshh.net",

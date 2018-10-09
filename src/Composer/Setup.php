@@ -221,7 +221,7 @@ class Setup {
             static::createDatabase($arrConfig['database']);
         } else {
             // Ask for import
-            echo self::getColoredString("Should records be imported to database (default: ", 'green') . self::getColoredString("no", 'yellow') . self::getColoredString("): ", 'green');
+            echo self::getColoredString("Should database reset to default records (default: ", 'green') . self::getColoredString("no", 'yellow') . self::getColoredString("): ", 'green');
             $strHandle = fopen("php://stdin", "r");
             echo "\n";
 

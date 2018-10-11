@@ -6,7 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [5.0.5]
+## [5.0.6]
+### Added
+- `cascade={"persist", "remove"}` to [`User::$recoveryCodes`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Entity/User.php#L33)
+- Continuous integration update
+
+## [5.0.5] - 2018-10-09
 ### Changed
 - [`README.md`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/README.md)
 - Text of import database process in [Composer setup script](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Composer/Setup.php#L152)

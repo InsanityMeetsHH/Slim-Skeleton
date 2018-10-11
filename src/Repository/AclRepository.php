@@ -5,8 +5,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Permissions\Acl\Exception\InvalidArgumentException;
 
-class AclRepository extends \Geggleto\Acl\AclRepository
-{
+class AclRepository extends \Geggleto\Acl\AclRepository {
 
     /**
      * Overloads __invoke method

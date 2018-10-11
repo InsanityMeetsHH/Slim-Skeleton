@@ -4,8 +4,7 @@ namespace App\Twig;
 /**
  * CSRF Twig extension
  */
-class CsrfExtension extends \Twig_Extension implements \Twig_Extension_GlobalsInterface
-{
+class CsrfExtension extends \Twig_Extension implements \Twig_Extension_GlobalsInterface {
 
     /** @var \Slim\Csrf\Guard $csrf */
     protected $csrf;

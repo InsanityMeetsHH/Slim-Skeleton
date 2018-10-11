@@ -7,8 +7,7 @@ use App\Utility\LanguageUtility;
 /**
  * General Twig extension
  */
-class GeneralExtension extends \Twig_Extension implements \Twig_Extension_GlobalsInterface
-{
+class GeneralExtension extends \Twig_Extension implements \Twig_Extension_GlobalsInterface {
 
     /** @var array $settings **/
     protected $settings;

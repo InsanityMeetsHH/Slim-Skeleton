@@ -7,8 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="recovery_code")
  */
-class RecoveryCode extends \App\MappedSuperclass\Base
-{
+class RecoveryCode extends \App\MappedSuperclass\Base {
     
     /**
      * @ORM\Id

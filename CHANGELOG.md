@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [5.0.6]
+## [5.0.7]
+### Added
+- `hidden` in [`Base.php`](https://github.com/InsanityMeetsHH/file-sharing/blob/master/src/MappedSuperclass/Base.php)
+
+## [5.0.6] - 2018-10-11
 ### Added
 - `cascade={"persist", "remove"}` to [`User::$recoveryCodes`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Entity/User.php#L33)
 - Continuous integration update

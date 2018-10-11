@@ -22,7 +22,7 @@ class UserController extends BaseController {
     public function showAction($request, $response, $args) {
         // if is other user and current user is alowed show_user_other
         if (isset($args['name']) && $this->acl->isAllowed($this->currentRole, 'show_user_other')) {
-            $user = $this->em->getRepository('App\Entity\User')->findOneBy(['name' => $args['name'], 'deleted' => 0]);
+            $user = $this->em->getRepository('App\Entity\User')->findOneBy(['name' => $args['name'], 'hidden' => 0]);
             
             // if user exists
             if ($user instanceof User) {
@@ -75,7 +75,7 @@ class UserController extends BaseController {
             ->verify($request->getParam('g-recaptcha-response'), GeneralUtility::getUserIP());
         
         if ($resp->isSuccess() || isset($_ENV['docker'])) {
-            $userSearch = $this->em->getRepository('App\Entity\User')->findOneBy(['name' => $request->getParam('user_name'), 'deleted' => 0]);
+            $userSearch = $this->em->getRepository('App\Entity\User')->findOneBy(['name' => $request->getParam('user_name'), 'hidden' => 0]);
             $userName = $request->getParam('user_name');
             $userPass = $request->getParam('user_pass');
             $userPassRepeat = $request->getParam('user_pass_repeat');
@@ -142,7 +142,7 @@ class UserController extends BaseController {
      * @return static
      */
     public function loginValidateAction($request, $response, $args) {
-        $user = $this->em->getRepository('App\Entity\User')->findOneBy(['name' => $request->getParam('user_name'), 'deleted' => 0]);
+        $user = $this->em->getRepository('App\Entity\User')->findOneBy(['name' => $request->getParam('user_name'), 'hidden' => 0]);
         unset($_SESSION['tempUser']);
         
         // if user exists
@@ -241,7 +241,6 @@ class UserController extends BaseController {
                     // disable old recovery codes
                     $oldRecoveryCodes = $this->em->getRepository('App\Entity\RecoveryCode')->findBy(['user' => $this->currentUser]);
                     foreach ($oldRecoveryCodes as $oldRecoveryCode) {
-                        $oldRecoveryCode->setDeleted(TRUE);
                         $this->em->remove($oldRecoveryCode);
                     }
 
@@ -318,7 +317,6 @@ class UserController extends BaseController {
                         foreach ($userRecoveryCodes as $recoveryCode) {
                             if (password_verify($code, $recoveryCode->getCode())) {
                                 $checkResult = TRUE;
-//                                $recoveryCode->setDeleted(TRUE);
                                 $this->em->remove($recoveryCode);
                                 $this->em->flush();
                                 break;

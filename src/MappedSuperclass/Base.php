@@ -22,6 +22,11 @@ class Base {
     protected $deleted = 0;
     
     /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $hidden = 0;
+    
+    /**
      * @ORM\Column(type="datetime", name="updated_at")
      */
     protected $updatedAt;
@@ -56,6 +61,26 @@ class Base {
      */
     public function setDeleted($deleted) {
         $this->deleted = $deleted;
+        
+        return $this;
+    }
+
+    /**
+     * Is $hidden
+     * 
+     * @return boolean
+     */
+    public function isHidden() {
+        return $this->hidden;
+    }
+    
+    /**
+     * Set $hidden
+     * 
+     * @param boolean $hidden
+     */
+    public function setHidden($hidden) {
+        $this->hidden = $hidden;
         
         return $this;
     }

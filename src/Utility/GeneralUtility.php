@@ -12,7 +12,7 @@ class GeneralUtility {
     static function encryptPassword($pass) {
         $options = [
             'cost' => 11,
-            'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM),
+            'salt' => random_bytes(22),
         ];
         return password_hash($pass, PASSWORD_BCRYPT, $options);
     }
@@ -121,6 +121,6 @@ class GeneralUtility {
             $ip = $remote;
         }
 
-        return explode(':', explode(',', $forward)[0])[0];
+        return empty(explode(':', explode(',', $forward)[0])[0]) ? $ip : explode(':', explode(',', $forward)[0])[0];
     }
 }

@@ -1,21 +1,22 @@
-# Slim 3 Skeleton Fork - InsanityMeetsHH
+# Slim Skeleton Fork - InsanityMeetsHH
 
 [**Demo page**](http://slim3.insanitymeetshh.net)
 
 ## Included
-* [Slim 3.x](https://www.slimframework.com)
-* [Slim Twig View 2.x](https://github.com/slimphp/Twig-View)
-* [Slim CSRF 0.x](https://github.com/slimphp/Slim-Csrf)
-* [Slim Flash 0.x](https://github.com/slimphp/Slim-Flash)
-* [Monolog 1.x](https://seldaek.github.io/monolog/)
-* [Doctrine ORM 2.x](https://packagist.org/packages/doctrine/orm)
-* [Geggleto ACL 1.x](https://github.com/geggleto/geggleto-acl)
+* [Slim 3](https://www.slimframework.com)
+* [Slim Twig View 2](https://github.com/slimphp/Twig-View)
+* [Slim CSRF 0.8](https://github.com/slimphp/Slim-Csrf)
+* [Slim Flash 0.4](https://github.com/slimphp/Slim-Flash)
+* [Monolog 1](https://seldaek.github.io/monolog/)
+* [Doctrine ORM 2](https://packagist.org/packages/doctrine/orm)
+* [Geggleto ACL 1](https://github.com/geggleto/geggleto-acl)
 * [Google Authenticator](https://github.com/PHPGangsta/GoogleAuthenticator)
-* [Google reCAPTCHA](https://github.com/google/recaptcha)
+* [Google reCAPTCHA 1](https://github.com/google/recaptcha)
 
 ## Required
 * PHP => 5.5
 * Database like MySQL
+* [Docker](https://www.docker.com/) ([for installation with Docker](https://github.com/InsanityMeetsHH/Slim-Skeleton#installation-with-docker))
 
 ## Installation with [Composer](https://getcomposer.org/) (Recommended)
 
@@ -31,11 +32,9 @@ Go to your project directory for following steps.
 $ cd [my-app-name]
 ```
 
-## Setup database and `config\additional-settings.php`
+## Setup database and `config\additional-settings.php` (only if you don't use `composer create-project`)
 Duplicate [`config\additional-settings.dist.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/additional-settings.dist.php) to `config\additional-settings.php`.
 (`config\additional-settings.php` is useful for working with git and your local environment is different to live or to your team mates)
-
-Change `public_path` if you run the project in a sub directory.
 
 If you want to use **_not_** MySQL and/or your server is **_not_** 127.0.0.1 then you have to add [`driver`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L56) and/or [`host`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php#L57) in `config/additional-settings.php`
 
@@ -104,19 +103,19 @@ Inside the Twig templates you can use ACL functions [has_role](https://github.co
 Inside controllers you can also use this ACL functions and [many more](https://github.com/geggleto/geggleto-acl/blob/master/src/AclRepository.php) (e.g. [is_allowed](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Controller/UserController.php#L24)).
 
 ## Installation with [Docker](https://www.docker.com/)
-* Get skeleton via `git clone`, `composer create-project` or zip download
-* `docker pull composer`
-* `docker run --rm --interactive --tty --volume $PWD:/app composer update`
-* `docker-compose build`
-* `docker-compose up -d`
-* `docker container ls`
-* `cp config\additional-settings.dist.php config\additional-settings.php`
-* `docker inspect slim-db | grep IPAddress` set ip as Doctrine `host` in `config\additional-settings.php`
+* Get skeleton via `$ git clone` or zip download
+* Open a command prompt on your OS (if not already open) and navigate to the project folder
+* `$ docker pull composer`
+* `$ docker run --rm --env docker=true --interactive --tty --volume $PWD:/app composer update`
+* `$ docker-compose build`
+* `$ docker-compose up -d`
+* `$ cp config\additional-settings.dist.php config\additional-settings.php`
+* `$ docker inspect slim-db | grep IPAddress` set ip as Doctrine `host` in `config\additional-settings.php`
 * Open [localhost:8080](http://localhost:8080) for website or [localhost:9999](http://localhost:9999) for database gui
-* If you want to remove a container `docker rm [container-name] -f` e.g. `docker rm slim-db -f`
-* If you want to remove a volume `docker volume rm [volume-name]` e.g. `docker volume rm imhh-slim_db_data` (first remove matching container)
-* If you want to remove all container `docker rm $(docker ps -a -q) -f`
-* If you want to remove all volumes `docker volume prune` (first remove all container)
+* If you want to remove a container `$ docker rm [container-name] -f` e.g. `$ docker rm slim-db -f`
+* If you want to remove a volume `$ docker volume rm [volume-name]` e.g. `$ docker volume rm imhh-slim_db_data` (first remove matching container)
+* If you want to remove all container `$ docker rm $(docker ps -a -q) -f`
+* If you want to remove all volumes `$ docker volume prune` (first remove all container)
 
 ## Troubleshooting
 In some cases you'll get the error message "Internal Server Error".

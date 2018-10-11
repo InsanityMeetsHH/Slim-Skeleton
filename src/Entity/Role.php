@@ -8,8 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Table(name="role")
  */
-class Role extends \App\MappedSuperclass\Base
-{
+class Role extends \App\MappedSuperclass\Base {
     
     /**
      * @ORM\Column(type="string", unique=true)

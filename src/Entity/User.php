@@ -9,8 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Table(name="user")
  */
-class User extends \App\MappedSuperclass\Base
-{
+class User extends \App\MappedSuperclass\Base {
     
     /**
      * @ORM\Column(type="string", unique=true)
@@ -31,7 +30,7 @@ class User extends \App\MappedSuperclass\Base
     /**
      * One User has many RecoveryCodes.
      * 
-     * @ORM\OneToMany(targetEntity="RecoveryCode", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="RecoveryCode", mappedBy="user", cascade={"persist", "remove"})
      */
     private $recoveryCodes;
     

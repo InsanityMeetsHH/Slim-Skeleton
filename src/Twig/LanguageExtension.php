@@ -7,6 +7,7 @@ use App\Utility\LanguageUtility;
  * Language twig extension
  */
 class LanguageExtension extends \Twig_Extension {
+    
     /** * @var \Slim\Container $container */
     private $container;
 

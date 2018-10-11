@@ -308,6 +308,11 @@ class Setup {
      * @return string
      */
     protected static function getColoredString($string, $foregroundColor = null, $backgroundColor = null) {
+        // skip colors on windows operating system
+        if (strpos(strtolower(php_uname()), 'windows') !== FALSE) {
+            return $string;
+        }
+        
         $foregroundColors = [
             'default' => '0',
             'black' => '0;30',

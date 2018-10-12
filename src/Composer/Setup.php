@@ -234,7 +234,7 @@ class Setup {
                     'dbname'   => $settings['settings']['doctrine']['connection']['dbname'],
                     'host'     => $settings['settings']['doctrine']['connection']['host'],
                     'port'     => $settings['settings']['doctrine']['connection']['port'],
-                    'user'     => $settings['settings']['doctrine']['connection']['username'],
+                    'user'     => $settings['settings']['doctrine']['connection']['user'],
                     'password' => $settings['settings']['doctrine']['connection']['password']
                 ]);
             }

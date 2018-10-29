@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [5.0.9]
+## [5.1.0]
+### Removed
+- Own colored CLI logic and replaced by Symfony\Component\Console\Formatter\OutputFormatterStyle.
+
+## [5.0.9] - 2018-10-18
 ### Added
 - Inactive PHP 5.5 image to [`Dockerfile`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/Dockerfile)
 

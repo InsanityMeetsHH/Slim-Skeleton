@@ -2,6 +2,7 @@
 namespace App\Composer;
 
 use Composer\Script\Event;
+use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 
 class Setup {
     
@@ -28,6 +29,7 @@ class Setup {
             
             $arrConfig['database'] = [];
 
+            echo self::getColoredString("Setup Error Details\n", 'yellow', NULL, ['underscore']);
             // Ask for database name
             echo self::getColoredString("Please enter value for displayErrorDetails (default: ", 'green') . self::getColoredString("TRUE", 'yellow') . self::getColoredString("): ", 'green');
             $strHandle = fopen("php://stdin", "r");
@@ -44,6 +46,7 @@ class Setup {
             $settings .= ",  // set to false in production\n\n";
             fclose($strHandle);
             
+            echo self::getColoredString("Setup Database\n", 'yellow', NULL, ['underscore']);
             // Database setting
             $settings .= "$s$s// Doctrine settings\n";
             $settings .= "$s$s'doctrine' => [\n";
@@ -124,7 +127,8 @@ class Setup {
             }
             $settings .= "$s$s$s$s'password' => isset(\$_ENV['APP_DB_PASSWORD']) ? \$_ENV['APP_DB_PASSWORD'] : '" . $arrConfig['database']['password'] . "',\n";
             $settings .= "$s$s$s],\n$s$s],\n\n";
-            
+
+            echo self::getColoredString("Setup Google reCAPTCHA\n", 'yellow', NULL, ['underscore']);
             # reCAPTCHA setting
             $settings .= "$s$s// Google recaptcha\n";
             $settings .= "$s$s'recaptcha' => [\n";
@@ -148,7 +152,8 @@ class Setup {
             $settings .= "$s$s$s'secret' => '" . $strRcSecret . "',\n";
             
             $settings .= "$s$s],\n\n";
-            
+
+            echo self::getColoredString("Setup Locale Settings\n", 'yellow', NULL, ['underscore']);
             // Locale settings
             $settings .= "$s$s// Locale settings\n";
             $settings .= "$s$s'locale' => [\n";
@@ -198,7 +203,8 @@ class Setup {
             }
             
             $settings .= "$s$s$s],\n$s$s],\n";
-            
+
+            echo self::getColoredString("Setup Public Path\n", 'yellow', NULL, ['underscore']);
             // Public path
             // Ask for public path
             echo self::getColoredString("Please enter public path (default: ", 'green') . self::getColoredString("dynamic generated", 'yellow') . self::getColoredString("): ", 'green');
@@ -230,13 +236,7 @@ class Setup {
             if ($answer === 'y' || $answer === 'yes') {
                 $settings = require_once __DIR__ . "/../../config/additional-settings.php";
                 
-                static::importDatabase([
-                    'dbname'   => $settings['settings']['doctrine']['connection']['dbname'],
-                    'host'     => $settings['settings']['doctrine']['connection']['host'],
-                    'port'     => $settings['settings']['doctrine']['connection']['port'],
-                    'user'     => $settings['settings']['doctrine']['connection']['user'],
-                    'password' => $settings['settings']['doctrine']['connection']['password']
-                ]);
+                static::importDatabase($settings['settings']['doctrine']['connection']);
             }
         }
     }
@@ -302,62 +302,19 @@ class Setup {
     /**
      * Returns colored text for CLI
      * 
-     * @param string $string
-     * @param string $foregroundColor
-     * @param string $backgroundColor
+     * @param string $text
+     * @param string $foreground
+     * @param string $background
+     * @param array $options
      * @return string
      */
-    protected static function getColoredString($string, $foregroundColor = null, $backgroundColor = null) {
+    protected static function getColoredString($text, $foreground = NULL, $background = NULL, array $options = []) {
         // skip colors on windows operating system
         if (strpos(strtolower(php_uname()), 'windows') !== FALSE) {
-            return $string;
+            return $text;
         }
         
-        $foregroundColors = [
-            'default' => '0',
-            'black' => '0;30',
-            'dark_gray' => '1;30',
-            'blue' => '0;34',
-            'light_blue' => '1;34',
-            'green' => '0;32',
-            'light_green' => '1;32',
-            'cyan' => '0;36',
-            'light_cyan' => '1;36',
-            'red' => '0;31',
-            'light_red' => '1;31',
-            'purple' => '0;35',
-            'light_purple' => '1;35',
-            'brown' => '0;33',
-            'yellow' => '0;33',
-            'light_gray' => '0;37',
-            'white' => '1;37',
-        ];
-        
-        $backgroundColors = [
-            'black' => '40',
-            'red' => '41',
-            'green' => '42',
-            'yellow' => '43',
-            'blue' => '44',
-            'magenta' => '45',
-            'cyan' => '46',
-            'light_gray' => '47'
-        ];
-
-        $coloredString = "";
-
-        // if given foreground color exists
-        if (isset($foregroundColors[$foregroundColor])) {
-            $coloredString .= "\033[" . $foregroundColors[$foregroundColor] . "m";
-        }
-        // if given background color exists
-        if (isset($backgroundColors[$backgroundColor])) {
-            $coloredString .= "\033[" . $backgroundColors[$backgroundColor] . "m";
-        }
-
-        // set default color at the end
-        $coloredString .= $string . "\033[0m";
-
-        return $coloredString;
+        $output = new OutputFormatterStyle($foreground, $background, $options);
+        return $output->apply($text);
     }
 }

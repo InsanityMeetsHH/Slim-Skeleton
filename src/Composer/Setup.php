@@ -19,15 +19,12 @@ class Setup {
         
         $arrConfig = [];
         $s = '    ';
-        $settings = "<?php\nreturn [\n$s'settings' => [\n";
 
         if (!file_exists(__DIR__ . "/../../config/additional-settings.php")) {
             
             if (!file_exists(__DIR__ . "/../../config/additional-settings.dist.php")) {
                 copy(__DIR__ . "/../../config/additional-settings.dist.php", __DIR__ . "/../../config/additional-settings.php");
             }
-            
-            $arrConfig['database'] = [];
 
             echo self::getColoredString("Setup Error Details\n", 'yellow', NULL, ['underscore']);
             // Ask for database name
@@ -38,19 +35,15 @@ class Setup {
             $strDisplayErrors = trim(fgets($strHandle));
 
             if (empty($strDisplayErrors)) {
-                $settings .= "$s$s'displayErrorDetails' => TRUE";
+                $arrConfig['displayErrorDetails'] = 'TRUE';
             } else {
-                $settings .= "$s$s'displayErrorDetails' => " . $strDisplayErrors;
+                $arrConfig['displayErrorDetails'] = $strDisplayErrors;
             }
             
-            $settings .= ",  // set to false in production\n\n";
             fclose($strHandle);
             
             echo self::getColoredString("Setup Database\n", 'yellow', NULL, ['underscore']);
             // Database setting
-            $settings .= "$s$s// Doctrine settings\n";
-            $settings .= "$s$s'doctrine' => [\n";
-            $settings .= "$s$s$s'connection' => [\n";
 
             // Ask for database name
             echo self::getColoredString("Please enter database name (default: ", 'green') . self::getColoredString("slim_database", 'yellow') . self::getColoredString("): ", 'green');
@@ -65,7 +58,6 @@ class Setup {
             } else {
                 $arrConfig['database']['dbname'] = $strDbName;
             }
-            $settings .= "$s$s$s$s'dbname'   => isset(\$_ENV['APP_DB_NAME']) ? \$_ENV['APP_DB_NAME'] : '" . $arrConfig['database']['dbname'] . "',\n";
 
             // Ask for database host
             echo self::getColoredString("Please enter database host (default: ", 'green') . self::getColoredString("127.0.0.1", 'yellow') . self::getColoredString("): ", 'green');
@@ -80,7 +72,6 @@ class Setup {
             } else {
                 $arrConfig['database']['host'] = $strHost;
             }
-            $settings .= "$s$s$s$s'host'     => isset(\$_ENV['APP_DB_HOST']) ? \$_ENV['APP_DB_HOST'] : '" . $arrConfig['database']['host'] . "',\n";
 
             // Ask for database port
             echo self::getColoredString("Please enter database port (default: ", 'green') . self::getColoredString("3306", 'yellow') . self::getColoredString("): ", 'green');
@@ -95,7 +86,6 @@ class Setup {
             } else {
                 $arrConfig['database']['port'] = $intPort;
             }
-            $settings .= "$s$s$s$s'port'     => isset(\$_ENV['APP_DB_PORT']) ? \$_ENV['APP_DB_PORT'] : " . $arrConfig['database']['port'] . ",\n";
 
             // Ask for database user
             echo self::getColoredString("Please enter database user (default: ", 'green') . self::getColoredString("root", 'yellow') . self::getColoredString("): ", 'green');
@@ -110,10 +100,9 @@ class Setup {
             } else {
                 $arrConfig['database']['user'] = $strUser;
             }
-            $settings .= "$s$s$s$s'user'     => isset(\$_ENV['APP_DB_USER']) ? \$_ENV['APP_DB_USER'] : '" . $arrConfig['database']['user'] . "',\n";
 
             // Ask for database password
-            echo self::getColoredString("Please enter database password: ", 'green');
+            echo self::getColoredString("Please enter database password (default: ", 'green') . self::getColoredString("empty string", 'yellow') . self::getColoredString("): ", 'green');
             $strHandle = fopen("php://stdin", "r");
             echo "\n";
 
@@ -125,38 +114,28 @@ class Setup {
             } else {
                 $arrConfig['database']['password'] = $strPassword;
             }
-            $settings .= "$s$s$s$s'password' => isset(\$_ENV['APP_DB_PASSWORD']) ? \$_ENV['APP_DB_PASSWORD'] : '" . $arrConfig['database']['password'] . "',\n";
-            $settings .= "$s$s$s],\n$s$s],\n\n";
 
             echo self::getColoredString("Setup Google reCAPTCHA\n", 'yellow', NULL, ['underscore']);
             # reCAPTCHA setting
-            $settings .= "$s$s// Google recaptcha\n";
-            $settings .= "$s$s'recaptcha' => [\n";
 
             // Ask for reCAPTCHA website key
-            echo self::getColoredString("Please enter reCAPTCHA website key: ", 'green');
+            echo self::getColoredString("Please enter reCAPTCHA website key (default: ", 'green') . self::getColoredString("empty string", 'yellow') . self::getColoredString("): ", 'green');
             $strHandle = fopen("php://stdin", "r");
             echo "\n";
 
-            $strRcSite = trim(fgets($strHandle));
+            $arrConfig['recaptcha']['site'] = trim(fgets($strHandle));
             fclose($strHandle);
-            $settings .= "$s$s$s'site'   => '" . $strRcSite . "',\n";
 
             // Ask for reCAPTCHA secret key
-            echo self::getColoredString("Please enter reCAPTCHA secret key: ", 'green');
+            echo self::getColoredString("Please enter reCAPTCHA secret key (default: ", 'green') . self::getColoredString("empty string", 'yellow') . self::getColoredString("): ", 'green');
             $strHandle = fopen("php://stdin", "r");
             echo "\n";
 
-            $strRcSecret = trim(fgets($strHandle));
+            $arrConfig['recaptcha']['secret'] = trim(fgets($strHandle));
             fclose($strHandle);
-            $settings .= "$s$s$s'secret' => '" . $strRcSecret . "',\n";
-            
-            $settings .= "$s$s],\n\n";
 
             echo self::getColoredString("Setup Locale Settings\n", 'yellow', NULL, ['underscore']);
             // Locale settings
-            $settings .= "$s$s// Locale settings\n";
-            $settings .= "$s$s'locale' => [\n";
 
             // Ask for locale process
             echo self::getColoredString("Please enter locale process (default: ", 'green') . self::getColoredString("\App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_DISABLED", 'yellow') . self::getColoredString("): ", 'green');
@@ -167,12 +146,10 @@ class Setup {
             fclose($strHandle);
 
             if (empty($strLocaleProcess)) {
-                $settings .= "$s$s$s'process' => \App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_DISABLED,\n";
+                $arrConfig['locale']['process'] = "\App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_DISABLED";
             } else {
-                $settings .= "$s$s$s'process' => $strLocaleProcess,\n";
+                $arrConfig['locale']['process'] = $strLocaleProcess;
             }
-            
-            $settings .= "$s$s$s'active' => [\n";
 
             // Ask for en-US domain
             echo self::getColoredString("Please enter locale en-US domain (default: ", 'green') . self::getColoredString("imhh-slim.localhost", 'yellow') . self::getColoredString("): ", 'green');
@@ -183,9 +160,9 @@ class Setup {
             fclose($strHandle);
 
             if (empty($strEnUsDomain)) {
-                $settings .= "$s$s$s$s'en-US' => 'imhh-slim.localhost',\n";
+                $arrConfig['locale']['en-us'] = "imhh-slim.localhost";
             } else {
-                $settings .= "$s$s$s$s'en-US' => '" . $strEnUsDomain . "',\n";
+                $arrConfig['locale']['en-us'] = $strEnUsDomain;
             }
 
             // Ask for de-DE domain
@@ -197,12 +174,10 @@ class Setup {
             fclose($strHandle);
 
             if (empty($strDeDeDomain)) {
-                $settings .= "$s$s$s$s'de-DE' => 'de.imhh-slim.localhost',\n";
+                $arrConfig['locale']['de-de'] = "de.imhh-slim.localhost";
             } else {
-                $settings .= "$s$s$s$s'de-DE' => '" . $strDeDeDomain . "',\n";
+                $arrConfig['locale']['de-de'] = $strDeDeDomain;
             }
-            
-            $settings .= "$s$s$s],\n$s$s],\n";
 
             echo self::getColoredString("Setup Public Path\n", 'yellow', NULL, ['underscore']);
             // Public path
@@ -215,14 +190,45 @@ class Setup {
             fclose($strHandle);
 
             if (empty($strPublicPath)) {
-//                $settings .= "$s$s'public_path' => '/',\n";
+                $arrConfig['public_path'] = "isset(\$_ENV['docker']) ? '/' : str_replace('index.php', '', \$_SERVER['PHP_SELF'])";
             } else {
-                $settings .= "\n$s$s// Relative to domain (e.g. project is in sub directory '/project/public/')\n";
-                $settings .= "$s$s'public_path' => '$strPublicPath',\n";
+                $arrConfig['public_path'] = "'$strPublicPath'";
             }
+            
+            $stringConfig = "<?php\n";
+            $stringConfig .= "return [\n";
+            $stringConfig .= "$s'settings' => [\n";
+            $stringConfig .= "$s$s'displayErrorDetails' => " . $arrConfig['displayErrorDetails'] . ",  // set to false in production\n\n";
+            $stringConfig .= "$s$s// Doctrine settings\n";
+            $stringConfig .= "$s$s'doctrine' => [\n";
+            $stringConfig .= "$s$s$s'connection' => [\n";
+            $stringConfig .= "$s$s$s$s'dbname'   => isset(\$_ENV['APP_DB_NAME']) ? \$_ENV['APP_DB_NAME'] : '" . $arrConfig['database']['dbname'] . "',\n";
+            $stringConfig .= "$s$s$s$s'host'     => isset(\$_ENV['APP_DB_HOST']) ? \$_ENV['APP_DB_HOST'] : '" . $arrConfig['database']['host'] . "',\n";
+            $stringConfig .= "$s$s$s$s'port'     => isset(\$_ENV['APP_DB_PORT']) ? \$_ENV['APP_DB_PORT'] : " . $arrConfig['database']['port'] . ",\n";
+            $stringConfig .= "$s$s$s$s'user'     => isset(\$_ENV['APP_DB_USER']) ? \$_ENV['APP_DB_USER'] : '" . $arrConfig['database']['user'] . "',\n";
+            $stringConfig .= "$s$s$s$s'password' => isset(\$_ENV['APP_DB_PASSWORD']) ? \$_ENV['APP_DB_PASSWORD'] : '" . $arrConfig['database']['password'] . "',\n";
+            $stringConfig .= "$s$s$s],\n";
+            $stringConfig .= "$s$s],\n\n";
+            $stringConfig .= "$s$s// Google recaptcha\n";
+            $stringConfig .= "$s$s'recaptcha' => [\n";
+            $stringConfig .= "$s$s$s'site'   => '" . $arrConfig['recaptcha']['site'] . "',\n";
+            $stringConfig .= "$s$s$s'secret' => '" . $arrConfig['recaptcha']['secret'] . "',\n";
+            $stringConfig .= "$s$s],\n\n";
+            $stringConfig .= "$s$s// Locale settings\n";
+            $stringConfig .= "$s$s'locale' => [\n";
+            $stringConfig .= "$s$s$s'process' => " . $arrConfig['locale']['process'] . ",\n";
+            $stringConfig .= "$s$s$s'active' => [\n";
+            $stringConfig .= "$s$s$s$s'en-US' => '" . $arrConfig['locale']['en-us'] . "',\n";
+            $stringConfig .= "$s$s$s$s'de-DE' => '" . $arrConfig['locale']['de-de'] . "',\n";
+            $stringConfig .= "$s$s$s],\n";
+            $stringConfig .= "$s$s],\n\n";
+            $stringConfig .= "$s$s// Relative to domain (e.g. project is in sub directory '/project/public/')\n";
+            $stringConfig .= "$s$s'public_path' => " . $arrConfig['public_path'] . ",\n";
+            $stringConfig .= "$s],\n";
+            $stringConfig .= "];\n";
 
             // write additional-settings.php
-            file_put_contents(__DIR__ . "/../../config/additional-settings.php", $settings . "$s],\n];\n");
+            file_put_contents(__DIR__ . "/../../config/additional-settings.php", $stringConfig);
 
             static::createDatabase($arrConfig['database']);
         } else {

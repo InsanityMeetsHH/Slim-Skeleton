@@ -11,6 +11,7 @@ CREATE TABLE `recovery_code` (
   `user_id` int(11) DEFAULT NULL,
   `code` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `deleted` tinyint(1) NOT NULL,
+  `hidden` tinyint(1) NOT NULL,
   `updated_at` datetime NOT NULL,
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
@@ -22,18 +23,19 @@ DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `deleted` tinyint(1) NOT NULL,
+  `hidden` tinyint(1) NOT NULL,
   `updated_at` datetime NOT NULL,
   `created_at` datetime NOT NULL,
-  `deleted` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_57698A6A5E237E06` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `role` (`id`, `name`, `updated_at`, `created_at`, `deleted`) VALUES
-(1,	'guest',	NOW(),	NOW(),	0),
-(2,	'member',	NOW(),	NOW(),	0),
-(3,	'admin',	NOW(),	NOW(),	0),
-(4,	'superadmin',	NOW(),	NOW(),	0);
+INSERT INTO `role` (`id`, `name`, `deleted`, `hidden`, `updated_at`, `created_at`) VALUES
+(1,	'guest',	0,	0,	NOW(),	NOW()),
+(2,	'member',	0,	0,	NOW(),	NOW()),
+(3,	'admin',	0,	0,	NOW(),	NOW()),
+(4,	'superadmin',	0,	0,	NOW(),	NOW());
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
@@ -41,18 +43,19 @@ CREATE TABLE `user` (
   `role_id` int(11) DEFAULT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `pass` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `created_at` datetime NOT NULL,
   `two_factor` tinyint(1) NOT NULL,
   `two_factor_secret` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `deleted` tinyint(1) NOT NULL,
+  `hidden` tinyint(1) NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D6495E237E06` (`name`),
   KEY `IDX_8D93D649D60322AC` (`role_id`),
   CONSTRAINT `FK_8D93D649D60322AC` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `user` (`id`, `role_id`, `name`, `pass`, `updated_at`, `created_at`, `two_factor`, `two_factor_secret`, `deleted`) VALUES
-(1,	2,	'user',	'$2y$11$eVVKcwwsb1UP7RSvdea21OWGJM3cYLBKSoPlAowBa0uQHjkguRB.K',	NOW(),	NOW(),	0,	'',	0);
+INSERT INTO `user` (`id`, `role_id`, `name`, `pass`, `two_factor`, `two_factor_secret`, `deleted`, `hidden`, `updated_at`, `created_at`) VALUES
+(1,	2,	'user',	'$2y$11$eVVKcwwsb1UP7RSvdea21OWGJM3cYLBKSoPlAowBa0uQHjkguRB.K',	0,	'',	0,	0,	NOW(),	NOW());
 
--- 2018-09-18 12:06:36
+-- 2018-11-05 15:19:32

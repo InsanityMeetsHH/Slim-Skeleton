@@ -8,14 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.1.1]
 ### Added
-- symfony/console constrain.
+- symfony/console constrain
 
 ### Changed
 - [Setup.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Composer/Setup.php) for better readablity
 
+### Fixed
+- All sql files
+
 ## [5.1.0] - 2018-10-29
 ### Removed
-- Own colored CLI logic and replaced by Symfony\Component\Console\Formatter\OutputFormatterStyle.
+- Own colored CLI logic and replaced by Symfony\Component\Console\Formatter\OutputFormatterStyle
 
 ## [5.0.9] - 2018-10-18
 ### Added

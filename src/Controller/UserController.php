@@ -57,6 +57,7 @@ class UserController extends BaseController {
      */
     public function registerAction($request, $response, $args) {
         // Render view
+        $this->flash->addMessageNow('message', 'Registration is deactivated on this demo page;' . self::STYLE_DANGER);
         return $this->view->render($response, 'user/register.html.twig', array_merge($args, []));
     }
     
@@ -74,7 +75,7 @@ class UserController extends BaseController {
         $resp = $recaptcha->setExpectedHostname($_SERVER['SERVER_NAME'])
             ->verify($request->getParam('g-recaptcha-response'), GeneralUtility::getUserIP());
         
-        if ($resp->isSuccess() || isset($_ENV['docker'])) {
+        if (($resp->isSuccess() || isset($_ENV['docker'])) && FALSE) {
             $userSearch = $this->em->getRepository('App\Entity\User')->findOneBy(['name' => $request->getParam('user_name'), 'hidden' => 0]);
             $userName = $request->getParam('user_name');
             $userPass = $request->getParam('user_pass');

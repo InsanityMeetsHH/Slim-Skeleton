@@ -65,3 +65,7 @@ ul {
     margin: auto;
     width: 305px;
 }
+
+form input {
+    margin: 0 5px;
+}

@@ -6,7 +6,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [5.1.1]
+## [5.2.0]
+### Added
+- `nochso/html-compress-twig` dependency
+- `composer.lock`
+- form input styling
+- `{% htmlcompress %}...{% endhtmlcompress %}` to [`templates/layouts/layout.html.twig`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/layouts/layout.html.twig)
+- `<header>`, `<main>` and `<footer>` html tag to [`templates/layouts/layout.html.twig`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/layouts/layout.html.twig)
+
+### Changed
+- `.gitignore`
+- `deploy.sh`
+
+## [5.1.1] - 2018-11-05
 ### Added
 - symfony/console constrain
 

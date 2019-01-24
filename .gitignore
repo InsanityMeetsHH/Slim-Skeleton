@@ -3,5 +3,4 @@
 !/logs/README.md
 /vendor/
 additional-settings.php
-composer.lock
 composer.phar

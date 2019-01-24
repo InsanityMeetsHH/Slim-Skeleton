@@ -6,7 +6,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [5.0.6]
+## [5.1.1]
+### Added
+- symfony/console constrain
+
+### Changed
+- [Setup.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Composer/Setup.php) for better readablity
+
+### Fixed
+- All sql files
+
+## [5.1.0] - 2018-10-29
+### Removed
+- Own colored CLI logic and replaced by Symfony\Component\Console\Formatter\OutputFormatterStyle
+
+## [5.0.9] - 2018-10-18
+### Added
+- Inactive PHP 5.5 image to [`Dockerfile`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/Dockerfile)
+
+### Changed
+- Definition of the `$currentRole` simplified in [`AclRepositoryContainer.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Container/AclRepositoryContainer.php)
+
+## [5.0.8] - 2018-10-12
+### Fixed
+- Reset database [script](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Composer/Setup.php#L233)
+
+## [5.0.7] - 2018-10-11
+### Added
+- `hidden` in [`Base.php`](https://github.com/InsanityMeetsHH/file-sharing/blob/master/src/MappedSuperclass/Base.php)
+- Skip CLI colors on windows operating system
+
+## [5.0.6] - 2018-10-11
 ### Added
 - `cascade={"persist", "remove"}` to [`User::$recoveryCodes`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Entity/User.php#L33)
 - Continuous integration update

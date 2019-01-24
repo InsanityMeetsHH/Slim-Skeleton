@@ -1,7 +1,7 @@
 {
     "name": "insanitymeetshh/slim-skeleton",
     "description": "Slim Skeleton Fork - InsanityMeetsHH",
-    "version": "5.0.6",
+    "version": "5.1.1",
     "keywords": ["microframework", "rest", "router", "psr7", "doctrine", "twig", "localisation", "acl", "login", "csrf", "2fa", "recaptcha", "docker"],
     "homepage": "http://slim3.insanitymeetshh.net",
     "license": "MIT",
@@ -29,6 +29,7 @@
         "slim/flash": "^0.4.0",
         "slim/slim": "^3.1",
         "slim/twig-view": "^2.3",
+        "symfony/console": "^3.0|^4.0",
         "paragonie/random_compat": ">=1 <9.99",
         "phpgangsta/googleauthenticator": "dev-master"
     },

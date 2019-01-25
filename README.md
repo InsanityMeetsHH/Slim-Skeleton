@@ -1,4 +1,4 @@
-# Slim Skeleton Fork - InsanityMeetsHH
+# Slim Skeleton - InsanityMeetsHH
 
 [**Demo page**](http://slim3.insanitymeetshh.net)
 
@@ -12,6 +12,7 @@
 * [Geggleto ACL 1](https://github.com/geggleto/geggleto-acl)
 * [Google Authenticator](https://github.com/PHPGangsta/GoogleAuthenticator)
 * [Google reCAPTCHA 1](https://github.com/google/recaptcha)
+* [HTML Compress Twig Extension](https://github.com/nochso/html-compress-twig)
 
 ## Required
 * PHP => 5.5

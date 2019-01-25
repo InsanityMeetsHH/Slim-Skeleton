@@ -23,6 +23,8 @@ return [
         // Locale settings
         'locale' => [
             'process' => \App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_DISABLED,
+            'auto_detect' => TRUE,
+            'code' => 'en-US', // default / current language
             'active' => [
                 'en-US' => 'imhh-slim.localhost',
                 'de-DE' => 'de.imhh-slim.localhost',

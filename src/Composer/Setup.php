@@ -20,7 +20,7 @@ class Setup {
         $arrConfig = [];
         $s = '    ';
 
-        if (!file_exists(__DIR__ . "/../../config/additional-settings.php")) {
+        if (TRUE) {
             
             if (!file_exists(__DIR__ . "/../../config/additional-settings.dist.php")) {
                 copy(__DIR__ . "/../../config/additional-settings.dist.php", __DIR__ . "/../../config/additional-settings.php");
@@ -138,45 +138,93 @@ class Setup {
             // Locale settings
 
             // Ask for locale process
-            echo self::getColoredString("Please enter locale process (default: ", 'green') . self::getColoredString("\App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_DISABLED", 'yellow') . self::getColoredString("): ", 'green');
+            echo self::getColoredString("Please enter number of locale process (default: ", 'green') . self::getColoredString("1", 'yellow') . self::getColoredString(")", 'green');
+            echo "\n";
+            // \App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_DISABLED
+            echo self::getColoredString('1: ', 'yellow') . self::getColoredString("translation with path segment e.g. example.com/de/", 'green');
+            echo "\n";
+            // \App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_ENABLED
+            echo self::getColoredString('2: ', 'yellow') . self::getColoredString("domain / subdomain for each translation", 'green');
+            echo "\n";
+            // \App\Utility\LanguageUtility::LOCALE_SESSION | \App\Utility\LanguageUtility::DOMAIN_DISABLED
+            echo self::getColoredString('3: ', 'yellow') . self::getColoredString("one domain for all translations like youtube.com", 'green');
             $strHandle = fopen("php://stdin", "r");
             echo "\n";
 
-            $strLocaleProcess = trim(fgets($strHandle));
+            $strLocaleProcess = (int)trim(fgets($strHandle));
             fclose($strHandle);
+            
+            switch ($strLocaleProcess) {
+                case 1:
+                    $arrConfig['locale']['process'] = "\App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_DISABLED";
+                    break;
+                case 2:
+                    $arrConfig['locale']['process'] = "\App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_ENABLED";
+                    break;
+                case 3:
+                    $arrConfig['locale']['process'] = "\App\Utility\LanguageUtility::LOCALE_SESSION | \App\Utility\LanguageUtility::DOMAIN_DISABLED";
+                    break;
 
-            if (empty($strLocaleProcess)) {
-                $arrConfig['locale']['process'] = "\App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_DISABLED";
-            } else {
-                $arrConfig['locale']['process'] = $strLocaleProcess;
+                default:
+                    if (empty($strLocaleProcess)) {
+                        $arrConfig['locale']['process'] = "\App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_DISABLED";
+                    } else {
+                        echo self::getColoredString("Locale process " . $strLocaleProcess . " does not exists!", 'white', 'red');
+                        die("\n");
+                    }
+                    break;
             }
 
-            // Ask for en-US domain
-            echo self::getColoredString("Please enter locale en-US domain (default: ", 'green') . self::getColoredString("imhh-slim.localhost", 'yellow') . self::getColoredString("): ", 'green');
+            // Ask for auto detection
+            echo self::getColoredString("Please enter value for language auto detection (default: ", 'green') . self::getColoredString("TRUE", 'yellow') . self::getColoredString("): ", 'green');
             $strHandle = fopen("php://stdin", "r");
             echo "\n";
 
-            $strEnUsDomain = trim(fgets($strHandle));
+            $strLocaleAuto = trim(fgets($strHandle));
             fclose($strHandle);
 
-            if (empty($strEnUsDomain)) {
-                $arrConfig['locale']['en-us'] = "imhh-slim.localhost";
+            if (empty($strLocaleAuto)) {
+                $arrConfig['locale']['auto_detect'] = "TRUE";
             } else {
-                $arrConfig['locale']['en-us'] = $strEnUsDomain;
+                $arrConfig['locale']['auto_detect'] = $strLocaleAuto;
             }
-
-            // Ask for de-DE domain
-            echo self::getColoredString("Please enter locale de-DE domain (default: ", 'green') . self::getColoredString("de.imhh-slim.localhost", 'yellow') . self::getColoredString("): ", 'green');
-            $strHandle = fopen("php://stdin", "r");
-            echo "\n";
-
-            $strDeDeDomain = trim(fgets($strHandle));
-            fclose($strHandle);
-
-            if (empty($strDeDeDomain)) {
-                $arrConfig['locale']['de-de'] = "de.imhh-slim.localhost";
-            } else {
-                $arrConfig['locale']['de-de'] = $strDeDeDomain;
+            
+            // Ask for locale code domain combination
+            echo self::getColoredString("Please enter locale domains\n", 'green');
+            echo self::getColoredString("First locale code domain combination will be the default language\n", 'green');
+            echo self::getColoredString("To exit the loop press enter at 'Locale code'\n", 'green');
+            
+            do {
+                echo self::getColoredString("Locale code (e.g. en-US): ", 'green');
+                $strHandle = fopen("php://stdin", "r");
+                $strLocaleCode = trim(fgets($strHandle));
+                fclose($strHandle);
+                
+                if (empty($strLocaleCode)) {
+                    break;
+                }
+                
+                echo self::getColoredString("Domain: ", 'green');
+                $strHandle = fopen("php://stdin", "r");
+                $strLocaleDomain = trim(fgets($strHandle));
+                fclose($strHandle);
+                echo "\n";
+                
+                if (empty($strLocaleDomain)) {
+                    break;
+                }
+                
+                $arrConfig['locale']['active'][$strLocaleCode] = $strLocaleDomain;
+                
+                // if is first entry
+                if (count($arrConfig['locale']['active']) === 1) {
+                    $arrConfig['locale']['code'] = $strLocaleCode;
+                }
+            } while (TRUE);
+            
+            if (!isset($arrConfig['locale']['active'])) {
+                echo self::getColoredString("You need at least one local code domain combination!", 'white', 'red');
+                die("\n");
             }
 
             echo self::getColoredString("Setup Public Path\n", 'yellow', NULL, ['underscore']);
@@ -217,9 +265,12 @@ class Setup {
             $stringConfig .= "$s$s// Locale settings\n";
             $stringConfig .= "$s$s'locale' => [\n";
             $stringConfig .= "$s$s$s'process' => " . $arrConfig['locale']['process'] . ",\n";
+            $stringConfig .= "$s$s$s'auto_detect' => " . $arrConfig['locale']['auto_detect'] . ",\n";
+            $stringConfig .= "$s$s$s'code' => '" . $arrConfig['locale']['code'] . "', // default / current language\n";
             $stringConfig .= "$s$s$s'active' => [\n";
-            $stringConfig .= "$s$s$s$s'en-US' => '" . $arrConfig['locale']['en-us'] . "',\n";
-            $stringConfig .= "$s$s$s$s'de-DE' => '" . $arrConfig['locale']['de-de'] . "',\n";
+            foreach ($arrConfig['locale']['active'] as $key => $value) {
+                $stringConfig .= "$s$s$s$s'$key' => '$value',\n";
+            }
             $stringConfig .= "$s$s$s],\n";
             $stringConfig .= "$s$s],\n\n";
             $stringConfig .= "$s$s// Relative to domain (e.g. project is in sub directory '/project/public/')\n";

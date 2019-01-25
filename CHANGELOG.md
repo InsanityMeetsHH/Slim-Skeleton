@@ -10,13 +10,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - `nochso/html-compress-twig` dependency
 - `composer.lock`
-- form input styling
+- `lang` attribute to langswitch
+- form input styling in `public/css/styles.css`
 - `{% htmlcompress %}...{% endhtmlcompress %}` to [`templates/layouts/layout.html.twig`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/layouts/layout.html.twig)
 - `<header>`, `<main>` and `<footer>` html tag to [`templates/layouts/layout.html.twig`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/layouts/layout.html.twig)
 
 ### Changed
 - `.gitignore`
 - `deploy.sh`
+- `README.md`
+- CSS properties sorted alphabetically
+- [Setup.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Composer/Setup.php)
+- [`additional-settings.dist.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/additional-settings.dist.php)
+- [`settings.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php)
+- [`localisation.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/localisation.php)
 
 ## [5.1.1] - 2018-11-05
 ### Added

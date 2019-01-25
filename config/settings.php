@@ -35,10 +35,7 @@ return [
             'code' => 'en-US', // default / current language
             'generic_code' => 'xx-XX', // routes which fits all localizations
             'path' => __DIR__ . '/../locale/',
-            'active' => [
-                'en-US' => 'slim3.insanitymeetshh.net',
-                'de-DE' => 'slim3de.insanitymeetshh.net',
-            ],
+            'active' => [], // active locale code domain combinations
         ],
         
         // Doctrine settings

@@ -2,28 +2,46 @@
    outline: 0;
 }
 
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
 body {
-    margin: 50px 0 0 0;
-    padding: 0;
-    width: 100%;
-    font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    text-align: center;
-    color: grey;
-    font-size: 18px;
     background-color: #212121;
+    color: grey;
+    font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+}
+
+header,
+main,
+footer {
+    margin: 10px;
+}
+
+footer {
+    text-align: center;
+}
+
+footer a {
+    margin: 0 10px;
 }
 
 h1 {
     color: #2E97BF;
-    letter-spacing: -3px;
     font-size: 100px;
     font-weight: 400;
+    letter-spacing: -3px;
     margin-bottom: 0;
 }
 
 h2 {
-    color: #2E97BF;
     font-weight: 400;
+    color: #2E97BF;
 }
 
 a:visited {
@@ -40,16 +58,20 @@ a.current {
 }
 
 ul {
-    text-align: left;
-    width: 180px;
     margin: auto;
+    max-width: 310px;
+    text-align: left;
+}
+
+form input {
+    margin: 0 5px;
 }
 
 .message {
-    padding: 10px;
-    margin-top: 20px;
     background-color: gray;
     color: #212121;
+    margin-top: 20px;
+    padding: 10px;
     text-align: center;
 }
 
@@ -64,8 +86,4 @@ ul {
 .g-recaptcha {
     margin: auto;
     width: 305px;
-}
-
-form input {
-    margin: 0 5px;
 }

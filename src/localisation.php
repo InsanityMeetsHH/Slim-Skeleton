@@ -18,7 +18,7 @@ if (($settings['settings']['locale']['process'] & \App\Utility\LanguageUtility::
     $uri = $_SERVER['SERVER_NAME'];
 
     if (array_search($uri, $settings['settings']['locale']['active']) === FALSE) {
-        $settings['settings']['locale']['code'] = 'en-US';
+        die("Domain '$uri' was not found in \$settings['locale']['active']");
     } else {
         $settings['settings']['locale']['code'] = array_search($uri, $settings['settings']['locale']['active']);
     }
@@ -43,7 +43,7 @@ if (($settings['settings']['locale']['process'] & \App\Utility\LanguageUtility::
         case 'de/':
             $settings['settings']['locale']['code'] = 'de-DE';
             break;
-
+            
         default:
             $settings['settings']['locale']['code'] = 'en-US';
             break;

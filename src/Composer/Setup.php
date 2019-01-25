@@ -20,7 +20,7 @@ class Setup {
         $arrConfig = [];
         $s = '    ';
 
-        if (TRUE) {
+        if (!file_exists(__DIR__ . "/../../config/additional-settings.php")) {
             
             if (!file_exists(__DIR__ . "/../../config/additional-settings.dist.php")) {
                 copy(__DIR__ . "/../../config/additional-settings.dist.php", __DIR__ . "/../../config/additional-settings.php");

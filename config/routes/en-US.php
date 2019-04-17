@@ -53,9 +53,9 @@ return [
         'rolesAllow' => ['guest', 'admin', 'superadmin'],
         'rolesDeny'  => [],
     ],
-    'user-add' => [
+    'user-register-save' => [
         'route'      => '/complete-register/',
-        'method'     => 'App\Controller\UserController:addAction',
+        'method'     => 'App\Controller\UserController:saveRegisterAction',
         'methods'    => ['POST'],
         'rolesAllow' => ['guest', 'admin', 'superadmin'],
         'rolesDeny'  => [],

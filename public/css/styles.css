@@ -31,17 +31,10 @@ footer a {
     margin: 0 10px;
 }
 
-h1 {
-    color: #2E97BF;
-    font-size: 100px;
-    font-weight: 400;
-    letter-spacing: -3px;
-    margin-bottom: 0;
-}
-
+h1,
 h2 {
-    font-weight: 400;
     color: #2E97BF;
+    font-weight: 400;
 }
 
 a:visited {

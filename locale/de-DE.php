@@ -15,6 +15,7 @@ return [
     'created-at' => 'Erstellt am',
     'updated-at' => 'Bearbeitet am',
     'success' => 'Erfolg',
+    'construction' => 'Dieser Service ist vorübergehend nicht verfügbar',
     'failed-csrf' => 'CSRF-Prüfung nicht bestanden',
     'not-allowed-method' => 'Methode muss eine der folgenden sein',
     'page-not-found' => 'Seite nicht gefunden',
@@ -26,14 +27,15 @@ return [
     'member' => 'Mitglied',
     'admin' => 'Admin',
     'superadmin' => 'Superadmin',
-    'enable-2fa' => 'Aktiviere Zwei-Faktor-Authentifizierung',
+    'enable-2fa' => 'Aktiviere Zwei-Faktor-Auth',
     'enable-2fa-step1' => '1. Installiere "Google Authenticator" (<a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=de" target="_blank">Android</a> oder <a href="https://itunes.apple.com/de/app/google-authenticator/id388497605?mt=8" target="_blank">iOS</a>) auf deinem Mobilgerät.',
     'enable-2fa-step2' => '2. Trage "Secret" in die App ein oder scanne den QR-Code.<br/>Handhabe "Secret" wie ein Passwort und speichere diesen sicher weg.',
     'enable-2fa-step3' => '3. Trage den 6 stelligen Zahlencode der App unten ein.',
     '2fa-secret' => 'Secret',
-    'recovery-codes' => 'Handhabe die Codes wie Passwörter und speichere diese sicher weg.<br/>Du wirst diese Codes nur dieses eine mal hier sehen.',
+    'recovery-codes' => 'Recovery-Codes',
+    'recovery-codes-text' => 'Handhabe die Codes wie Passwörter und speichere diese sicher weg.<br/>Du wirst diese Codes nur dieses eine mal hier sehen.',
     'back-to' => 'Zurück zu%1$s',
-    '2fa-enabled' => 'Zwei-Faktor-Authentifizierung ist aktiviert.',
+    '2fa-enabled' => 'Zwei-Faktor-Auth ist aktiviert',
     
     // navigation labels
     'page-index-label' => 'Startseite',
@@ -47,12 +49,19 @@ return [
     'langswitch-image' => '<img src="https://cdn.rawgit.com/hjnilsson/country-flags/master/svg/de.svg" style="max-height: 20px;">',
     
     // flash messages
-    'register-flash-1' => 'Benutzername bereits vergeben',
-    'register-flash-2' => 'Benutzername zu kurz (mind. 4 Zeichen)',
-    'register-flash-3' => 'Passwort zu kurz (mind. 6 Zeichen)',
-    'register-flash-4' => 'Passwort wurde falsch wiederholt',
-    'register-flash-5' => 'Registrierung abgeschlossen',
-    'register-flash-6' => 'Captcha nicht bestanden',
+    'register-flash-m1' => 'Benutzername bereits vergeben',
+    'register-flash-m2' => 'Benutzername zu kurz (mind. %1$s Zeichen)',
+    'register-flash-m3' => 'Passwort zu kurz (mind. %1$s Zeichen)',
+    'register-flash-m4' => 'Passwort wurde falsch wiederholt',
+    'register-flash-m5' => 'Registrierung abgeschlossen',
+    'register-flash-m6' => 'Captcha nicht bestanden',
+    'register-flash-m7' => 'Benutzername zu lang (max. %1$s Zeichen)',
+    'register-flash-m8' => 'Benutzername darf nur aus folgenden Zeichen bestehen: a-z, A-Z, 0-9, _, -',
+    'register-flash-m9' => 'Benutzername ist nicht erlaubt',
+    'register-flash-m10' => 'Passwort muss mind. eine Zahl haben',
+    'register-flash-m11' => 'Passwort muss mind. einen kleinen Buchstaben haben',
+    'register-flash-m12' => 'Passwort muss mind. einen großen Buchstaben haben',
+    'register-flash-m13' => 'Passwort muss mind. ein Sonderzeichen haben',
     
     // misc
     // decimal point

@@ -1,20 +1,25 @@
 <?php
-if ((($settings['settings']['locale']['process'] & \App\Utility\LanguageUtility::DOMAIN_ENABLED) == \App\Utility\LanguageUtility::DOMAIN_ENABLED 
-    && ($settings['settings']['locale']['process'] & \App\Utility\LanguageUtility::LOCALE_URL) == \App\Utility\LanguageUtility::LOCALE_URL) 
-    || (($settings['settings']['locale']['process'] & \App\Utility\LanguageUtility::DOMAIN_DISABLED) == \App\Utility\LanguageUtility::DOMAIN_DISABLED 
-        && ($settings['settings']['locale']['process'] & \App\Utility\LanguageUtility::LOCALE_SESSION) == \App\Utility\LanguageUtility::LOCALE_SESSION)) {
+use App\Utility\LanguageUtility;
+
+// if is domain mode or session mode
+if ((($settings['settings']['locale']['process'] & LanguageUtility::DOMAIN_ENABLED) == LanguageUtility::DOMAIN_ENABLED 
+    && ($settings['settings']['locale']['process'] & LanguageUtility::LOCALE_URL) == LanguageUtility::LOCALE_URL) 
+    || (($settings['settings']['locale']['process'] & LanguageUtility::DOMAIN_DISABLED) == LanguageUtility::DOMAIN_DISABLED 
+        && ($settings['settings']['locale']['process'] & LanguageUtility::LOCALE_SESSION) == LanguageUtility::LOCALE_SESSION)) {
     $settings['settings']['locale']['active'][$settings['settings']['locale']['generic_code']] = '';
 }
 
-if (($settings['settings']['locale']['process'] & \App\Utility\LanguageUtility::DOMAIN_DISABLED) == \App\Utility\LanguageUtility::DOMAIN_DISABLED 
-        && ($settings['settings']['locale']['process'] & \App\Utility\LanguageUtility::LOCALE_SESSION) == \App\Utility\LanguageUtility::LOCALE_SESSION) {
+// if is session mode
+if (($settings['settings']['locale']['process'] & LanguageUtility::DOMAIN_DISABLED) == LanguageUtility::DOMAIN_DISABLED 
+        && ($settings['settings']['locale']['process'] & LanguageUtility::LOCALE_SESSION) == LanguageUtility::LOCALE_SESSION) {
     if (isset($_COOKIE['current_locale'])) {
         $settings['settings']['locale']['code'] = $_COOKIE['current_locale'];
     } else {
         setcookie('current_locale', $settings['settings']['locale']['code'], 0, '/');
     }
-} elseif (($settings['settings']['locale']['process'] & \App\Utility\LanguageUtility::DOMAIN_ENABLED) == \App\Utility\LanguageUtility::DOMAIN_ENABLED 
-        && ($settings['settings']['locale']['process'] & \App\Utility\LanguageUtility::LOCALE_URL) == \App\Utility\LanguageUtility::LOCALE_URL) {
+// if is domain mode
+} elseif (($settings['settings']['locale']['process'] & LanguageUtility::DOMAIN_ENABLED) == LanguageUtility::DOMAIN_ENABLED 
+        && ($settings['settings']['locale']['process'] & LanguageUtility::LOCALE_URL) == LanguageUtility::LOCALE_URL) {
     $uri = $_SERVER['SERVER_NAME'];
 
     if (array_search($uri, $settings['settings']['locale']['active']) === FALSE) {
@@ -22,8 +27,9 @@ if (($settings['settings']['locale']['process'] & \App\Utility\LanguageUtility::
     } else {
         $settings['settings']['locale']['code'] = array_search($uri, $settings['settings']['locale']['active']);
     }
-} elseif (($settings['settings']['locale']['process'] & \App\Utility\LanguageUtility::DOMAIN_DISABLED) == \App\Utility\LanguageUtility::DOMAIN_DISABLED 
-        && ($settings['settings']['locale']['process'] & \App\Utility\LanguageUtility::LOCALE_URL) == \App\Utility\LanguageUtility::LOCALE_URL) {
+// if is path segment mode
+} elseif (($settings['settings']['locale']['process'] & LanguageUtility::DOMAIN_DISABLED) == LanguageUtility::DOMAIN_DISABLED 
+        && ($settings['settings']['locale']['process'] & LanguageUtility::LOCALE_URL) == LanguageUtility::LOCALE_URL) {
     // if domain points to public directory
     if ($settings['settings']['public_path'] == '/') {
         $uri = substr($_SERVER['REQUEST_URI'], 1, 6);

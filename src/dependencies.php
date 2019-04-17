@@ -44,7 +44,7 @@ $container['logger'] = function ($c) {
 $container['notFoundHandler'] = function ($c) {
     return function ($request, $response) use ($c) {
         $_SESSION['notFoundRoute'] = $request->getUri()->getPath();
-        return $response->withRedirect($c->get('router')->pathFor('error-not-found-' . strtolower(\App\Utility\LanguageUtility::getCurrentLocale())));
+        return $response->withRedirect($c->get('router')->pathFor('error-not-found-' . \App\Utility\LanguageUtility::getGenericLocale()));
     };
 };
 
@@ -54,7 +54,7 @@ $container['notAllowedHandler'] = function ($c) {
         $_SESSION['allowedMethods'] = implode('-', $methods);
         $_SESSION['notAllowedMethod'] = $request->getMethod();
         $_SESSION['notAllowedRoute'] = $request->getUri()->getPath();
-        return $response->withRedirect($c->get('router')->pathFor('error-not-allowed-' . strtolower(\App\Utility\LanguageUtility::getCurrentLocale())));
+        return $response->withRedirect($c->get('router')->pathFor('error-not-allowed-' . \App\Utility\LanguageUtility::getGenericLocale()));
     };
 };
 

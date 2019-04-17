@@ -16,7 +16,7 @@
 
 ## Required
 * PHP => 5.5
-* Database like MySQL
+* MySQL (pdo_mysql)
 * [Docker](https://www.docker.com/) ([for installation with Docker](https://github.com/InsanityMeetsHH/Slim-Skeleton#installation-with-docker))
 
 ## Installation with [Composer](https://getcomposer.org/) (Recommended)

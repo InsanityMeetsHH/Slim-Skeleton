@@ -23,7 +23,9 @@ class RecoveryCode extends \App\MappedSuperclass\Base {
     private $user;
     
     /**
-     * @ORM\Column(type="string")
+     * Encoded recovery code
+     * 
+     * @ORM\Column(type="string", options={"comment": "Encoded recovery code"})
      */
     private $code;
     

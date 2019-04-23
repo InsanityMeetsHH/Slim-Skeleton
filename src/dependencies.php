@@ -44,7 +44,7 @@ $container['logger'] = function ($c) {
 $container['notFoundHandler'] = function ($c) {
     return function ($request, $response) use ($c) {
         $_SESSION['notFoundRoute'] = $request->getUri()->getPath();
-        return $response->withRedirect($c->get('router')->pathFor('error-not-found-' . strtolower(\App\Utility\LanguageUtility::getCurrentLocale())));
+        return $response->withRedirect($c->get('router')->pathFor('error-not-found-' . \App\Utility\LanguageUtility::getGenericLocale()));
     };
 };
 
@@ -54,7 +54,7 @@ $container['notAllowedHandler'] = function ($c) {
         $_SESSION['allowedMethods'] = implode('-', $methods);
         $_SESSION['notAllowedMethod'] = $request->getMethod();
         $_SESSION['notAllowedRoute'] = $request->getUri()->getPath();
-        return $response->withRedirect($c->get('router')->pathFor('error-not-allowed-' . strtolower(\App\Utility\LanguageUtility::getCurrentLocale())));
+        return $response->withRedirect($c->get('router')->pathFor('error-not-allowed-' . \App\Utility\LanguageUtility::getGenericLocale()));
     };
 };
 
@@ -69,11 +69,12 @@ $container['view'] = function ($c) {
     // Instantiate and add Slim specific extension
     $router = $c->get('router');
     $uri = Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
-    $view->addExtension(new Slim\Views\TwigExtension($router, $uri));
     $view->addExtension(new App\Twig\AclExtension($c));
     $view->addExtension(new App\Twig\CsrfExtension($c));
     $view->addExtension(new App\Twig\GeneralExtension($c));
     $view->addExtension(new App\Twig\LanguageExtension($c, $router, $uri));
+    $view->addExtension(new nochso\HtmlCompressTwig\Extension());
+    $view->addExtension(new Slim\Views\TwigExtension($router, $uri));
     
     if ($settings['renderer']['debug']) {
         $view->addExtension(new Twig_Extension_Debug());

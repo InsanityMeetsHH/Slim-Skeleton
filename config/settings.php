@@ -21,6 +21,27 @@ return [
             'secret' => '',
         ],
 
+        // Google QR Code title
+        '2fa_qrc_title' => null,
+        
+        // pages for the public
+        'active_pages' => [
+            'login'    => TRUE,
+            'register' => TRUE,
+        ],
+        
+        // User validation
+        'validation' => [
+            'min_user_name_length'    => 4,
+            'max_user_name_length'    => 50,
+            'min_password_length'     => 6,
+            'password_with_digit'     => TRUE, // digit required
+            'password_with_lcc'       => TRUE, // lowercase character required
+            'password_with_ucc'       => TRUE, // uppercase character required
+            'password_with_nwc'       => TRUE, // non-word character required
+            'allowed_user_name_chars' => str_split('abcdefghijklmnopqrstuvwxyz0123456789-_'),
+        ],
+
         // Monolog settings
         'logger' => [
             'name'  => 'slim-app',
@@ -30,15 +51,12 @@ return [
         
         // Locale settings
         'locale' => [
-            'process' => \App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_DISABLED,
-            'auto_detect' => TRUE,
-            'code' => 'en-US', // default / current language
+            'process'      => \App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_DISABLED,
+            'auto_detect'  => TRUE,
+            'code'         => 'en-US', // default / current language
             'generic_code' => 'xx-XX', // routes which fits all localizations
-            'path' => __DIR__ . '/../locale/',
-            'active' => [
-                'en-US' => 'slim3.insanitymeetshh.net',
-                'de-DE' => 'slim3de.insanitymeetshh.net',
-            ],
+            'path'         => __DIR__ . '/../locale/',
+            'active'       => [], // active locale code domain combinations
         ],
         
         // Doctrine settings
@@ -52,13 +70,14 @@ return [
                 'cache' => null,
             ],
             'connection' => [
-                'driver'   => 'pdo_mysql',
-                'host'     => '127.0.0.1',
-                'port'     => 3306,
-                'dbname'   => '',
-                'user'     => '',
-                'password' => '',
-                'charset'  => 'utf8',
+                'driver'      => 'pdo_mysql',
+                'host'        => 'localhost',
+                'port'        => 3306,
+                'dbname'      => '',
+                'user'        => '',
+                'password'    => '',
+                'charset'     => 'utf8',
+                //'unix_socket' => '/Applications/MAMP/tmp/mysql/mysql.sock',
             ],
         ],
         

@@ -1,7 +1,7 @@
 {% extends "layouts/layout.html.twig" %}
 
 {% block content %}
-    <br><br>
+    <h2>{{ 'user-login-label'|trans }}</h2>
     <label for="user_name">{{ 'user'|trans }}</label> / <label for="user_pass">{{ 'password'|trans }}</label>
     <form action="{{ path_for('user-login-validate-' ~ lc) }}" method="post">
         <input type="hidden" name="{{ csrf.keys.name }}" value="{{ csrf.name }}">

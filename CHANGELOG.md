@@ -24,13 +24,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [`localisation.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/localisation.php) to use less code
 - [`en-US.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/locale/en-US.php)
 - [`de-DE.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/locale/de-DE.php)
-- default database host `127.0.0.1` to `localhost`
 - [`composer.lock`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/composer.lock)
 - [`styles.css`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/public/css/styles.css)
 - [`UserController.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Controller/UserController.php)
 - [`dependencies.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/dependencies.php)
 - [`routes.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/routes.php)
 - [`GeneralExtension.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Twig/GeneralExtension.php)
+- [`docker-compose.yml`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/docker-compose.yml)
+- default database host `127.0.0.1` to `localhost`
+- default database name `slim_database` to `slim_skeleton`
 
 ### Removed
 - `user-add` route and replaced by `user-register-save`
@@ -39,18 +41,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [5.2.0] - 2019-01-27
 ### Added
 - `nochso/html-compress-twig` dependency
-- `composer.lock`
+- [`composer.lock`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/composer.lock)
 - `lang` attribute to langswitch
 - form input styling in `public/css/styles.css`
 - `{% htmlcompress %}...{% endhtmlcompress %}` to [`layout.html.twig`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/layouts/layout.html.twig)
 - `<header>`, `<main>` and `<footer>` html tag to [`layout.html.twig`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/layouts/layout.html.twig)
 
 ### Changed
-- `.gitignore`
-- `deploy.sh`
-- `README.md`
+- [`.gitignore`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/.gitignore)
+- [`deploy.sh`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/deploy.sh)
+- [`README.md`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/README.md)
 - CSS properties sorted alphabetically
-- [Setup.php](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Composer/Setup.php)
+- [`Setup.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Composer/Setup.php)
 - [`additional-settings.dist.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/additional-settings.dist.php)
 - [`settings.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/settings.php)
 - [`localisation.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/localisation.php)

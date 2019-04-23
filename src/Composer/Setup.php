@@ -49,7 +49,7 @@ class Setup {
             echo self::getColoredString("\nSetup Database\n", 'yellow', NULL, ['underscore']);
 
             // Ask for database name
-            echo self::getColoredString("Please enter database name (default: ", 'green') . self::getColoredString("slim_database", 'yellow') . self::getColoredString("): ", 'green');
+            echo self::getColoredString("Please enter database name (default: ", 'green') . self::getColoredString("slim_skeleton", 'yellow') . self::getColoredString("): ", 'green');
             $strHandle = fopen("php://stdin", "r");
             echo "\n";
 
@@ -57,7 +57,7 @@ class Setup {
             fclose($strHandle);
 
             if (empty($strDbName)) {
-                $arrConfig['database']['dbname'] = "slim_database";
+                $arrConfig['database']['dbname'] = "slim_skeleton";
             } else {
                 $arrConfig['database']['dbname'] = $strDbName;
             }

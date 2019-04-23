@@ -12,7 +12,7 @@ services:
         container_name: slim-db
         environment:
             MYSQL_ROOT_PASSWORD: rootdockerpw
-            MYSQL_DATABASE: slim_database
+            MYSQL_DATABASE: slim_skeleton
             MYSQL_USER: dockeruser
             MYSQL_PASSWORD: dockerpw
         ports:
@@ -32,9 +32,10 @@ services:
             docker: "true"
             #APP_DB_HOST: db
             APP_DB_PORT: 3306
-            APP_DB_NAME: slim_database
+            APP_DB_NAME: slim_skeleton
             APP_DB_USER: dockeruser
             APP_DB_PASSWORD: dockerpw
+            #APP_DB_SOCKET: /Applications/MAMP/tmp/mysql/mysql.sock
         build:
             context: ./
             dockerfile: Dockerfile

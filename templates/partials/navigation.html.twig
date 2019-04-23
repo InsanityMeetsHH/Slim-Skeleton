@@ -2,13 +2,13 @@
     <a class="{% if is_current_path('page-index-' ~ glc) %}current{% endif %}" href="{{ path_for('page-index-' ~ glc) }}">{{ trans('page-index-label') }}</a> &#124;
     <a class="{% if is_current_path('page-example-' ~ lc) %}current{% endif %}" href="{{ path_for('page-example-' ~ lc) }}">{{ trans('page-example-label') }}</a> &#124;
 
-    {% if has_role('guest') %}
-        <a class="{% if is_current_path('user-login-' ~ glc) %}current{% endif %}" href="{{ path_for('user-login-' ~ glc) }}">{{ trans('user-login-label') }}</a> &#124;
-        <a class="{% if is_current_path('user-register-' ~ lc) %}current{% endif %}" href="{{ path_for('user-register-' ~ lc) }}">{{ trans('user-register-label') }}</a>
-    {% endif %}
+{% if has_role('guest') %}
+    <a class="{% if is_current_path('user-login-' ~ glc) %}current{% endif %}" href="{{ path_for('user-login-' ~ glc) }}">{{ trans('user-login-label') }}</a> &#124;
+    <a class="{% if is_current_path('user-register-' ~ lc) %}current{% endif %}" href="{{ path_for('user-register-' ~ lc) }}">{{ trans('user-register-label') }}</a>
+{% endif %}
 
-    {% if has_role({0: 'member', 1: 'admin', 2: 'superadmin'}) %}
-        <a class="{% if is_current_path('user-show-' ~ lc, { 'name': name }) or is_current_path('user-show-' ~ lc) %}current{% endif %}" href="{{ path_for('user-show-' ~ lc) }}">{{ trans('user-show-label') }}</a> &#124;
-        <a class="{% if is_current_path('user-logout-' ~ glc) %}current{% endif %}" href="{{ path_for('user-logout-' ~ glc) }}">{{ trans('user-logout-label') }}</a>
-    {% endif %}
+{% if has_role({0: 'member', 1: 'admin', 2: 'superadmin'}) %}
+    <a class="{% if is_current_path('user-show-' ~ lc, { 'name': name }) or is_current_path('user-show-' ~ lc) %}current{% endif %}" href="{{ path_for('user-show-' ~ lc) }}">{{ trans('user-show-label') }}</a> &#124;
+    <a class="{% if is_current_path('user-logout-' ~ glc) %}current{% endif %}" href="{{ path_for('user-logout-' ~ glc) }}">{{ trans('user-logout-label') }}</a>
+{% endif %}
 </div>

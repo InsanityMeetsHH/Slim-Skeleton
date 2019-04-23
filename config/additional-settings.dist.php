@@ -6,7 +6,7 @@ return [
         // Doctrine settings
         'doctrine' => [
             'connection' => [
-                'dbname'      => isset($_ENV['APP_DB_NAME']) ? $_ENV['APP_DB_NAME'] : 'imhh_file_sharing',
+                'dbname'      => isset($_ENV['APP_DB_NAME']) ? $_ENV['APP_DB_NAME'] : 'slim_skeleton',
                 'host'        => isset($_ENV['APP_DB_HOST']) ? $_ENV['APP_DB_HOST'] : 'localhost',
                 'port'        => isset($_ENV['APP_DB_PORT']) ? $_ENV['APP_DB_PORT'] : 3306,
                 'user'        => isset($_ENV['APP_DB_USER']) ? $_ENV['APP_DB_USER'] : '',
@@ -44,7 +44,7 @@ return [
         
         // Locale settings
         'locale' => [
-            'process'     => \App\Utility\LanguageUtility::LOCALE_URL | \App\Utility\LanguageUtility::DOMAIN_DISABLED,
+            'process'     => \App\Utility\LanguageUtility::LOCALE_SESSION | \App\Utility\LanguageUtility::DOMAIN_DISABLED,
             'auto_detect' => TRUE,
             'code'        => 'en-US', // default / current language
             'active' => [

@@ -165,7 +165,6 @@ class LanguageUtility {
     
     /**
      * Get current language-region combination
-     * Sample: {{ language() }}
      * 
      * @return string
      */
@@ -180,7 +179,6 @@ class LanguageUtility {
     
     /**
      * Get generic language code
-     * Sample: {{ genericLanguage() }}
      * 
      * @return string
      */

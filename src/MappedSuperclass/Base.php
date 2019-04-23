@@ -27,12 +27,16 @@ class Base {
     protected $hidden = 0;
     
     /**
-     * @ORM\Column(type="datetime", name="updated_at")
+     * Date and time in UTC
+     * 
+     * @ORM\Column(type="datetime", name="updated_at", options={"comment": "Date and time in UTC"})
      */
     protected $updatedAt;
     
     /**
-     * @ORM\Column(type="datetime", name="created_at")
+     * Date and time in UTC
+     * 
+     * @ORM\Column(type="datetime", name="created_at", options={"comment": "Date and time in UTC"})
      */
     protected $createdAt = NULL;
     

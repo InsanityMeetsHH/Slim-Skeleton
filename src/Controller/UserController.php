@@ -48,7 +48,7 @@ class UserController extends BaseController {
     }
     
     /**
-     * Register Action
+     * Shows registration form
      * 
      * @param \Slim\Http\Request $request
      * @param \Slim\Http\Response $response
@@ -56,72 +56,58 @@ class UserController extends BaseController {
      * @return \Slim\Http\Response
      */
     public function registerAction($request, $response, $args) {
+        if ($this->settings['active_pages']['register'] === FALSE && $this->currentRole !== 'superadmin') {
+            return $this->view->render($response, 'partials/construction.html.twig', array_merge($args, []));
+        }
+        
         // Render view
         return $this->view->render($response, 'user/register.html.twig', array_merge($args, []));
     }
     
     /**
-     * Register Action
+     * Saves data from registration form
      * 
      * @param \Slim\Http\Request $request
      * @param \Slim\Http\Response $response
      * @param array $args
      * @return \Slim\Http\Response
      */
-    public function addAction($request, $response, $args) {
-        $error = FALSE;
-        $recaptcha = new \ReCaptcha\ReCaptcha($this->settings['recaptcha']['secret']);
-        $resp = $recaptcha->setExpectedHostname($_SERVER['SERVER_NAME'])
-            ->verify($request->getParam('g-recaptcha-response'), GeneralUtility::getUserIP());
+    public function saveRegisterAction($request, $response, $args) {
+        if ($this->settings['active_pages']['register'] === FALSE && $this->currentRole !== 'superadmin') {
+            return $response->withRedirect($this->router->pathFor('page-index-' . LanguageUtility::getGenericLocale()));
+        }
+        $rcRespSuccess = TRUE;
         
-        if ($resp->isSuccess() || isset($_ENV['docker'])) {
-            $userSearch = $this->em->getRepository('App\Entity\User')->findOneBy(['name' => $request->getParam('user_name'), 'hidden' => 0]);
-            $userName = $request->getParam('user_name');
-            $userPass = $request->getParam('user_pass');
-            $userPassRepeat = $request->getParam('user_pass_repeat');
-            
-            if ($userSearch instanceof User) {
-                $this->flash->addMessage('message', LanguageUtility::trans('register-flash-1') . ';' . self::STYLE_DANGER);
-                $error = TRUE;
-            }
-                
-            if (strlen($userName) < 4) {
-                $this->flash->addMessage('message', LanguageUtility::trans('register-flash-2') . ';' . self::STYLE_DANGER);
-                $error = TRUE;
-            }
-
-            if (strlen($userPass) < 6 || strlen($userPassRepeat) < 6) {
-                $this->flash->addMessage('message', LanguageUtility::trans('register-flash-3') . ';' . self::STYLE_DANGER);
-                $error = TRUE;
-            }
-
-            if ($userPass !== $userPassRepeat) {
-                $this->flash->addMessage('message', LanguageUtility::trans('register-flash-4') . ';' . self::STYLE_DANGER);
-                $error = TRUE;
-            } 
-
-            if (!$error) {
-                $this->flash->addMessage('message', LanguageUtility::trans('register-flash-5') . ';' . self::STYLE_SUCCESS);
+        if (isset($this->settings['recaptcha']['secret']) && strlen($this->settings['recaptcha']['secret']) > 20) {
+            $recaptcha = new \ReCaptcha\ReCaptcha($this->settings['recaptcha']['secret']);
+            $resp = $recaptcha->setExpectedHostname($_SERVER['SERVER_NAME'])
+                ->verify($request->getParam('g-recaptcha-response'), GeneralUtility::getUserIP());
+            $rcRespSuccess = $resp->isSuccess();
+        }
+        
+        if ($rcRespSuccess || isset($_ENV['docker'])) {
+            // if validation passed
+            if (GeneralUtility::validateUser($request)) {
+                $this->flash->addMessage('message', LanguageUtility::trans('register-flash-m5') . ';' . self::STYLE_SUCCESS);
 
                 $user = new User();
-                $user->setName($userName)
+                $user->setName($request->getParam('user_name'))
                     ->setRole($this->em->getRepository('App\Entity\Role')->findOneBy(['name' => 'member']))
-                    ->setPass($userPass);
+                    ->setPass($request->getParam('user_pass'));
                 $this->em->persist($user);
                 $this->em->flush();
                 
                 return $response->withRedirect($this->router->pathFor('user-login-' . LanguageUtility::getGenericLocale()));
             }
-            
         } else {
-            $this->flash->addMessage('message', LanguageUtility::trans('register-flash-6') . ';' . self::STYLE_DANGER);
+            $this->flash->addMessage('message', LanguageUtility::trans('register-flash-m6') . ';' . self::STYLE_DANGER);
         }
         
         return $response->withRedirect($this->router->pathFor('user-register-' . LanguageUtility::getLocale()));
     }
     
     /**
-     * Login Action
+     * Shows login form
      * 
      * @param \Slim\Http\Request $request
      * @param \Slim\Http\Response $response
@@ -129,12 +115,16 @@ class UserController extends BaseController {
      * @return \Slim\Http\Response
      */
     public function loginAction($request, $response, $args) {
+        if ($this->settings['active_pages']['login'] === FALSE && $this->currentRole !== 'superadmin') {
+            return $this->view->render($response, 'partials/construction.html.twig', array_merge($args, []));
+        }
+        
         // Render view
         return $this->view->render($response, 'user/login.html.twig', array_merge($args, []));
     }
     
     /**
-     * Login Validate Action
+     * Validates data from login form
      * 
      * @param \Slim\Http\Request $request
      * @param \Slim\Http\Response $response
@@ -142,6 +132,10 @@ class UserController extends BaseController {
      * @return static
      */
     public function loginValidateAction($request, $response, $args) {
+        if ($this->settings['active_pages']['login'] === FALSE && $this->currentRole !== 'superadmin') {
+            return $response->withRedirect($this->router->pathFor('page-index-' . LanguageUtility::getGenericLocale()));
+        }
+        
         $user = $this->em->getRepository('App\Entity\User')->findOneBy(['name' => $request->getParam('user_name'), 'hidden' => 0]);
         unset($_SESSION['tempUser']);
         
@@ -176,7 +170,7 @@ class UserController extends BaseController {
     }
     
     /**
-     * Logout Action
+     * Logout user from system
      * 
      * @param \Slim\Http\Request $request
      * @param \Slim\Http\Response $response
@@ -184,14 +178,14 @@ class UserController extends BaseController {
      * @return \Slim\Http\Response
      */
     public function logoutAction($request, $response, $args) {
-        $_SESSION['currentRole'] = 'guest';
-        unset($_SESSION['currentUser']);
+        GeneralUtility::setCurrentRole('guest');
+        GeneralUtility::setCurrentUser(NULL);
         $this->logger->info("User " . $this->currentUser . " logged out - UserController:logout");
-        return $response->withRedirect($this->router->pathFor('user-login-' . LanguageUtility::getGenericLocale()));
+        return $response->withRedirect($this->router->pathFor('page-index-' . LanguageUtility::getGenericLocale()));
     }
     
     /**
-     * Enable Two Factor Action
+     * Enables 2FA and generates recovery codes
      * 
      * @param \Slim\Http\Request $request
      * @param \Slim\Http\Response $response
@@ -204,9 +198,10 @@ class UserController extends BaseController {
         $secret = $user->getTwoFactorSecret();
         $passValid = FALSE;
         
+        // if user has 2FA enabled
         if ($user->hasTwoFactor()) {
             unset($_SESSION['pass_code']);
-            return $response->withRedirect($this->router->pathFor('user-show-' . LanguageUtility::getLocale()));
+            return $response->withRedirect($this->router->pathFor('user-show-' . LanguageUtility::getLocale(), ['name' => $user->getName()]));
         }
         
         // if empty - generate new secret and update user
@@ -225,14 +220,18 @@ class UserController extends BaseController {
             $userPass = $request->getParam('user_pass');
             $passCode = $request->getParam('pass_code');
             
+            // if password is valid
             if ($userPass !== NULL && $passCode === NULL && password_verify($userPass, $user->getPass())) {
+                // set temporary values
                 $passValid = TRUE;
                 $_SESSION['pass_code'] = GeneralUtility::generateCode(6);
             } elseif (isset($_SESSION['pass_code']) && $_SESSION['pass_code'] === $passCode) {
+                // if temporary pass_code valid
                 $passValid = TRUE;
                 $code = $request->getParam('tf_code');
                 $checkResult = $ga->verifyCode($secret, $code, 2); // 2 = 2*30sec clock tolerance
                 
+                // if two factor is valid
                 if ($checkResult) {
                     $user->setTwoFactor(TRUE);
                     $this->em->flush($user);
@@ -251,8 +250,9 @@ class UserController extends BaseController {
                         $newRecoveryCode = GeneralUtility::generateCode();
                         $newEncryptRecoveryCode = GeneralUtility::encryptPassword($newRecoveryCode);
                         $recoveryCode = $this->em->getRepository('App\Entity\RecoveryCode')->findOneBy(['code' => $newEncryptRecoveryCode]);
-
-                        if (!($recoveryCode instanceof \App\Entity\RecoveryCode)) {
+                        
+                        // if recovery code not exists
+                        if ($recoveryCode === NULL) {
                             $recoveryCode = new RecoveryCode();
                             $recoveryCode->setCode($newEncryptRecoveryCode)
                                     ->setUser($user);
@@ -276,14 +276,14 @@ class UserController extends BaseController {
         // Render view
         return $this->view->render($response, 'user/enable-two-factor.html.twig', array_merge($args, [
             'secret' => $secret,
-            'qr' => $ga->getQRCodeGoogleUrl($user->getName(), $secret, 'Slim Skeleton'),
+            'qr' => $ga->getQRCodeGoogleUrl($user->getName(), $secret, $this->settings['2fa_qrc_title']),
             'passValid' => $passValid,
             'passCode' => isset($_SESSION['pass_code']) ? $_SESSION['pass_code'] : '',
         ]));
     }
     
     /**
-     * Two Factor Action
+     * Shows 2FA form validates data
      * 
      * @param \Slim\Http\Request $request
      * @param \Slim\Http\Response $response
@@ -300,21 +300,24 @@ class UserController extends BaseController {
 
             // if 2FA is disabled
             if (!$user->hasTwoFactor()) {
-                $_SESSION['currentRole'] = $user->getRole()->getName();
-                $_SESSION['currentUser'] = $user->getId();
+                GeneralUtility::setCurrentRole($user->getRole()->getName());
+                GeneralUtility::setCurrentUser($user->getId());
                 $this->logger->info("User " . $user->getId() . " logged in - UserController:twoFactor");
-                return $response->withRedirect($this->router->pathFor('user-show-' . LanguageUtility::getLocale()));
+                return $response->withRedirect($this->router->pathFor('user-show-' . LanguageUtility::getLocale(), ['name' => $user->getName()]));
             }
 
             if ($request->isPost()) {
                 $code = $request->getParam('tf_code');
                 $checkResult = $ga->verifyCode($secret, $code, 2); // 2 = 2*30sec clock tolerance
                 
+                // if two factor is not valid
                 if ($checkResult === FALSE) {
                     $userRecoveryCodes = $this->em->getRepository('App\Entity\RecoveryCode')->findBy(['user' => $user->getId()]);
                     
+                    // if user has recovery codes
                     if (is_array($userRecoveryCodes) && count($userRecoveryCodes) > 0) {
                         foreach ($userRecoveryCodes as $recoveryCode) {
+                            // if $code is a recovery code
                             if (password_verify($code, $recoveryCode->getCode())) {
                                 $checkResult = TRUE;
                                 $this->em->remove($recoveryCode);
@@ -325,12 +328,13 @@ class UserController extends BaseController {
                     }
                 }
                 
+                // if two factor is valid
                 if ($checkResult) {
                     unset($_SESSION['tempUser']);
-                    $_SESSION['currentRole'] = $user->getRole()->getName();
-                    $_SESSION['currentUser'] = $user->getId();
+                    GeneralUtility::setCurrentRole($user->getRole()->getName());
+                    GeneralUtility::setCurrentUser($user->getId());
                     $this->logger->info("User " . $user->getId() . " logged in - UserController:twoFactor");
-                    return $response->withRedirect($this->router->pathFor('user-show-' . LanguageUtility::getLocale()));
+                    return $response->withRedirect($this->router->pathFor('user-show-' . LanguageUtility::getLocale(), ['name' => $user->getName()]));
                 }
             }
         } else {

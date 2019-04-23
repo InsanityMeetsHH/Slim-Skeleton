@@ -17,7 +17,9 @@ class User extends \App\MappedSuperclass\Base {
     protected $name;
     
     /**
-     * @ORM\Column(type="string")
+     * Encoded password
+     * 
+     * @ORM\Column(type="string", options={"comment": "Encoded password"})
      */
     private $pass;
     
@@ -35,12 +37,16 @@ class User extends \App\MappedSuperclass\Base {
     private $recoveryCodes;
     
     /**
-     * @ORM\Column(type="boolean", name="two_factor")
+     * 1 if 2FA is enabled
+     * 
+     * @ORM\Column(type="boolean", name="two_factor", options={"comment": "1 if 2FA is enabled"})
      */
     private $twoFactor = FALSE;
     
     /**
-     * @ORM\Column(type="string", name="two_factor_secret")
+     * Secret for 2FA validation and authenticator app
+     * 
+     * @ORM\Column(type="string", name="two_factor_secret", options={"comment": "Secret for 2FA validation and authenticator app"})
      */
     private $twoFactorSecret = '';
 

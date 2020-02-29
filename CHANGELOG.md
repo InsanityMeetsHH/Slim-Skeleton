@@ -6,7 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [5.3.0]
+## [5.4.0]
+### Changed
+- [`additional-settings.dist.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/additional-settings.dist.php)
+- [`Setup.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Composer/Setup.php)
+- [`UserController.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Controller/UserController.php)
+- [`RecoveryCode.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Entity/RecoveryCode.php)
+- [`User.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Entity/User.php)
+- [`README.md`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/README.md)
+- [`docker-compose.yml`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/docker-compose.yml)
+
+## [5.3.0] - 2019-04-23
 ### Added
 - settings for user validation
 - settings for active pages

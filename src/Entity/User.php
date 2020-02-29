@@ -25,16 +25,9 @@ class User extends \App\MappedSuperclass\Base {
     
     /**
      * @ORM\ManyToOne(targetEntity="Role", inversedBy="users")
-     * @ORM\JoinColumn(name="role_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="role_id", referencedColumnName="id", nullable=false)
      */
     private $role;
-    
-    /**
-     * One User has many RecoveryCodes.
-     * 
-     * @ORM\OneToMany(targetEntity="RecoveryCode", mappedBy="user", cascade={"persist", "remove"})
-     */
-    private $recoveryCodes;
     
     /**
      * 1 if 2FA is enabled
@@ -49,6 +42,13 @@ class User extends \App\MappedSuperclass\Base {
      * @ORM\Column(type="string", name="two_factor_secret", options={"comment": "Secret for 2FA validation and authenticator app"})
      */
     private $twoFactorSecret = '';
+    
+    /**
+     * One User has many RecoveryCodes.
+     * 
+     * @ORM\OneToMany(targetEntity="RecoveryCode", mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $recoveryCodes;
 
     public function __construct() {
         $this->recoveryCodes = new ArrayCollection();
@@ -113,24 +113,6 @@ class User extends \App\MappedSuperclass\Base {
         
         return $this;
     }
-
-    /**
-     * Get $recoveryCodes
-     * 
-     * @return ArrayCollection
-     */
-    public function getRecoveryCodes() {
-        return $this->recoveryCodes;
-    }
-    
-    /**
-     * Has $twoFactor
-     * 
-     * @return boolean
-     */
-    public function hasTwoFactor() {
-        return $this->twoFactor;
-    }
     
     /**
      * Set $twoFactor
@@ -141,6 +123,15 @@ class User extends \App\MappedSuperclass\Base {
         $this->twoFactor = $twoFactor;
         
         return $this;
+    }
+    
+    /**
+     * Has $twoFactor
+     * 
+     * @return boolean
+     */
+    public function hasTwoFactor() {
+        return $this->twoFactor;
     }
 
     /**
@@ -161,5 +152,14 @@ class User extends \App\MappedSuperclass\Base {
         $this->twoFactorSecret = $twoFactorSecret;
         
         return $this;
+    }
+
+    /**
+     * Get $recoveryCodes
+     * 
+     * @return ArrayCollection
+     */
+    public function getRecoveryCodes() {
+        return $this->recoveryCodes;
     }
 }

@@ -80,7 +80,7 @@ class UserController extends BaseController {
         
         if (isset($this->settings['recaptcha']['secret']) && strlen($this->settings['recaptcha']['secret']) > 20) {
             $recaptcha = new \ReCaptcha\ReCaptcha($this->settings['recaptcha']['secret']);
-            $resp = $recaptcha->setExpectedHostname($_SERVER['SERVER_NAME'])
+            $resp = $recaptcha->setExpectedHostname($request->getServerParam('SERVER_NAME'))
                 ->verify($request->getParam('g-recaptcha-response'), GeneralUtility::getUserIP());
             $rcRespSuccess = $resp->isSuccess();
         }

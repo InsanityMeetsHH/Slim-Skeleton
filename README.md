@@ -15,7 +15,7 @@
 * [HTML Compress Twig Extension](https://github.com/nochso/html-compress-twig)
 
 ## Required
-* PHP => 5.5
+* PHP >= 5.5.9
 * MySQL (pdo_mysql)
 * [Docker](https://www.docker.com/) ([for installation with Docker](https://github.com/InsanityMeetsHH/Slim-Skeleton#installation-with-docker))
 
@@ -104,18 +104,22 @@ Inside the Twig templates you can use ACL functions [has_role](https://github.co
 Inside controllers you can also use this ACL functions and [many more](https://github.com/geggleto/geggleto-acl/blob/master/src/AclRepository.php) (e.g. [is_allowed](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Controller/UserController.php#L24)).
 
 ## Installation with [Docker](https://www.docker.com/)
-* Get skeleton via `$ git clone` or zip download
+This steps works with Windows, macOS and Linux. 
+* Get project via `$ git clone https://github.com/InsanityMeetsHH/Slim-Skeleton.git` or [zip download](https://github.com/InsanityMeetsHH/Slim-Skeleton/archive/master.zip)
 * Open a command prompt on your OS (if not already open) and navigate to the project folder
-* `$ docker pull composer`
-* `$ docker run --rm --env docker=true --interactive --tty --volume $PWD:/app composer update`
+* `$ npm i`
+* Add `"platform": {"php": "7.4.2"}` to `"config"` in [`composer.json`](https://github.com/InsanityMeetsHH/file-sharing/blob/master/composer.json#L46)
+* `$ cp config\additional-settings.dist.php config\additional-settings.php`
+* Download [`composer.phar`](https://getcomposer.org/download/1.9.3/composer.phar) if not already done
+* `$ php composer.phar install`
 * `$ docker-compose build`
 * `$ docker-compose up -d`
-* `$ cp config\additional-settings.dist.php config\additional-settings.php`
-* `$ docker inspect slim-db | grep IPAddress` set ip as Doctrine `host` in `config\additional-settings.php`
-* Open [localhost:8080](http://localhost:8080) for website or [localhost:9999](http://localhost:9999) for database gui
+* `$ docker inspect slim-db` search for `IPAddress` from `DIRNAME_default` (at the bottom) and set IP (e.g. 172.20.0.2 often by me) as Doctrine `host` in `config\additional-settings.php`
+* Open [localhost:3050](http://localhost:3050) for website or [localhost:9999](http://localhost:9999) for database gui
+* Adminer login: user = root, pass = rootdockerpw, host = IP from `IPAddress`
 * If you want to remove a container `$ docker rm [container-name] -f` e.g. `$ docker rm slim-db -f`
-* If you want to remove a volume `$ docker volume rm [volume-name]` e.g. `$ docker volume rm imhh-slim_db_data` (first remove matching container)
-* If you want to remove all container `$ docker rm $(docker ps -a -q) -f`
+* If you want to remove a volume `$ docker volume rm [volume-name]` e.g. `$ docker volume rm DIRNAME_db_data` (first remove matching container)
+* If you want to remove all container `$ docker rm slim-db slim-webserver slim-adminer -f`
 * If you want to remove all volumes `$ docker volume prune` (first remove all container)
 
 ## Troubleshooting

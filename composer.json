@@ -1,10 +1,11 @@
 {
     "name": "insanitymeetshh/slim-skeleton",
     "description": "Slim Skeleton - InsanityMeetsHH",
-    "version": "5.4.0",
+    "version": "5.4.1-dev",
     "keywords": ["microframework", "rest", "router", "psr7", "doctrine", "twig", "localisation", "acl", "login", "csrf", "2fa", "recaptcha", "docker"],
     "homepage": "http://slim3.insanitymeetshh.net",
     "license": "MIT",
+    "type": "project",
     "authors": [
         {
             "name": "InsanityMeetsHH",

@@ -6,7 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [5.4.0]
+## [5.4.1]
+### Added
+- `"type": "project",` in [`composer.json`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/composer.json)
+
+### Changed
+- [`Setup.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Composer/Setup.php)
+
+## [5.4.0] - 2020-02-29
 ### Changed
 - [`additional-settings.dist.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/additional-settings.dist.php)
 - [`Setup.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/src/Composer/Setup.php)

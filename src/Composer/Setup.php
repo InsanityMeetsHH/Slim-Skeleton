@@ -233,7 +233,7 @@ class Setup {
             echo self::getColoredString("Please enter locale domains\n", 'green');
             echo self::getColoredString("First locale code domain combination will be the default language\n", 'green');
             echo self::getColoredString("To exit the loop press enter at 'Locale code'\n", 'green');
-            echo self::getColoredString("Enter 'default' (default = de-DE and en-US) at anytime to use default settings\n", 'green');
+            echo self::getColoredString("Enter 'default' (default = de-DE and en-US) at anytime to use default settings (recommended)\n", 'green');
             
             do {
                 echo self::getColoredString("Locale code (e.g. en-US): ", 'green');

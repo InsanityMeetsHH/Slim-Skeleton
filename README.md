@@ -19,13 +19,13 @@
 * MySQL (pdo_mysql)
 * [Docker](https://www.docker.com/) ([for installation with Docker](https://github.com/InsanityMeetsHH/Slim-Skeleton#installation-with-docker))
 
-## Installation with [Composer](https://getcomposer.org/) (Recommended)
+## Installation with [Composer](https://getcomposer.org/download/1.9.3/composer.phar) (Recommended)
 
 ```bash
-$ composer create-project insanitymeetshh/slim-skeleton [my-app-name]
+$ php composer.phar create-project insanitymeetshh/slim-skeleton [my-app-name]
 ```
 
-This will install Slim and all required dependencies. Requires PHP 5.5 or newer.
+This will install Slim and all required dependencies. Requires PHP 5.5.9 or newer.
 
 Go to your project directory for following steps.
 
@@ -33,7 +33,7 @@ Go to your project directory for following steps.
 $ cd [my-app-name]
 ```
 
-## Setup database and `config\additional-settings.php` (only if you don't use `composer create-project`)
+## Setup database and `config\additional-settings.php` (only if you don't use `php composer.phar create-project`)
 Duplicate [`config\additional-settings.dist.php`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/config/additional-settings.dist.php) to `config\additional-settings.php`.
 (`config\additional-settings.php` is useful for working with git and your local environment is different to live or to your team mates)
 
@@ -107,8 +107,7 @@ Inside controllers you can also use this ACL functions and [many more](https://g
 This steps works with Windows, macOS and Linux. 
 * Get project via `$ git clone https://github.com/InsanityMeetsHH/Slim-Skeleton.git` or [zip download](https://github.com/InsanityMeetsHH/Slim-Skeleton/archive/master.zip)
 * Open a command prompt on your OS (if not already open) and navigate to the project folder
-* `$ npm i`
-* Add `"platform": {"php": "7.4.2"}` to `"config"` in [`composer.json`](https://github.com/InsanityMeetsHH/file-sharing/blob/master/composer.json#L46)
+* Add `"platform": {"php": "7.4.2"}` to `"config"` in [`composer.json`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/composer.json#L51)
 * `$ cp config\additional-settings.dist.php config\additional-settings.php`
 * Download [`composer.phar`](https://getcomposer.org/download/1.9.3/composer.phar) if not already done
 * `$ php composer.phar install`

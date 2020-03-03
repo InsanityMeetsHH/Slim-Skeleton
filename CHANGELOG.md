@@ -6,7 +6,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [5.4.1]
+## [5.4.2]
+### Added
+- [screenshots](https://github.com/InsanityMeetsHH/Slim-Skeleton/tree/master/screenshots)
+
+### Changed
+- [`layout.html.twig`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/templates/layouts/layout.html.twig)
+- [`composer.lock`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/composer.lock)
+- [`README.md`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/README.md)
+
+### Removed
+- `db-model.png` and replaced by [`data-model-dia.png`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/screenshots/data-model-dia.png)
+
+## [5.4.1] - 2020-02-29
 ### Added
 - `"type": "project",` in [`composer.json`](https://github.com/InsanityMeetsHH/Slim-Skeleton/blob/master/composer.json)
 

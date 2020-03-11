@@ -1,6 +1,6 @@
 # Slim Skeleton - InsanityMeetsHH
 
-[**Demo page**](http://slim3.insanitymeetshh.net)
+[**Demo page**](http://slim3.insanitymeetshh.net) - [**Screenshots**](https://github.com/InsanityMeetsHH/Slim-Skeleton/tree/master/screenshots).
 
 ## Included
 * [Slim 3](https://www.slimframework.com)
@@ -22,7 +22,7 @@
 ## Installation with [Composer](https://getcomposer.org/download/1.9.3/composer.phar) (Recommended)
 
 ```bash
-$ php composer.phar create-project insanitymeetshh/slim-skeleton [my-app-name]
+$ php composer.phar create-project insanitymeetshh/slim-skeleton [app-name]
 ```
 
 This will install Slim and all required dependencies. Requires PHP 5.5.9 or newer.
@@ -30,7 +30,7 @@ This will install Slim and all required dependencies. Requires PHP 5.5.9 or newe
 Go to your project directory for following steps.
 
 ```bash
-$ cd [my-app-name]
+$ cd [app-name]
 ```
 
 ## Setup database and `config\additional-settings.php` (only if you don't use `php composer.phar create-project`)
